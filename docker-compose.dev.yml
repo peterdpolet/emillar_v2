@@ -1,0 +1,44 @@
+# docker-compose.dev.yml
+# Development overrides - use alongside docker-compose.yml
+# Run with: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+
+  db:
+    env_file:
+      - .env.docker.dev
+
+  backend:
+    env_file:
+      - .env.docker.dev
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+    volumes:
+      # Mount source code so changes reflect without rebuild
+      - ./backend:/app
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"   # expose for direct access during dev
+
+  frontend:
+    # Override: use Vite dev server instead of built image
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      # Mount source so HMR works
+      - ./frontend:/app
+      - /app/node_modules   # preserve container's node_modules
+    ports:
+      - "5173:5173"   # Vite dev server port
+
+  nginx:
+    volumes:
+      - ./nginx/default.dev.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+      # No 443 in dev - no SSL needed locally

@@ -1,0 +1,20 @@
+# Environment files
+.env*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+venv/
+*.egg-info/
+
+# Django
+backend/staticfiles/
+backend/media/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Docker
+*.log

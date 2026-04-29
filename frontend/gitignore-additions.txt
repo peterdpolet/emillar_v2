@@ -1,0 +1,9 @@
+# Add these to your root .gitignore
+
+# Docker env files - never commit secrets
+.env.docker.dev
+.env.docker.prod
+
+# Old env files
+.env.development
+.env.production

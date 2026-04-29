@@ -1,0 +1,80 @@
+# docker-compose.yml
+# Production stack for ewanmillarltd.co.uk
+# Run with: docker compose up -d
+
+services:
+
+  # ── PostgreSQL database ──────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: emillar_db
+    restart: always
+    environment:
+      POSTGRES_DB: emdb_v1
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: PDPUbuntu_24_25
+    volumes:
+      - emillar_postgres_data:/var/lib/postgresql/data
+    networks:
+      - emillar_network
+  # ── Django / Gunicorn ────────────────────────────────────
+  backend:
+    build: ./backend
+    container_name: emillar_backend
+    restart: always
+    env_file:
+      - .env.docker.prod
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      DB_HOST: db        # refers to the db service above
+      DB_PORT: 5432
+    depends_on:
+      - db
+    volumes:
+      # Share staticfiles with nginx container
+      - emillar_static:/app/staticfiles
+    networks:
+      - emillar_network
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+
+  # ── Vue SPA (built + served by Nginx) ───────────────────
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: https://ewanmillarltd.co.uk
+    container_name: emillar_frontend
+    restart: always
+    networks:
+      - emillar_network
+
+  # ── Nginx reverse proxy ──────────────────────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: emillar_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      # SSL certificates from Certbot on the host
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      # Serve Django static files directly
+      - emillar_static:/staticfiles:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - emillar_network
+
+volumes:
+  emillar_postgres_data:
+  emillar_static:
+
+networks:
+  emillar_network:
+    driver: bridge
