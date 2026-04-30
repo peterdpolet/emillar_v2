@@ -11,21 +11,20 @@ DATABASES = {
         'NAME':     os.environ.get('DB_NAME'),
         'USER':     os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST':     os.environ.get('DB_HOST', 'db'),  # 'db' is the Docker service name
+        'HOST':     os.environ.get('DB_HOST', 'db'),
         'PORT':     os.environ.get('DB_PORT', '5432'),
     }
 }
 
 # ── Channels / Redis ──────────────────────────────────────
-# TODO: Uncomment when chat integration is complete
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#         'CONFIG': {
-#             'hosts': [(os.environ.get('REDIS_HOST', 'redis'), 6379)],
-#         },
-#     }
-# }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [(os.environ.get('REDIS_HOST', 'redis'), 6379)],
+        },
+    }
+}
 
 CORS_ALLOWED_ORIGINS = os.environ.get(
     'CORS_ALLOWED_ORIGINS', ''

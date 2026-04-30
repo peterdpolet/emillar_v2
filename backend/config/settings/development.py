@@ -9,7 +9,18 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
 ]
+
 CORS_ALLOW_CREDENTIALS = True
+
+# ── Channels / Redis ──────────────────────────────────────
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [(os.environ.get('REDIS_HOST', 'redis'), 6379)],
+        },
+    }
+}
 
 # Relax password validators in development
 AUTH_PASSWORD_VALIDATORS = []

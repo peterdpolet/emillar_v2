@@ -9,6 +9,6 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
     path('api/auth/', include('accounts.urls')),   # TOTP endpoints
-    path('api/auth/', include('accounts.urls')),   # TOTP endpoints
+    path('api/chat/', include('chat.urls')),
     # path('api/orders/', include('orders.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

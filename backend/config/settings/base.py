@@ -5,16 +5,21 @@ Shared settings — loaded by development.py and production.py
 import os
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# Load .env from project root (same level as backend/ and frontend/)
-load_dotenv(BASE_DIR.parent / '.env.development')
+try:
+    from dotenv import load_dotenv
+    if not os.environ.get('DB_HOST'):
+        load_dotenv(BASE_DIR.parent / '.env.development')
+except ImportError:
+    pass
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'change-me-in-production')
 
 INSTALLED_APPS = [
+    # Daphne must be first to handle ASGI
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,9 +32,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     'djoser',
+    'channels',
     # Local
     'accounts',
-    # 'orders',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -44,6 +50,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+# ASGI application for Channels/Daphne
+ASGI_APPLICATION = 'config.asgi.application'
 
 TEMPLATES = [
     {
@@ -63,7 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
+# ── Database ──────────────────────────────────────────────
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -75,7 +84,7 @@ DATABASES = {
     }
 }
 
-
+# ── Auth ──────────────────────────────────────────────────
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -85,7 +94,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
+# ── REST Framework ────────────────────────────────────────
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -97,7 +106,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 25,
 }
 
-
+# ── SimpleJWT ─────────────────────────────────────────────
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME':    timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME':   timedelta(days=7),
@@ -107,7 +116,7 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES':       ('rest_framework_simplejwt.tokens.AccessToken',),
 }
 
-
+# ── Djoser ────────────────────────────────────────────────
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
@@ -118,13 +127,13 @@ DJOSER = {
     },
 }
 
-
+# ── Internationalisation ──────────────────────────────────
 LANGUAGE_CODE = 'en-gb'
 TIME_ZONE     = 'Europe/London'
 USE_I18N      = True
 USE_TZ        = True
 
-
+# ── Static ────────────────────────────────────────────────
 STATIC_URL      = '/static/'
 STATIC_ROOT     = BASE_DIR / 'staticfiles'
 MEDIA_URL       = '/media/'

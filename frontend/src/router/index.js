@@ -32,6 +32,8 @@ import UsersView          from '@/views/admin/UsersView.vue'
 import SettingsView       from '@/views/admin/SettingsView.vue'
 import HomeView           from '@/views/HomeView.vue'
 
+import ChatView from '@/views/ChatView.vue'
+
 const routes = [
 
   // ── Public routes (no layout) ─────────────────────────────────────────────
@@ -54,6 +56,14 @@ const routes = [
     meta: { guestOnly: true },
   },
 
+{
+  path: '/chat',
+  name: 'chat',
+  component: ChatView,
+  meta: { requiresAuth: true },
+},
+
+
   // ── Authenticated routes (inside AppLayout) ───────────────────────────────
   {
     path: '/',
@@ -71,14 +81,14 @@ const routes = [
       {
         path: 'dashboard',
         name: 'dashboard',
-        component: RegisterView,
+        component: DashboardView,
         meta: { requiresAuth: true, sidebarSection: 'dashboard' },
       },
 
       // Home
       {
         path: 'home',
-        name: 'home',
+        name: 'home-auth',
         component: HomeView,
         meta: { requiresAuth: true, sidebarSection: 'purchasing' },
       },
@@ -105,7 +115,7 @@ const routes = [
 
       {
         path: '/purchase-orders',
-        name: 'order-detail',
+        name: 'purchase_orders',
         component: CreateOrderView,
         meta: { requiresAuth: true, sidebarSection: 'purchasing' },
       },

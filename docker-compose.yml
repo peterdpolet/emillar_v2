@@ -1,6 +1,5 @@
 # docker-compose.yml
 # Production stack for ewanmillarltd.co.uk
-# Run with: docker compose up -d
 
 services:
 
@@ -17,7 +16,16 @@ services:
       - emillar_postgres_data:/var/lib/postgresql/data
     networks:
       - emillar_network
-  # ── Django / Gunicorn ────────────────────────────────────
+
+  # ── Redis (channel layer for WebSockets) ─────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: emillar_redis
+    restart: always
+    networks:
+      - emillar_network
+
+  # ── Django / Gunicorn (HTTP) ─────────────────────────────
   backend:
     build: ./backend
     container_name: emillar_backend
@@ -26,12 +34,13 @@ services:
       - .env.docker.prod
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.production
-      DB_HOST: db        # refers to the db service above
+      DB_HOST: db
       DB_PORT: 5432
+      REDIS_HOST: redis
     depends_on:
       - db
+      - redis
     volumes:
-      # Share staticfiles with nginx container
       - emillar_static:/app/staticfiles
     networks:
       - emillar_network
@@ -40,7 +49,26 @@ services:
              python manage.py collectstatic --noinput &&
              gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3"
 
-  # ── Vue SPA (built + served by Nginx) ───────────────────
+  # ── Daphne (WebSockets) ───────────────────────────────────
+  daphne:
+    build: ./backend
+    container_name: emillar_daphne
+    restart: always
+    env_file:
+      - .env.docker.prod
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      DB_HOST: db
+      DB_PORT: 5432
+      REDIS_HOST: redis
+    depends_on:
+      - db
+      - redis
+    networks:
+      - emillar_network
+    command: daphne -b 0.0.0.0 -p 9000 config.asgi:application
+
+  # ── Vue SPA ───────────────────────────────────────────────
   frontend:
     build:
       context: ./frontend
@@ -51,7 +79,7 @@ services:
     networks:
       - emillar_network
 
-  # ── Nginx reverse proxy ──────────────────────────────────
+  # ── Nginx reverse proxy ───────────────────────────────────
   nginx:
     image: nginx:alpine
     container_name: emillar_nginx
@@ -61,12 +89,11 @@ services:
       - "443:443"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      # SSL certificates from Certbot on the host
       - /etc/letsencrypt:/etc/letsencrypt:ro
-      # Serve Django static files directly
       - emillar_static:/staticfiles:ro
     depends_on:
       - backend
+      - daphne
       - frontend
     networks:
       - emillar_network

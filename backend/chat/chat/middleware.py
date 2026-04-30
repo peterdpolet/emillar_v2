@@ -1,9 +1,7 @@
-from urllib.parse import parse_qs
 from channels.db import database_sync_to_async
 from django.contrib.auth.models import AnonymousUser
 from django.conf import settings
 import jwt
-
 
 @database_sync_to_async
 def get_user(user_id):
@@ -14,15 +12,24 @@ def get_user(user_id):
     except (User.DoesNotExist, ValueError, TypeError):
         return AnonymousUser()
 
-
 class JWTAuthMiddleware:
     def __init__(self, app):
         self.app = app
 
     async def __call__(self, scope, receive, send):
-        query_string = scope.get('query_string', b'').decode()
-        params = parse_qs(query_string)
-        token = params.get('token', [None])[0]
+        # Extract cookies from headers
+        headers = dict(scope.get('headers', []))
+        cookie_header = headers.get(b'cookie', b'').decode()
+        
+        # Parse cookies manually
+        cookies = {}
+        for chunk in cookie_header.split(';'):
+            chunk = chunk.strip()
+            if '=' in chunk:
+                key, val = chunk.split('=', 1)
+                cookies[key.strip()] = val.strip()
+
+        token = cookies.get('access_token')  # adjust name to match your cookie name
 
         if token:
             try:
