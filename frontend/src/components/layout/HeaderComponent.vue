@@ -6,7 +6,7 @@ import Logo_Black from '@/assets/img/Logo_Black.png'
 </script>
 
 <template>
-    Header
+
     <div class="grid grid-rows-2 grid-cols-[15%_70%_15%] h-full w-full">
         <div class="row-start-1 row-span-2">
             <img class="ml-10 h-25 w-35 object-fit" :src="Logo_Black">
