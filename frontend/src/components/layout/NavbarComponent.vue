@@ -43,3 +43,9 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
   </Disclosure>
 </template>
 
+<script setup>
+
+import Logo_Black from '@/assets/img/Logo_Black.png'
+
+
+</script>

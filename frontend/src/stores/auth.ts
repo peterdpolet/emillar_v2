@@ -1,36 +1,35 @@
 /**
- * src/stores/auth.js
- * Handles login (including 2FA flow), registration, logout, and
- * current user state.
+ * src/stores/auth.ts
  */
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { authApi } from '@/api/auth.js'
-import api from '@/api/axios.js'
-import router from '@/router/index.js'
+import { authApi } from '@/api/auth'
+import api from '@/api/axios'
+import router from '@/router/index'
+import type { User, RegisterData } from '@/types/auth'
 
 export const useAuthStore = defineStore('auth', () => {
   // ── State ────────────────────────────────────────────────
-  const access        = ref(localStorage.getItem('access') || '')
-  const refresh       = ref(localStorage.getItem('refresh') || '')
-  const user          = ref(null)
-  const requiresTotp  = ref(false)   // true during 2FA step
-  const pendingUid    = ref('')      // uid returned by login when 2FA required
-  const error         = ref('')
-  const loading       = ref(false)
+  const access       = ref<string>(localStorage.getItem('access') || '')
+  const refresh      = ref<string>(localStorage.getItem('refresh') || '')
+  const user         = ref<User | null>(null)
+  const requiresTotp = ref<boolean>(false)
+  const pendingUid   = ref<string>('')
+  const error        = ref<string>('')
+  const loading      = ref<boolean>(false)
 
   // ── Computed ─────────────────────────────────────────────
   const isAuthenticated = computed(() => !!access.value)
 
   // ── Helpers ──────────────────────────────────────────────
-  function setTokens(accessToken, refreshToken) {
+  function setTokens(accessToken: string, refreshToken: string): void {
     access.value  = accessToken
     refresh.value = refreshToken
     localStorage.setItem('access', accessToken)
     localStorage.setItem('refresh', refreshToken)
   }
 
-  function clearTokens() {
+  function clearTokens(): void {
     access.value  = ''
     refresh.value = ''
     user.value    = null
@@ -39,16 +38,15 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   // ── Register ─────────────────────────────────────────────
-  async function register(formData) {
+  async function register(formData: RegisterData): Promise<{ success: boolean }> {
     error.value   = ''
     loading.value = true
     try {
       await authApi.register(formData)
       return { success: true }
-    } catch (e) {
-      const data = e.response?.data
+    } catch (e: unknown) {
+      const data = (e as any).response?.data
       if (data) {
-        // Flatten DRF validation errors into a readable string
         error.value = Object.values(data).flat().join(' ')
       } else {
         error.value = 'Registration failed. Please try again.'
@@ -60,25 +58,23 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   // ── Login — step 1 ───────────────────────────────────────
-  async function login(email, password) {
+  async function login(email: string, password: string): Promise<void> {
     error.value   = ''
     loading.value = true
     try {
       const { data } = await authApi.login({ email, password })
 
       if (data.totp_required) {
-        // 2FA required — store uid and show TOTP screen
         requiresTotp.value = true
         pendingUid.value   = data.uid
         return
       }
 
-      // No 2FA — tokens returned directly
       setTokens(data.access, data.refresh)
       await fetchUser()
       router.push('/dashboard')
-    } catch (e) {
-      const status = e.response?.status
+    } catch (e: unknown) {
+      const status = (e as any).response?.status
       if (status === 401) {
         error.value = 'Invalid email or password.'
       } else if (status === 403) {
@@ -92,7 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   // ── Login — step 2 (TOTP) ────────────────────────────────
-  async function verifyTotp(code) {
+  async function verifyTotp(code: string): Promise<void> {
     error.value   = ''
     loading.value = true
     try {
@@ -102,8 +98,8 @@ export const useAuthStore = defineStore('auth', () => {
       setTokens(data.access, data.refresh)
       await fetchUser()
       router.push('/dashboard')
-    } catch (e) {
-      if (e.response?.status === 400) {
+    } catch (e: unknown) {
+      if ((e as any).response?.status === 400) {
         error.value = 'Invalid or expired code. Please try again.'
       } else {
         error.value = 'Verification failed. Please log in again.'
@@ -116,45 +112,41 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   // ── Fetch current user ───────────────────────────────────
-  async function fetchUser() {
+  async function fetchUser(): Promise<void> {
     try {
-      const { data } = await api.get('/auth/me/')
+      const { data } = await api.get<User>('/auth/me/')
       user.value = data
     } catch {
-      // If this fails the user will be logged out by the interceptor
+      // Interceptor handles logout
     }
   }
 
   // ── Logout ───────────────────────────────────────────────
-  async function logout() {
+  async function logout(): Promise<void> {
     try {
-      // Blacklist the refresh token
       await api.post('/auth/jwt/blacklist/', { refresh: refresh.value })
-    } catch { /* ignore — clear tokens regardless */ }
+    } catch { /* ignore */ }
     clearTokens()
     router.push('/login')
   }
 
   // ── 2FA management ───────────────────────────────────────
-  async function getTotpSetup() {
+  async function getTotpSetup(): Promise<{ qr_code: string; secret: string }> {
     const { data } = await api.get('/auth/totp/setup/')
-    return data  // { qr_code, secret }
+    return data
   }
 
-  async function confirmTotpSetup(code) {
+  async function confirmTotpSetup(code: string): Promise<void> {
     await api.post('/auth/totp/setup/', { code })
     if (user.value) user.value.totp_enabled = true
   }
 
-  async function disableTotp(code) {
+  async function disableTotp(code: string): Promise<void> {
     await api.post('/auth/totp/disable/', { code })
     if (user.value) user.value.totp_enabled = false
   }
 
-  // Initialise user on app load if token exists
-  if (access.value) {
-    fetchUser()
-  }
+  if (access.value) fetchUser()
 
   return {
     access, refresh, user,

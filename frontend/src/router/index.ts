@@ -1,42 +1,38 @@
 /**
- * src/router/index.js
- *
- * Key patterns:
- * 1. AppLayout wraps all authenticated routes as children
- *    — router-view inside AppLayout swaps content, sidebar stays
- * 2. route.meta.sidebarSection tells the sidebar which accordion to open
- * 3. route.meta.requiresAuth triggers the navigation guard
- * 4. Login/register sit OUTSIDE AppLayout — no sidebar, no header
+ * src/router/index.ts
  */
-
 import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
 // Layout
 import AppLayout from '@/components/layout/AppLayout.vue'
 
-// Auth views (outside layout)
+// Auth views
 import LoginView    from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 
-// App views (inside layout)
-import DashboardView      from '@/views/DashboardView.vue'
-import OrdersView         from '@/views/OrdersView.vue'
-import OrderDetailView    from '@/views/OrderDetailView.vue'
-import CreateOrderView    from '@/views/CreateOrderView.vue'
-import ProductsView       from '@/views/ProductsView.vue'
-import SuppliersView      from '@/views/SuppliersView.vue'
-import InvoicesView       from '@/views/InvoicesView.vue'
-import SkuMappingView     from '@/views/SkuMappingView.vue'
-import UsersView          from '@/views/admin/UsersView.vue'
-import SettingsView       from '@/views/admin/SettingsView.vue'
-import HomeView           from '@/views/HomeView.vue'
+// App views
+import DashboardView   from '@/views/DashboardView.vue'
+import OrdersView      from '@/views/OrdersView.vue'
+import OrderDetailView from '@/views/OrderDetailView.vue'
+import CreateOrderView from '@/views/CreateOrderView.vue'
+import ProductsView    from '@/views/ProductsView.vue'
+import SuppliersView   from '@/views/SuppliersView.vue'
+import InvoicesView    from '@/views/InvoicesView.vue'
+import SkuMappingView  from '@/views/SkuMappingView.vue'
+import UsersView       from '@/views/admin/UsersView.vue'
+import SettingsView    from '@/views/admin/SettingsView.vue'
+import HomeView        from '@/views/HomeView.vue'
+import ChatView        from '@/views/ChatView.vue'
 
-import ChatView from '@/views/ChatView.vue'
+// ── Extend Vue Router meta types ──────────────────────────
+// This is the key pattern — tells TypeScript what fields
+// are valid on route.meta throughout the entire app
 
-const routes = [
+const routes: RouteRecordRaw[] = [
 
-  // ── Public routes (no layout) ─────────────────────────────────────────────
+  // ── Public routes ─────────────────────────────────────────
   {
     path: '/login',
     name: 'login',
@@ -49,51 +45,39 @@ const routes = [
     component: RegisterView,
     meta: { guestOnly: true },
   },
-    {
+  {
     path: '/home',
     name: 'home',
     component: HomeView,
     meta: { guestOnly: true },
   },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: ChatView,
+    meta: { requiresAuth: true },
+  },
 
-{
-  path: '/chat',
-  name: 'chat',
-  component: ChatView,
-  meta: { requiresAuth: true },
-},
-
-
-  // ── Authenticated routes (inside AppLayout) ───────────────────────────────
+  // ── Authenticated routes (inside AppLayout) ───────────────
   {
     path: '/',
     component: AppLayout,
     meta: { requiresAuth: true },
     children: [
+      { path: '', redirect: '/dashboard' },
 
-      // Redirect root to dashboard
-      {
-        path: '',
-        redirect: '/dashboard',
-      },
-
-      // Dashboard
       {
         path: 'dashboard',
         name: 'dashboard',
         component: DashboardView,
         meta: { requiresAuth: true, sidebarSection: 'dashboard' },
       },
-
-      // Home
       {
         path: 'home',
         name: 'home-auth',
         component: HomeView,
         meta: { requiresAuth: true, sidebarSection: 'purchasing' },
       },
-
-      // Purchasing
       {
         path: 'orders',
         name: 'orders',
@@ -112,24 +96,18 @@ const routes = [
         component: OrderDetailView,
         meta: { requiresAuth: true, sidebarSection: 'purchasing' },
       },
-
       {
         path: '/purchase-orders',
         name: 'purchase_orders',
         component: CreateOrderView,
         meta: { requiresAuth: true, sidebarSection: 'purchasing' },
       },
-
-
-
       {
         path: 'products',
         name: 'products',
         component: ProductsView,
         meta: { requiresAuth: true, sidebarSection: 'catalogue' },
       },
-
-
       {
         path: 'suppliers',
         name: 'suppliers',
@@ -148,7 +126,6 @@ const routes = [
         component: SkuMappingView,
         meta: { requiresAuth: true, sidebarSection: 'suppliers', roles: ['staff'] },
       },
-
       {
         path: 'admin/users',
         name: 'admin-users',
@@ -164,11 +141,8 @@ const routes = [
     ],
   },
 
-  // ── Catch-all ─────────────────────────────────────────────────────────────
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/dashboard',
-  },
+  // ── Catch-all ─────────────────────────────────────────────
+  { path: '/:pathMatch(.*)*', redirect: '/dashboard' },
 ]
 
 const router = createRouter({
@@ -176,27 +150,23 @@ const router = createRouter({
   routes,
 })
 
-// ── Navigation guard ──────────────────────────────────────────────────────────
-router.beforeEach((to, from, next) => {
-  // Lazy-load the store inside the guard to avoid circular import issues
+// ── Navigation guard ──────────────────────────────────────
+router.beforeEach((to, _from, next) => {
   const auth = useAuthStore()
 
-  // Not logged in → redirect to login
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
     return next({ name: 'login', query: { redirect: to.fullPath } })
   }
 
-  // Already logged in → don't show login/register
   if (to.meta.guestOnly && auth.isAuthenticated) {
     return next({ name: 'dashboard' })
   }
 
-  // Role-based route protection
-  if (to.meta.roles && !to.meta.roles.includes(auth.user?.role)) {
+  if (to.meta.roles && !to.meta.roles.includes(auth.user?.role ?? '')) {
     return next({ name: 'dashboard' })
   }
 
-  else next()
+  next()
 })
 
 export default router

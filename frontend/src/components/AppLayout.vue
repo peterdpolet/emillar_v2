@@ -1,9 +1,7 @@
 <template>
   <div class="h-screen flex overflow-hidden bg-slate-50">
-
     <!-- Sidebar -->
     <aside class="w-60 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col">
-
       <!-- Brand -->
       <div class="px-5 py-5 border-b border-slate-100">
         <div class="flex items-center gap-3">
@@ -36,8 +34,8 @@
             {{ userInitial }}
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-xs font-medium text-slate-700 truncate">{{ auth.user?.name || auth.user?.email }}</p>
-            <p class="text-xs text-slate-400 truncate">{{ auth.user?.email }}</p>
+            <p class="text-xs font-medium text-slate-700 truncate">{{ auth.user?.email }}</p>
+            <p class="text-xs text-slate-400 truncate">{{ auth.user?.role }}</p>
           </div>
           <button @click="auth.logout" title="Sign out"
             class="text-slate-400 hover:text-slate-600 transition-colors flex-shrink-0">
@@ -54,38 +52,31 @@
     <main class="flex-1 flex flex-col overflow-hidden">
       <slot />
     </main>
-
   </div>
 </template>
 
-<script setup>
-import { computed } from 'vue'
+<script setup lang="ts">
+import { computed, defineComponent, h } from 'vue'
 import { RouterLink, useLink } from 'vue-router'
-import { useAuthStore } from '@/stores/auth.js'
+import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
 
-const userInitial = computed(() =>
-  (auth.user?.name || auth.user?.email || '?')[0].toUpperCase()
+const userInitial = computed<string>(() =>
+  (auth.user?.email || '?')[0].toUpperCase()
 )
 
-// ── NavLink component (inline) ─────────────────────────────
-const NavLink = {
-  props: ['to', 'icon'],
+// ── NavLink component (inline) ────────────────────────────
+const NavLink = defineComponent({
+  props: {
+    to:   { type: String, required: true },
+    icon: { type: String, required: true },
+  },
   setup(props, { slots }) {
     const { isActive } = useLink({ to: props.to })
-    return { isActive, props, slots }
-  },
-  template: `
-    <RouterLink :to="props.to"
-      :class="[
-        'flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
-        isActive
-          ? 'bg-brand-50 text-brand-700'
-          : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-      ]">
-      <slot />
-    </RouterLink>
-  `
-}
-</script>
+    return () => h(
+      RouterLink,
+      {
+        to: props.to,
+        class: [
+          'flex items-center gap-2
