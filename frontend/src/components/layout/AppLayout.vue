@@ -6,7 +6,7 @@ import { navConfig } from '@/config/navigation'
 import AppHeader from './AppHeader.vue'
 import AppSidebar from './AppSidebar.vue'
 import AppFooter from './AppFooter.vue'
-import HeaderComponent from './HeaderComponent.vue'
+import HeaderComponent from '../layout/HeaderComponent.vue'
 
 const route    = useRoute()
 const auth     = useAuthStore()

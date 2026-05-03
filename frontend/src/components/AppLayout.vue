@@ -12,7 +12,7 @@
             </svg>
           </div>
           <div class="min-w-0">
-            <p class="text-sm font-semibold text-slate-800 truncate">Ewan Millar Ltd</p>
+            <p class="text-sm font-semibold text-slate-800 truncate">Ewan MillarLtd.co.uk</p>
             <p class="text-xs text-slate-400 truncate">{{ auth.user?.role || 'Loading…' }}</p>
           </div>
         </div>

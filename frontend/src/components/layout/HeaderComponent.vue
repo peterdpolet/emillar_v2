@@ -1,5 +1,5 @@
 <script setup>
-import NavbarComponent from '@/components/layout/NavbarComponent.vue'
+import NavbarComponent from '@/components/navigation/NavbarComponent.vue'
 import Logo_Black from '@/assets/img/Logo_Black.png'
 
 
