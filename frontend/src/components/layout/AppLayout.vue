@@ -44,6 +44,12 @@ const filteredNav = computed(() =>
     }))
     .filter(section => section.items.length > 0)
 )
+
+const userRole = computed(() => {
+  console.log('userRole:', auth.user?.role)
+  return auth.user?.role
+})
+
 </script>
 
 

@@ -1,8 +1,19 @@
-<script setup>
+<script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 import NavbarComponent from '@/components/navigation/NavbarComponent.vue'
 import Logo_Black from '@/assets/img/Logo_Black.png'
 
+const auth   = useAuthStore()
+const router = useRouter()
 
+function handleLogin(): void {
+  router.push('/login')
+}
+
+function handleLogout(): void {
+  auth.logout()
+}
 </script>
 
 <template>
@@ -24,7 +35,18 @@ import Logo_Black from '@/assets/img/Logo_Black.png'
         </div>
 
         <div class="row-span-2">
-            <button @click="showDialog" class="m-2 bg-blue-300 text-black bg-brand box-border border border-solid hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-full text-sm px-4 py-2.5 focus:outline-none">Login</button>
+            <button 
+                v-if="!auth.isAuthenticated"
+                @click="handleLogin" 
+                class="m-2 bg-blue-300 ...">
+                Login
+                </button>
+                <button 
+                v-else
+                @click="handleLogout"
+                class="m-2 bg-blue-300 ...">
+                Logout
+            </button>
         </div>
 
     </div>
