@@ -12,6 +12,6 @@
   </footer>
 </template>
 
-<script setup>
-const year = new Date().getFullYear()
+<script setup lang="ts">
+const year: number = new Date().getFullYear()
 </script>

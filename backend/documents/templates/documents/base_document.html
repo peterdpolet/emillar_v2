@@ -1,0 +1,232 @@
+<!-- documents/templates/documents/base_document.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* ── Page setup ── */
+    @page {
+      size: A4;
+      margin: 20mm 18mm 25mm 18mm;
+
+      @bottom-center {
+        content: "Page " counter(page) " of " counter(pages);
+        font-size: 9pt;
+        color: #888;
+      }
+    }
+
+    /* ── Reset ── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10mm;
+      padding-bottom: 6mm;
+      border-bottom: 2pt solid #1a3a5c;
+    }
+    .company-name {
+      font-size: 20pt;
+      font-weight: 700;
+      color: #1a3a5c;
+      letter-spacing: -0.5pt;
+    }
+    .company-details {
+      font-size: 8pt;
+      color: #666;
+      margin-top: 2mm;
+      line-height: 1.6;
+    }
+    .doc-title-block {
+      text-align: right;
+    }
+    .doc-title {
+      font-size: 18pt;
+      font-weight: 700;
+      color: #1a3a5c;
+      text-transform: uppercase;
+      letter-spacing: 1pt;
+    }
+    .doc-number {
+      font-size: 11pt;
+      color: #444;
+      margin-top: 1mm;
+    }
+    .doc-date {
+      font-size: 9pt;
+      color: #888;
+      margin-top: 1mm;
+    }
+
+    /* ── Address blocks ── */
+    .address-row {
+      display: flex;
+      gap: 10mm;
+      margin-bottom: 8mm;
+    }
+    .address-block {
+      flex: 1;
+    }
+    .address-label {
+      font-size: 7pt;
+      font-weight: 700;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5pt;
+      margin-bottom: 1.5mm;
+    }
+    .address-name {
+      font-size: 10pt;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .address-detail {
+      font-size: 9pt;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    /* ── Line items table ── */
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 6mm;
+    }
+    .items-table thead tr {
+      background-color: #1a3a5c;
+      color: white;
+    }
+    .items-table thead th {
+      padding: 2.5mm 3mm;
+      font-size: 8pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4pt;
+    }
+    .items-table th.right,
+    .items-table td.right { text-align: right; }
+    .items-table th.center,
+    .items-table td.center { text-align: center; }
+
+    .items-table tbody tr:nth-child(even) {
+      background-color: #f5f8fc;
+    }
+    .items-table tbody td {
+      padding: 2.5mm 3mm;
+      font-size: 9.5pt;
+      border-bottom: 0.5pt solid #e0e0e0;
+      vertical-align: top;
+    }
+    .item-sku {
+      font-size: 8pt;
+      color: #888;
+      font-family: monospace;
+    }
+
+    /* ── Totals block ── */
+    .totals-block {
+      width: 72mm;
+      margin-left: auto;
+      margin-bottom: 8mm;
+    }
+    .totals-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.5mm 0;
+      font-size: 9.5pt;
+      border-bottom: 0.5pt solid #eee;
+    }
+    .totals-row.grand-total {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #1a3a5c;
+      border-bottom: 2pt solid #1a3a5c;
+      border-top: 1pt solid #1a3a5c;
+      padding: 2mm 0;
+      margin-top: 1mm;
+    }
+
+    /* ── Notes / terms ── */
+    .doc-notes {
+      font-size: 8.5pt;
+      color: #555;
+      margin-bottom: 6mm;
+      padding: 3mm;
+      background: #f9f9f9;
+      border-left: 2pt solid #1a3a5c;
+    }
+    .doc-notes-label {
+      font-size: 7pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 1mm;
+    }
+
+    /* ── Footer ── */
+    .doc-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 7.5pt;
+      color: #aaa;
+      text-align: center;
+      padding: 3mm 0;
+      border-top: 0.5pt solid #ddd;
+    }
+
+    /* ── Status badge ── */
+    .status-badge {
+      display: inline-block;
+      padding: 0.5mm 2.5mm;
+      border-radius: 2pt;
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3pt;
+    }
+    .status-draft     { background: #f0f0f0; color: #666; }
+    .status-confirmed { background: #dce8f5; color: #1a3a5c; }
+    .status-shipped   { background: #e1f5ee; color: #0f6e56; }
+    .status-paid      { background: #d4edda; color: #155724; }
+    .status-cancelled { background: #f5c4b3; color: #712b13; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div>
+      <div class="company-name">Ewan Millar Ltd</div>
+      <div class="company-details">
+        123 Example Street, Glasgow, G1 1AA<br>
+        hello@ewanmillarltd.co.uk · ewanmillarltd.co.uk<br>
+        VAT No: GB000000000 · Company No: SC000000
+      </div>
+    </div>
+    <div class="doc-title-block">
+      {% block doc_title %}{% endblock %}
+    </div>
+  </div>
+
+  <!-- Document body -->
+  {% block content %}{% endblock %}
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    Ewan Millar Ltd — Registered in Scotland — ewanmillarltd.co.uk
+  </div>
+
+</body>
+</html>

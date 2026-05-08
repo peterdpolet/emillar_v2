@@ -18,7 +18,7 @@ import OrdersView      from '@/views/OrdersView.vue'
 import OrderDetailView from '@/views/OrderDetailView.vue'
 import CreateOrderView from '@/views/CreateOrderView.vue'
 import ProductsView    from '@/views/ProductsView.vue'
-import SuppliersView   from '@/views/SuppliersView.vue'
+import SupplierListView   from '@purchasing/views/SupplierListView.vue'
 import InvoicesView    from '@/views/InvoicesView.vue'
 import SkuMappingView  from '@/views/SkuMappingView.vue'
 import UsersView       from '@/views/admin/UsersView.vue'
@@ -111,7 +111,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'suppliers',
         name: 'suppliers',
-        component: SuppliersView,
+        component: SupplierListView,
         meta: { requiresAuth: true, sidebarSection: 'suppliers', roles: ['staff'] },
       },
       {

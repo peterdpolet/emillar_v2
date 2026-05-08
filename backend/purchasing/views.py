@@ -1,27 +1,38 @@
 from django.shortcuts import render
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
-# Create your views here.
-from .models import (Item, Order, OrderLine, OrderStatusLog,
-                     Supplier, PurchaseOrder, PurchaseOrderLine,
-                     GoodsReceipt, GoodsReceiptLine)
+from .models import (
+    Item,
+    PurchaseOrder, PurchaseOrderLine,
+    GoodsReceipt, GoodsReceiptLine,
+)
 from .serializers import (
-    ItemSerializer, OrderSerializer, OrderListSerializer,
-    OrderLineWriteSerializer, SupplierSerializer, SupplierRefSerializer,
+    ItemSerializer,
     PurchaseOrderSerializer, PurchaseOrderListSerializer,
     PurchaseOrderLineWriteSerializer,
     GoodsReceiptSerializer, GoodsReceiptLineWriteSerializer,
 )
 
-
-class SupplierViewSet(viewsets.ModelViewSet):
-    serializer_class   = SupplierSerializer
+class ItemViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
-    search_fields      = ['name', 'contact_name', 'email']
-    ordering_fields    = ['name', 'created_at']
-    ordering           = ['name']
+    search_fields      = ['sku', 'name', 'certification_number']
+    ordering_fields    = ['sku', 'name', 'created_at']
+    ordering           = ['sku']
 
     def get_queryset(self):
-        return Supplier.objects.all()
+        return Item.objects.all()
+
+    def get_serializer_class(self):
+        return ItemSerializer
+
+    def perform_destroy(self, instance):
+        # Archive instead of hard delete
+        instance.status = 'archived'
+        instance.save(update_fields=['status'])
+
 
 
 class PurchaseOrderViewSet(viewsets.ModelViewSet):

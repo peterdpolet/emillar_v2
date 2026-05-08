@@ -1,5 +1,36 @@
-<template>
+<script setup>
+import { ref, watch } from 'vue'
 
+import StatusBadge from '@/components/StatusBadge.vue'
+import CreateOrderModal from '@/components/CreateOrderModal.vue'
+import { useOrdersStore } from '@/stores/orders.js'
+import { useRouter } from 'vue-router'
+
+import BusinessPartnerList from '@/components/tables/BusinessPartnerList.vue'
+
+const orders     = useOrdersStore()
+const router     = useRouter()
+const search     = ref('')
+const showCreate = ref(false)
+
+orders.fetchOrders()
+
+watch(search, (val) => {
+  orders.fetchOrders({ search: val })
+}, { debounce: 300 })
+
+function onCreated(order) {
+  showCreate.value = false
+  router.push(`/orders/${order.id}`)
+}
+
+</script>
+
+
+<template>
+<!-- 
+    <BusinessPartnerList/> -->
+  Orders View
     <div class="flex-1 flex flex-col overflow-hidden bg-yellow-400">
 
       <!-- Header -->
@@ -74,32 +105,8 @@
       </div>
     </div>
 
+
     <!-- Create order modal -->
     <CreateOrderModal v-if="showCreate" @close="showCreate = false" @created="onCreated" />
 
 </template>
-
-<script setup>
-import { ref, watch } from 'vue'
-
-import StatusBadge from '@/components/StatusBadge.vue'
-import CreateOrderModal from '@/components/CreateOrderModal.vue'
-import { useOrdersStore } from '@/stores/orders.js'
-import { useRouter } from 'vue-router'
-
-const orders     = useOrdersStore()
-const router     = useRouter()
-const search     = ref('')
-const showCreate = ref(false)
-
-orders.fetchOrders()
-
-watch(search, (val) => {
-  orders.fetchOrders({ search: val })
-}, { debounce: 300 })
-
-function onCreated(order) {
-  showCreate.value = false
-  router.push(`/orders/${order.id}`)
-}
-</script>

@@ -6,7 +6,12 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
   resolve: {
-    alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) }
+    alias: { 
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@purchasing': '/src/features/purchasing',
+      '@orders': '/src/features/orders',
+      '@shared': '/src/shared',
+    }
   },
   server: {
     proxy: {
@@ -15,5 +20,6 @@ export default defineConfig({
         changeOrigin: true,
       }
     }
-  }
+  },
+
 })

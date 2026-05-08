@@ -1,0 +1,40 @@
+st_desc,st_wards_code,st_internal_code
+agate,CC,AG
+amber,CC,AM
+amethyst,A,A
+aquamarine,AQ,AQ
+apatite,AP,AP
+bloodstone,BL,BS
+cameo,CA,CA
+carnelian,CN,CN
+citrine,CT,CI
+coral,CR,CR
+cubic zirconia,CZ,CZ
+diamond,D,D
+emerald,E,E
+garnet,G,G
+hematite,HE,HE
+iolite,I,I
+lapis,L,L
+marcasite,CC,MC
+moonstone,M,MS
+morganite,M,M
+onyx,ON,ON
+opal,O,O
+pearl - fresh water,P,FWCP
+pearl - cultured,P,CP
+peridot,PE,P
+quartz,CC,Q
+rubellite,RU,T
+ruby,r,R
+sapphire,S,S
+seed pearl,P,SP
+sodalite,SO,SL
+spinel,SP,SPL
+synthetic,S(X)...,SX
+tanzanite,TN,TNZ
+tigers eye,TG,TE
+topaz,TZ ,TOP
+tourmaline,T,T
+turquoise,TU,TU
+zircon,Z,Z

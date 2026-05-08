@@ -54,13 +54,15 @@ export const useOrdersStore = defineStore('orders', () => {
   async function fetchOrders({ page = 1, search = '' } = {}) {
     ordersLoading.value = true
     try {
-      const { data } = await api.get('/orders/', {
+      // const { data } = await api.get('/orders/', {
+      const { data } = await api.get('/partners/suppliers/', {
         params: { page, search }
       })
       orders.value      = data.results
       ordersTotal.value = data.count
     } finally {
       ordersLoading.value = false
+      console.log("Ordesrs = ", orders.value)
     }
   }
 

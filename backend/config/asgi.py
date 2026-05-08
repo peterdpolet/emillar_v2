@@ -1,8 +1,16 @@
 """config/asgi.py"""
 import os
+from pathlib import Path
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.development')
+# Load .env
+env_file = Path(__file__).resolve().parent.parent / '.env'
+if env_file.exists():
+    from dotenv import load_dotenv
+    load_dotenv(env_file)
+
+env = os.environ.get('DJANGO_ENV', 'development')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'config.settings.{env}')
 
 # Must be called before importing anything that uses Django models
 django_asgi_app = get_asgi_application()

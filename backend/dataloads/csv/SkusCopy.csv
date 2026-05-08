@@ -1,0 +1,4 @@
+sku_type_id,sku_supplier_id,sku_internal_code,sku_code,sku_origin,sku_size_d,sku_size_w,sku_size_h,sku_shape_id,sku_colour_id,sku_weight
+12,0b060763-f916-42b0-bf3c-72be09c99f95,,1/98681,,1.4,3.4,0,10,,0.28
+12,0b060763-f916-42b0-bf3c-72be09c99f95,,100J7-0076,,0,0,0,10,,1
+12,0b060763-f916-42b0-bf3c-72be09c99f95,,112H6-1748,,0,0,0,10,,1.12

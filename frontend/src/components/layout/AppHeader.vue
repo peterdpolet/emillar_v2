@@ -23,7 +23,7 @@
         <!-- <GemIcon class="w-4 h-4 text-white" /> -->
       </div>
       <span class="font-semibold text-slate-800 text-sm tracking-tight">
-        Ewan Millar Ltd
+        Ewan MillarLtd (.co.uk)
       </span>
     </div>
 

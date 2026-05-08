@@ -25,7 +25,7 @@ function handleLogout(): void {
 
         <div class="row-span-2 grid grid-rows-2">
             <div class="text-5xl font-bold row-start px-8">
-                Ewan Millar Ltd
+                Ewan Millar Ltd (.co.uk)
 
             </div>
             <div class="row-start-2">

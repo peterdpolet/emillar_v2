@@ -1,0 +1,109 @@
+<!-- documents/templates/documents/invoice.html -->
+{% extends "documents/base_document.html" %}
+
+{% block doc_title %}
+  <div class="doc-title">Invoice</div>
+  <div class="doc-number"># {{ order.id }}</div>
+  <div class="doc-date">{{ order.created_at|date:"d F Y" }}</div>
+  <div style="margin-top:2mm">
+    <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Bill to / Ship to -->
+  <div class="address-row">
+    <div class="address-block">
+      <div class="address-label">Bill to</div>
+      <div class="address-name">{{ order.customer.get_full_name }}</div>
+      <div class="address-detail">
+        {{ order.customer.email }}<br>
+        {% if order.billing_address %}
+          {{ order.billing_address }}
+        {% endif %}
+      </div>
+    </div>
+    <div class="address-block">
+      <div class="address-label">Payment details</div>
+      <div class="address-detail">
+        Bank: Ewan Millar Ltd<br>
+        Sort code: 00-00-00<br>
+        Account: 00000000<br>
+        Reference: INV-{{ order.id }}
+      </div>
+    </div>
+    <div class="address-block">
+      <div class="address-label">Due date</div>
+      <div class="address-name">{{ order.due_date|date:"d F Y"|default:"On receipt" }}</div>
+    </div>
+  </div>
+
+  <!-- Line items -->
+  <table class="items-table">
+    <thead>
+      <tr>
+        <th style="width:8%">Qty</th>
+        <th style="width:20%">SKU</th>
+        <th>Description</th>
+        <th class="right" style="width:14%">Unit price</th>
+        <th class="right" style="width:14%">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in order.lines.all %}
+      <tr>
+        <td class="center">{{ line.quantity }}</td>
+        <td>
+          <div class="item-sku">{{ line.item.sku }}</div>
+        </td>
+        <td>
+          <strong>{{ line.item.name }}</strong>
+          {% if line.item.certification_number %}
+            <br><span style="font-size:8pt;color:#888">
+              Cert: {{ line.item.certification_number }}
+            </span>
+          {% endif %}
+        </td>
+        <td class="right">£{{ line.unit_price|floatformat:2 }}</td>
+        <td class="right">£{{ line.line_total|floatformat:2 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Totals -->
+  <div class="totals-block">
+    <div class="totals-row">
+      <span>Subtotal</span>
+      <span>£{{ order.subtotal|floatformat:2 }}</span>
+    </div>
+    {% if order.vat_amount %}
+    <div class="totals-row">
+      <span>VAT (20%)</span>
+      <span>£{{ order.vat_amount|floatformat:2 }}</span>
+    </div>
+    {% endif %}
+    <div class="totals-row grand-total">
+      <span>Total due</span>
+      <span>£{{ order.total|floatformat:2 }}</span>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  {% if order.notes %}
+  <div class="doc-notes">
+    <div class="doc-notes-label">Notes</div>
+    {{ order.notes }}
+  </div>
+  {% endif %}
+
+  <!-- Terms -->
+  <div class="doc-notes">
+    <div class="doc-notes-label">Payment terms</div>
+    Payment is due within 30 days of invoice date. 
+    Please quote reference INV-{{ order.id }} with your payment.
+    All stones are sold subject to our standard terms and conditions.
+  </div>
+
+{% endblock %}

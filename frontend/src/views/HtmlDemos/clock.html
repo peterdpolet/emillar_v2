@@ -1,0 +1,82 @@
+<style>
+  .totp-wrap { padding: 1.5rem 0; }
+  .totp-code { font-size: 42px; font-weight: 500; letter-spacing: 10px; color: var(--color-text-primary); font-family: var(--font-mono); }
+  .totp-code.expiring { color: var(--color-text-danger); }
+  .window-bar-track { height: 6px; background: var(--color-border-tertiary); border-radius: 3px; margin: 8px 0 4px; }
+  .window-bar-fill { height: 6px; border-radius: 3px; background: var(--color-text-success); transition: width 1s linear, background 0.3s; }
+  .window-bar-fill.warn { background: var(--color-text-warning); }
+  .window-bar-fill.danger { background: var(--color-text-danger); }
+  .totp-label { font-size: 12px; color: var(--color-text-secondary); }
+  .totp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 1.5rem 0 0; }
+  .totp-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 12px 16px; }
+  .totp-card-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .totp-card-value { font-size: 13px; font-weight: 500; color: var(--color-text-primary); font-family: var(--font-mono); }
+</style>
+
+<div class="totp-wrap">
+  <div style="margin-bottom: 6px;" class="totp-label">Current code (simulated)</div>
+  <div class="totp-code" id="totp-code">482917</div>
+  <div class="window-bar-track">
+    <div class="window-bar-fill" id="totp-bar" style="width:100%"></div>
+  </div>
+  <div style="display:flex; justify-content:space-between;">
+    <span class="totp-label" id="totp-seconds">30s remaining</span>
+    <span class="totp-label" id="totp-window">Window T = <span id="t-val">—</span></span>
+  </div>
+
+  <div class="totp-grid">
+    <div class="totp-card">
+      <div class="totp-card-label">Unix timestamp</div>
+      <div class="totp-card-value" id="unix-time">—</div>
+    </div>
+    <div class="totp-card">
+      <div class="totp-card-label">Time step T</div>
+      <div class="totp-card-value" id="time-step">floor(t / 30)</div>
+    </div>
+    <div class="totp-card">
+      <div class="totp-card-label">Next code in</div>
+      <div class="totp-card-value" id="next-in">—</div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.5rem; padding: 12px 16px; border-radius: 8px; border: 0.5px solid #ccc;">
+    <div style="font-size:12px; color:#888; margin-bottom: 8px;">What's happening under the hood</div>
+    <div style="font-size:13px; font-family:monospace;" id="formula-line">HMAC-SHA1( "BASE32SECRET", T ) → truncate → 6 digits</div>
+  </div>
+</div>
+
+<script>
+const CODES = ['482917','271043','839562','104728','657391','920184','345670','718429'];
+let lastT = -1;
+let codeIdx = 0;
+
+function tick() {
+  const now = Math.floor(Date.now() / 1000);
+  const T = Math.floor(now / 30);
+  const remaining = 30 - (now % 30);
+  const pct = (remaining / 30) * 100;
+
+  if (T !== lastT) {
+    lastT = T;
+    codeIdx = (codeIdx + 1) % CODES.length;
+    document.getElementById('totp-code').textContent = CODES[codeIdx];
+  }
+
+  const bar = document.getElementById('totp-bar');
+  bar.style.width = pct + '%';
+  bar.className = 'window-bar-fill' + (remaining <= 5 ? ' danger' : remaining <= 10 ? ' warn' : '');
+
+  const codeEl = document.getElementById('totp-code');
+  codeEl.className = 'totp-code' + (remaining <= 5 ? ' expiring' : '');
+
+  document.getElementById('totp-seconds').textContent = remaining + 's remaining';
+  document.getElementById('unix-time').textContent = now;
+  document.getElementById('t-val').textContent = T;
+  document.getElementById('time-step').textContent = 'floor(' + now + ' / 30) = ' + T;
+  document.getElementById('next-in').textContent = remaining + 's';
+  document.getElementById('formula-line').textContent = 'HMAC-SHA1( secret, ' + T + ' ) → ' + CODES[codeIdx];
+}
+
+tick();
+setInterval(tick, 1000);
+</script>

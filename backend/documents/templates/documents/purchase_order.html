@@ -1,0 +1,81 @@
+<!-- documents/templates/documents/purchase_order.html -->
+{% extends "documents/base_document.html" %}
+
+{% block doc_title %}
+  <div class="doc-title">Purchase Order</div>
+  <div class="doc-number"># {{ po.reference }}</div>
+  <div class="doc-date">{{ po.created_at|date:"d F Y" }}</div>
+  <div style="margin-top:2mm">
+    <span class="status-badge status-{{ po.status }}">{{ po.get_status_display }}</span>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <div class="address-row">
+    <div class="address-block">
+      <div class="address-label">Supplier</div>
+      <div class="address-name">{{ po.supplier.name }}</div>
+      <div class="address-detail">
+        {{ po.supplier.email }}<br>
+        {{ po.supplier.address|default:"" }}
+      </div>
+    </div>
+    <div class="address-block">
+      <div class="address-label">Deliver to</div>
+      <div class="address-name">Ewan Millar Ltd</div>
+      <div class="address-detail">
+        123 Example Street<br>
+        Glasgow, G1 1AA
+      </div>
+    </div>
+    <div class="address-block">
+      <div class="address-label">Required by</div>
+      <div class="address-name">
+        {{ po.required_by|date:"d F Y"|default:"To be confirmed" }}
+      </div>
+      <div class="address-label" style="margin-top:2mm">Currency</div>
+      <div class="address-name">{{ po.currency|default:"GBP" }}</div>
+    </div>
+  </div>
+
+  <table class="items-table">
+    <thead>
+      <tr>
+        <th style="width:8%">Qty</th>
+        <th style="width:18%">Our SKU</th>
+        <th style="width:18%">Supplier SKU</th>
+        <th>Description</th>
+        <th class="right" style="width:13%">Unit cost</th>
+        <th class="right" style="width:13%">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in po.lines.all %}
+      <tr>
+        <td class="center">{{ line.quantity }}</td>
+        <td><div class="item-sku">{{ line.item.sku }}</div></td>
+        <td><div class="item-sku">{{ line.supplier_sku|default:"—" }}</div></td>
+        <td><strong>{{ line.item.name }}</strong></td>
+        <td class="right">{{ po.currency|default:"£" }}{{ line.unit_cost|floatformat:2 }}</td>
+        <td class="right">{{ po.currency|default:"£" }}{{ line.line_total|floatformat:2 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="totals-block">
+    <div class="totals-row grand-total">
+      <span>Order total</span>
+      <span>{% if po.currency == "GBP" %}£{% else %}{{ po.currency }} {% endif %}{{ line.unit_cost|floatformat:2 }}</span>
+    </div>
+  </div>
+
+  <div class="doc-notes">
+    <div class="doc-notes-label">Terms and conditions</div>
+    Please confirm receipt of this purchase order by return email.
+    All goods must be accompanied by your invoice quoting PO reference {{ po.reference }}.
+    Ewan Millar Ltd reserves the right to return goods that do not match this order.
+  </div>
+
+{% endblock %}

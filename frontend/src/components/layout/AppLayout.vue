@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -7,9 +7,12 @@ import AppHeader from './AppHeader.vue'
 import AppSidebar from './AppSidebar.vue'
 import AppFooter from './AppFooter.vue'
 import HeaderComponent from '../layout/HeaderComponent.vue'
+import { useUiStore } from '@/stores/ui'
+import { watch } from 'vue'
 
 const route    = useRoute()
 const auth     = useAuthStore()
+const ui = useUiStore()
 
 // ── Sidebar open/close state ──────────────────────────────────────────────────
 const sidebarOpen = ref(false)
@@ -28,26 +31,31 @@ onUnmounted(() => {
   window.removeEventListener('resize', checkDesktop)
 })
 
-// ── Role-filtered navigation ──────────────────────────────────────────────────
-const userRole = computed(() => auth.user?.role)
+// Auto-set active section based on current route meta
+watch(() => route.meta.sidebarSection, (section) => {
+  if (section) ui.setSection(section as string)
+}, { immediate: true })
 
-const filteredNav = computed(() =>
-  navConfig
+// ── Role-filtered navigation ──────────────────────────────────────────────────
+
+const userRole = computed<string>(() => auth.user?.role ?? '')
+
+const filteredNav = computed(() => {
+  if (!auth.user) return []
+
+  return navConfig
     .filter(section =>
-      !section.roles || section.roles.includes(userRole.value)
+      // Must match active menu section AND user role
+      section.id === ui.activeSection &&
+      (!section.roles || section.roles.includes(userRole.value ?? ''))
     )
     .map(section => ({
       ...section,
       items: section.items.filter(item =>
-        !item.roles || item.roles.includes(userRole.value)
+        !item.roles || item.roles.includes(userRole.value ?? '')
       ),
     }))
     .filter(section => section.items.length > 0)
-)
-
-const userRole = computed(() => {
-  console.log('userRole:', auth.user?.role)
-  return auth.user?.role
 })
 
 </script>
