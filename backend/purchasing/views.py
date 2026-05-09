@@ -5,16 +5,17 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import (
-    Item,
     PurchaseOrder, PurchaseOrderLine,
     GoodsReceipt, GoodsReceiptLine,
 )
+from inventory.models import Item
+
 from .serializers import (
-    ItemSerializer,
     PurchaseOrderSerializer, PurchaseOrderListSerializer,
     PurchaseOrderLineWriteSerializer,
     GoodsReceiptSerializer, GoodsReceiptLineWriteSerializer,
 )
+from inventory.serializers import ItemSerializer
 
 class ItemViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]

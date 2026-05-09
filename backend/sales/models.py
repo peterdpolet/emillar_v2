@@ -3,7 +3,7 @@ from django.db import models
 from django.conf import settings
 
 
-class Order(models.Model):
+class SalesOrder(models.Model):
 
     STATUS_CHOICES = [
         ('draft',     'Draft'),
@@ -16,7 +16,7 @@ class Order(models.Model):
     customer     = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
-        related_name='orders'
+        related_name='sales_orders'
     )
     status       = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
     notes        = models.TextField(blank=True)
@@ -50,9 +50,9 @@ class Order(models.Model):
         self.save(update_fields=['subtotal', 'vat_amount', 'total'])
 
 
-class OrderLine(models.Model):
-    order      = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='lines')
-    item       = models.ForeignKey('purchasing.Item', on_delete=models.PROTECT)
+class SalesOrderLine(models.Model):
+    order      = models.ForeignKey(SalesOrder, on_delete=models.CASCADE, related_name='lines')
+    item       = models.ForeignKey('inventory.Item', on_delete=models.PROTECT)
     quantity   = models.PositiveIntegerField(default=1)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -64,8 +64,8 @@ class OrderLine(models.Model):
         return f"{self.quantity} × {self.item.sku}"
 
 
-class OrderStatusLog(models.Model):
-    order      = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='status_logs')
+class SalesOrderStatusLog(models.Model):
+    order      = models.ForeignKey(SalesOrder, on_delete=models.CASCADE, related_name='status_logs')
     from_status = models.CharField(max_length=20, blank=True)
     to_status  = models.CharField(max_length=20)
     note       = models.TextField(blank=True)

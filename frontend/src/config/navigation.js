@@ -24,9 +24,11 @@ export const navConfig = [
     icon: 'truck',
     roles: ['staff'],
     items: [
-      { label: 'Customer List',   route: '/suppliers',            roles: ['staff'] },
+      { label: 'Inventory',   route: '/inventory',            roles: ['staff'] },
+      { label: 'Customers',   route: '/suppliers',            roles: ['staff'] },
+      { label: 'Orders',        route: '/invoices',             roles: ['staff'] },
       { label: 'Invoices',        route: '/invoices',             roles: ['staff'] },
-      { label: 'SKU Mapping',     route: '/sku-mapping',          roles: ['staff'] },
+
     ],
   },
   {
@@ -36,7 +38,8 @@ export const navConfig = [
     roles: ['staff', 'customer'],
     items: [
 
-      { label: 'Supplier List',   route: '/suppliers',               roles: ['staff', 'customer'] },      
+      { label: 'Inventory',       route: '/inventory',            roles: ['staff', 'customer'] },   
+      { label: 'Supplier List',   route: '/suppliers',            roles: ['staff', 'customer'] },      
       { label: 'Orders',          route: '/orders',               roles: ['staff', 'customer'] },
       { label: 'Create Order',    route: '/orders/create',        roles: ['staff'] },
       { label: 'Purchase Orders', route: '/purchase-orders',      roles: ['staff'] },

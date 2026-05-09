@@ -1,0 +1,2209 @@
+[
+{
+  "model": "inventory.color",
+  "pk": 1,
+  "fields": {
+    "code": "RED",
+    "desc": "red"
+  }
+},
+{
+  "model": "inventory.color",
+  "pk": 2,
+  "fields": {
+    "code": "GRN",
+    "desc": "green"
+  }
+},
+{
+  "model": "inventory.color",
+  "pk": 3,
+  "fields": {
+    "code": "BLU",
+    "desc": "blue"
+  }
+},
+{
+  "model": "inventory.color",
+  "pk": 4,
+  "fields": {
+    "code": "TRQ",
+    "desc": "turquoise"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 1,
+  "fields": {
+    "code": "FL",
+    "num_code": 1,
+    "desc": "Flawless"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 2,
+  "fields": {
+    "code": "IF",
+    "num_code": 2,
+    "desc": "Internally Flawless"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 3,
+  "fields": {
+    "code": "VVS1",
+    "num_code": 3,
+    "desc": "Very Very Slightly Included 1"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 4,
+  "fields": {
+    "code": "VVS2",
+    "num_code": 4,
+    "desc": "Very Very Slightly Included 2"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 5,
+  "fields": {
+    "code": "VS1",
+    "num_code": 5,
+    "desc": "Very Slightly Included 1"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 6,
+  "fields": {
+    "code": "VS2",
+    "num_code": 6,
+    "desc": "Very Slightly Included 2"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 7,
+  "fields": {
+    "code": "I1",
+    "num_code": 7,
+    "desc": "Included 1"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 8,
+  "fields": {
+    "code": "I2",
+    "num_code": 8,
+    "desc": "Included 2"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 9,
+  "fields": {
+    "code": "I3",
+    "num_code": 9,
+    "desc": "Included 3"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 1,
+  "fields": {
+    "code": "RD",
+    "desc": "round"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 2,
+  "fields": {
+    "code": "OV",
+    "desc": "oval"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 3,
+  "fields": {
+    "code": "SQ",
+    "desc": "square"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 4,
+  "fields": {
+    "code": "PS",
+    "desc": "pear"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 5,
+  "fields": {
+    "code": "HS",
+    "desc": "heart"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 6,
+  "fields": {
+    "code": "CU",
+    "desc": "cushion"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 7,
+  "fields": {
+    "code": "BG",
+    "desc": "baguette"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 8,
+  "fields": {
+    "code": "MQ",
+    "desc": "marquise"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 9,
+  "fields": {
+    "code": "EC",
+    "desc": "emerald cut"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 10,
+  "fields": {
+    "code": "HX",
+    "desc": "hexagonal"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 11,
+  "fields": {
+    "code": "TR",
+    "desc": "trillion/triangle"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 12,
+  "fields": {
+    "code": "PR",
+    "desc": "princess"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 1,
+  "fields": {
+    "code_wards": "CC",
+    "code_internal": "AG",
+    "desc": "agate"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 2,
+  "fields": {
+    "code_wards": "CC",
+    "code_internal": "AM",
+    "desc": "amber"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 3,
+  "fields": {
+    "code_wards": "A",
+    "code_internal": "A",
+    "desc": "amethyst"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 4,
+  "fields": {
+    "code_wards": "AQ",
+    "code_internal": "AQ",
+    "desc": "aquamarine"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 5,
+  "fields": {
+    "code_wards": "AP",
+    "code_internal": "AP",
+    "desc": "apatite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 6,
+  "fields": {
+    "code_wards": "BL",
+    "code_internal": "BS",
+    "desc": "bloodstone"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 7,
+  "fields": {
+    "code_wards": "CA",
+    "code_internal": "CA",
+    "desc": "cameo"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 8,
+  "fields": {
+    "code_wards": "CN",
+    "code_internal": "CN",
+    "desc": "carnelian"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 9,
+  "fields": {
+    "code_wards": "CT",
+    "code_internal": "CI",
+    "desc": "citrine"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 10,
+  "fields": {
+    "code_wards": "CR",
+    "code_internal": "CR",
+    "desc": "coral"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 11,
+  "fields": {
+    "code_wards": "CZ",
+    "code_internal": "CZ",
+    "desc": "cubic zirconia"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 12,
+  "fields": {
+    "code_wards": "D",
+    "code_internal": "D",
+    "desc": "diamond"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 13,
+  "fields": {
+    "code_wards": "E",
+    "code_internal": "E",
+    "desc": "emerald"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 14,
+  "fields": {
+    "code_wards": "G",
+    "code_internal": "G",
+    "desc": "garnet"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 15,
+  "fields": {
+    "code_wards": "HE",
+    "code_internal": "HE",
+    "desc": "hematite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 16,
+  "fields": {
+    "code_wards": "I",
+    "code_internal": "I",
+    "desc": "iolite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 17,
+  "fields": {
+    "code_wards": "L",
+    "code_internal": "L",
+    "desc": "lapis"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 18,
+  "fields": {
+    "code_wards": "CC",
+    "code_internal": "MC",
+    "desc": "marcasite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 19,
+  "fields": {
+    "code_wards": "M",
+    "code_internal": "MS",
+    "desc": "moonstone"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 20,
+  "fields": {
+    "code_wards": "M",
+    "code_internal": "M",
+    "desc": "morganite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 21,
+  "fields": {
+    "code_wards": "ON",
+    "code_internal": "ON",
+    "desc": "onyx"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 22,
+  "fields": {
+    "code_wards": "O",
+    "code_internal": "O",
+    "desc": "opal"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 23,
+  "fields": {
+    "code_wards": "P",
+    "code_internal": "FWCP",
+    "desc": "pearl - fresh water"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 24,
+  "fields": {
+    "code_wards": "P",
+    "code_internal": "CP",
+    "desc": "pearl - cultured"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 25,
+  "fields": {
+    "code_wards": "PE",
+    "code_internal": "P",
+    "desc": "peridot"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 26,
+  "fields": {
+    "code_wards": "CC",
+    "code_internal": "Q",
+    "desc": "quartz"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 27,
+  "fields": {
+    "code_wards": "RU",
+    "code_internal": "T",
+    "desc": "rubellite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 28,
+  "fields": {
+    "code_wards": "r",
+    "code_internal": "R",
+    "desc": "ruby"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 29,
+  "fields": {
+    "code_wards": "S",
+    "code_internal": "S",
+    "desc": "sapphire"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 30,
+  "fields": {
+    "code_wards": "P",
+    "code_internal": "SP",
+    "desc": "seed pearl"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 31,
+  "fields": {
+    "code_wards": "SO",
+    "code_internal": "SL",
+    "desc": "sodalite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 32,
+  "fields": {
+    "code_wards": "SP",
+    "code_internal": "SPL",
+    "desc": "spinel"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 33,
+  "fields": {
+    "code_wards": "S(X)...",
+    "code_internal": "SX",
+    "desc": "synthetic"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 34,
+  "fields": {
+    "code_wards": "TN",
+    "code_internal": "TNZ",
+    "desc": "tanzanite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 35,
+  "fields": {
+    "code_wards": "TG",
+    "code_internal": "TE",
+    "desc": "tigers eye"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 36,
+  "fields": {
+    "code_wards": "TZ ",
+    "code_internal": "TOP",
+    "desc": "topaz"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 37,
+  "fields": {
+    "code_wards": "T",
+    "code_internal": "T",
+    "desc": "tourmaline"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 38,
+  "fields": {
+    "code_wards": "TU",
+    "code_internal": "TU",
+    "desc": "turquoise"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 39,
+  "fields": {
+    "code_wards": "Z",
+    "code_internal": "Z",
+    "desc": "zircon"
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "0f678b7a-ecae-445b-aa49-cde47d7c763c",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H009",
+    "bp_name": "Fraser Hart Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "11230f1b-af41-4500-8cbf-52d754c1e346",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "T002",
+    "bp_name": "G W Thomson",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "116bfd22-e513-49ef-8858-6fa3d9fdcae3",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "JH01",
+    "bp_name": "Jin Hai Pearls Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "15509253-561d-4357-bc7a-c27e37e4d1fd",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H021",
+    "bp_name": "Beverley Hutton Moore",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "177d0d35-0ce0-4080-b7de-5af010831a88",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "A005",
+    "bp_name": "Artizan",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "17ae2cbd-f37f-49bf-bd4f-a65b5f5e30b0",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "KG01",
+    "bp_name": "KGK Gems Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "1d97400c-20d2-4d85-8b83-9aa7e87c6542",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H002",
+    "bp_name": "Charlotte Hannett Jewellery",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "24a48699-e4da-4af1-a3a9-c165e15048e8",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "M042",
+    "bp_name": "Fred J. Malcolm Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "29e89406-389c-4236-876b-82d5dafb0dee",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "B017",
+    "bp_name": "Blair & Sheridan",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "323677e3-8351-4ce9-a89f-5d6b9a058191",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "D016",
+    "bp_name": "Andy Donald",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "4074839f-3c71-44c2-8b54-6db598a1cdce",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H018",
+    "bp_name": "Harkness Premier Jewellers Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "41ddb19b-16bf-487e-9d66-8e951fabb7fe",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "W012",
+    "bp_name": "A J Winski Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "4fab20b9-ce73-4e47-a253-55281a4a7412",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "G015",
+    "bp_name": "Graham's Jewellery Workshop",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "579cfd49-10d2-4194-ba1d-41541ea9d376",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "TG01",
+    "bp_name": "Takat Gems SR Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "59b8f080-35cd-4648-9dbe-1a4c680dda57",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "PS01",
+    "bp_name": "Precious Stones Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "59eaa087-0dd5-4ed0-ad1b-be4624c437aa",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "PC01",
+    "bp_name": "Plum Colors",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "5b4578fd-67e0-43b6-880d-8970235bfaf9",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "TD01",
+    "bp_name": "TDP Diamonds UK Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "5bb3c25c-a895-465b-a2ed-c43877499128",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "BP01",
+    "bp_name": "Bass Premier",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "5e06da72-c7df-466e-ace3-09bac02959f4",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H001",
+    "bp_name": "Heart of Gold Jewellers (Scotland) Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "65f150a9-6ec8-4b60-add7-770d40e96d11",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "GR01",
+    "bp_name": "Groh + Ripp Ohg",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "66a7e4a8-2075-4145-94e2-ea3b9094e694",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "D019",
+    "bp_name": "Dunbar the Jeweller Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "6d7ca883-3d26-4c78-aa2a-2c6504255c32",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C001",
+    "bp_name": "CJ Stevenson Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "7226c935-3e93-4bc5-a71c-11969149122c",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "M044",
+    "bp_name": "Fred. J. Malcolm (Botanic) Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "7273771a-da35-47de-a301-ac51b5170aab",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "D010",
+    "bp_name": "Diamond International",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "7659a865-1e00-445d-bfbc-4de890398783",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "GF01",
+    "bp_name": "GF Williams ",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "7bcc68cc-aca5-476e-bac5-b0fd375808e7",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "CG01",
+    "bp_name": "Carats & Grams Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "7eea0898-edf3-44c6-98be-84dcee94de8e",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "E006",
+    "bp_name": "Ellys May Jewellery",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "83d9b47b-767b-4ca9-91b1-5527cf3925f8",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "AG01",
+    "bp_name": "Ano Gems Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "850ef358-9d91-4dd5-9471-652133bbffe9",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "M022",
+    "bp_name": "Euan McWhirter Jewellery",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "8be161b5-53cd-4f92-85fc-60c33041bc36",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "J005",
+    "bp_name": "Anderson's Jewellery Workshop",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "916cf6f5-5259-4922-b113-cc1b32522bb7",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "G016",
+    "bp_name": "Gray's Jewellers Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "93108c27-728d-4208-a275-a251a6169133",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "A006",
+    "bp_name": "Ayr Goldsmiths",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "93452bf9-73d8-4d65-a34d-3e541e17223f",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C032",
+    "bp_name": "Citadel Goldsmiths",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "978202f2-8af4-4f9f-a6ea-b578503a41bd",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "SA01",
+    "bp_name": "Sant Enterprises Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "9b07b70b-ca13-4b88-9fb0-6fd55d93ccb2",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "E004",
+    "bp_name": "Eloise Jewellery",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "9b6a9286-0a32-4632-a08f-1c5330f65235",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "G005",
+    "bp_name": "Gems Family Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "9dcd1684-02d1-4d8f-b993-684cec1f4404",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "J006",
+    "bp_name": "Harry Jacobson Agencies",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "9f3fc5a9-ac3c-4ac9-acf2-5fe3f468b473",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "F008",
+    "bp_name": "David Friend",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "a153d11c-b78c-47d4-82c3-aaf62bb6301d",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "RZ01",
+    "bp_name": "Rubin & Zonen",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "a44783ed-f179-498d-8497-d53a4a049f80",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "M026",
+    "bp_name": "G A Moir & Son Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "a7c96514-f5f0-48c7-a492-0289f7b19b80",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "P009",
+    "bp_name": "B.R. Paterson",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "ab168b65-60a8-41d1-b0bf-7d36d8f6dfe6",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "S008",
+    "bp_name": "Alan Stevenson",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "ae5fbc04-3378-475b-b70b-c9305305b779",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "KD01",
+    "bp_name": "KD Kothari & Co",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "b5494343-af27-416a-8859-fbeab79b2728",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C033",
+    "bp_name": "Chain Reaction (Scotland) Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "b6375c39-bb90-4846-86a3-d484ca439fb3",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "P008",
+    "bp_name": "H. & J. Pryce (Jewellers) Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "bc036455-19a4-46a4-983c-1eb7b20faa94",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "G012",
+    "bp_name": "Goldcraft Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "bc447edb-fda4-4429-9980-a41241694e35",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C022",
+    "bp_name": "Caldwells Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "c1068224-7b29-43d2-9dfa-e5404e782120",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "A007",
+    "bp_name": "Ahdors Gold & Gifts Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "cc530435-e106-4f37-8104-0c92a6f251bc",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "F005",
+    "bp_name": "Fulton's Lakes Jewellery Works",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "ccb1d5ab-1d83-4677-a073-b2daad8c9fb4",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "B005",
+    "bp_name": "B R Jewellery Workshop",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "cd3a20c6-b81d-41f8-be46-ed095431f4ff",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C027",
+    "bp_name": "Chisholm Hunter Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "d2b0e26c-4a26-4911-8f04-8dc5a54f21cd",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "MG01",
+    "bp_name": "Mikisa Gems Bvba",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "d87ecedf-c659-42a5-8dff-d12df7567754",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "SG01",
+    "bp_name": "Sangmanee",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "df7d954d-f21b-418d-8404-528b927b0ce2",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "B008",
+    "bp_name": "Byers & Co",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "e34e2d29-2a30-43e9-a2e7-8b72c78d5183",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "SG01",
+    "bp_name": "STD Gems",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "e8cd2d01-11d7-4137-b15b-7a842e47197e",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H010",
+    "bp_name": "Hazel Allen Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "e996e0f9-90bf-4bfd-bee3-4cef7f6e37f1",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "NO01",
+    "bp_name": "Nomad's Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f0d5fb6d-1dbb-4ca2-add6-e1695eb578d6",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "SI01",
+    "bp_name": "Singapore Gems Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f8ace4ce-7802-4c58-8d2d-1294979690e6",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "F012",
+    "bp_name": "Forbes Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "fee361bf-6dcd-4d52-ad40-2e80fcf0d6eb",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "xxxx",
+    "bp_name": "nan",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "ff3581e0-1ba6-44f8-b18b-2c18543d1cc3",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "E002",
+    "bp_name": "Ewart's Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+}
+]

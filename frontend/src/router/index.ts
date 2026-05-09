@@ -25,6 +25,7 @@ import UsersView       from '@/views/admin/UsersView.vue'
 import SettingsView    from '@/views/admin/SettingsView.vue'
 import HomeView        from '@/views/HomeView.vue'
 import ChatView        from '@/views/ChatView.vue'
+import ItemCreate       from '@inventory/views/ItemCreate.vue'
 
 // ── Extend Vue Router meta types ──────────────────────────
 // This is the key pattern — tells TypeScript what fields
@@ -138,6 +139,13 @@ const routes: RouteRecordRaw[] = [
         component: SettingsView,
         meta: { requiresAuth: true, sidebarSection: 'admin', roles: ['staff'] },
       },
+      {
+        path: 'inventory',
+        name: 'inventory',
+        component: ItemCreate,
+        meta: { requiresAuth: true, sidebarSection: 'admin', roles: ['staff'] },
+      },
+
     ],
   },
 

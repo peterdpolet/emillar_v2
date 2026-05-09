@@ -1,23 +1,7 @@
 from django.contrib import admin
-from .models import Item, PurchaseOrder, PurchaseOrderLine, GoodsReceipt, GoodsReceiptLine
+from .models import PurchaseOrder, PurchaseOrderLine, GoodsReceipt, GoodsReceiptLine
+from inventory.models import Item
 
-
-@admin.register(Item)
-class ItemAdmin(admin.ModelAdmin):
-    list_display  = ['sku', 'name', 'status', 'carat_weight', 'base_price', 'currency']
-    list_filter   = ['status', 'currency']
-    search_fields = ['sku', 'name', 'certification_number']
-    fieldsets = [
-        ('Item', {
-            'fields': ['sku', 'name', 'description', 'status']
-        }),
-        ('Stone details', {
-            'fields': ['certification_number', 'carat_weight', 'origin']
-        }),
-        ('Pricing', {
-            'fields': ['base_price', 'currency']
-        }),
-    ]
 
 
 class PurchaseOrderLineInline(admin.TabularInline):
@@ -32,7 +16,7 @@ class PurchaseOrderLineInline(admin.TabularInline):
 class PurchaseOrderAdmin(admin.ModelAdmin):
     list_display  = ['reference', 'supplier', 'status', 'total', 'currency', 'created_at']
     list_filter   = ['status', 'currency']
-    search_fields = ['reference', 'supplier_ref', 'supplier__name']
+    search_fields = ['reference', 'supplier_ref', 'supplier__bp_name']
     readonly_fields = ['total', 'created_at', 'updated_at']
     inlines       = [PurchaseOrderLineInline]
     autocomplete_fields = ['supplier']

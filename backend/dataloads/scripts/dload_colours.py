@@ -1,10 +1,10 @@
 import pandas as pd
-from users.models import CustomUser
-from skus.models import SkuColour
+from accounts.models import CustomUser
+from inventory.models import Color
 
 # Read CSV file into a DataFrame
 def run():
-    csv_file_path =  './csv/Colours.csv'
+    csv_file_path =  './dataloads/csv/Colours.csv'
     print(csv_file_path)
     df = pd.read_csv(csv_file_path)
     print(df)
@@ -12,12 +12,12 @@ def run():
     # Iterate through the DataFrame and create model instances
     for index, row in df.iterrows():
 
-        skucolour = SkuColour(
-            sc_code=row['sc_code'],
-            sc_desc=row['sc_desc']
+        color = Color(
+            code=row['code'],
+            desc=row['desc']
         )
 
-        skucolour.save()
+        color.save()
 
     print("CSV data has been loaded into the Django database.")
 

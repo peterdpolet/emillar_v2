@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from weasyprint import HTML
 from weasyprint.text.fonts import FontConfiguration
 
-from orders.models import Order
+from sales.models import SalesOrder
 from purchasing.models import PurchaseOrder
 
 
@@ -21,7 +21,7 @@ def render_pdf(template_name, context):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def invoice_pdf(request, order_id):
-    order = get_object_or_404(Order, pk=order_id)
+    order = get_object_or_404(SalesOrder, pk=order_id)
     if not request.user.is_staff and order.customer != request.user:
         return HttpResponse(status=403)
     pdf      = render_pdf('documents/invoice.html', {'order': order})

@@ -46,7 +46,7 @@ function openInvoice() {
 function downloadInvoice() {
   window.open(`/api/documents/invoices/${props.order.id}/pdf/?download=1`, '_blank')
 }
-</script>
+
 
 onMounted(async () => {
   order.value = await orders.fetchOrder(route.params.id)

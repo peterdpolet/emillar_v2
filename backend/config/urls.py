@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/chat/', include('chat.urls')),
     path('api/partners/', include('partners.urls')),
     path('api/documents/', include('documents.urls')),
-    path('api/orders/', include('orders.urls')),          # uncommented
+    path('api/inventory/', include('inventory.urls')),
+    path('api/orders/', include('sales.urls')),          # uncommented
     path('api/purchasing/', include('purchasing.urls')),  # add this
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

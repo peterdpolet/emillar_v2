@@ -11,6 +11,7 @@ export default defineConfig({
       '@purchasing': '/src/features/purchasing',
       '@orders': '/src/features/orders',
       '@shared': '/src/shared',
+      '@inventory': '/src/features/inventory',
     }
   },
   server: {

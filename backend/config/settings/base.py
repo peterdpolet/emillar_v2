@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     'dataloads',
     'partners',
 
-    'orders',
-    'purchasing',
     'documents',
+    'inventory',
+    'purchasing',    
+    'sales',
 ]
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',   # must be first

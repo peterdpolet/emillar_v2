@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from .models import (
-    Item,
     PurchaseOrder, PurchaseOrderLine,
     GoodsReceipt, GoodsReceiptLine,
 )
+from inventory.models import Item
 
 
 # ── Item ─────────────────────────────────────────────────────

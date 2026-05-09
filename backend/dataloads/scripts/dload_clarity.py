@@ -1,9 +1,9 @@
 import pandas as pd
-from users.models import CustomUser
-from skus.models import SkuClarity
+from accounts.models import CustomUser
+from inventory.models import Clarity
 # Read CSV file into a DataFrame
 def run():
-    csv_file_path =  './csv/Clarity.csv'
+    csv_file_path =  './dataloads/csv/Clarity.csv'
     print(csv_file_path)
     df = pd.read_csv(csv_file_path)
     print(df)
@@ -11,12 +11,13 @@ def run():
     # Iterate through the DataFrame and create model instances
     for index, row in df.iterrows():
 
-        skuclarity = SkuClarity(
-            scl_code=row['scl_code'],
-            scl_desc=row['scl_desc']
+        clarity = Clarity(
+            code=row['code'],
+            num_code=row['num_code'],
+            desc=row['desc']
         )
 
-        skuclarity.save()
+        clarity.save()
 
     print("CSV data has been loaded into the Django database.")
 
