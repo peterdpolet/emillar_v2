@@ -241,8 +241,8 @@ function matchColour(s) {
 }
 
 const printPO = () => {
-  const url = `${import.meta.env.VITE_API_BASE}/purchasing/purchase-orders/${po.value.id}/pdf/`
-  window.open(url, '_blank')
+  const token = localStorage.getItem('access')
+  window.open(`/api/purchasing/purchase-orders/${po.value.id}/pdf/?token=${token}`, '_blank')
 }
 
 </script>
