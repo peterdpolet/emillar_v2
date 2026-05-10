@@ -11,6 +11,10 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     gcc \
+    libpango1.0-dev \
+    libgdk-pixbuf-xlib-2.0-dev \
+    libffi-dev \
+    shared-mime-info \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory inside the container

@@ -1,0 +1,2731 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "mfytquxitdrg3udwgks5bb8suk0ampo8",
+  "fields": {
+    "session_data": ".eJxVzDsOwjAQRdG9uCaW48-MTUnPGqKxZ0wCKJHyqRB7h0gpoH73vJfqaFv7bltk7gZWZwXR5YoJm-jJNV6EmwQkTQkhSHStqyjq9MsylYeMu-U7jbdJl2lc5yHrPdHHuujrxPK8HO3fQU9L_9XeRU4AIdpUBaiQzT6JsWizSdUXUw0CA7YG0ZUUQ3bASDVVhlwqq_cH8G5BUg:1wIPAJ:jcsrEx4Sa2Tbo_z7skzFkM6Emr2_0Cvmu-wjV6PoU9Y",
+    "expire_date": "2026-05-14T11:02:43.969Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 1,
+  "fields": {
+    "token": 4,
+    "blacklisted_at": "2026-04-30T12:31:40.947Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 2,
+  "fields": {
+    "token": 5,
+    "blacklisted_at": "2026-04-30T16:41:12.652Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 3,
+  "fields": {
+    "token": 7,
+    "blacklisted_at": "2026-05-02T20:32:06.835Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 4,
+  "fields": {
+    "token": 8,
+    "blacklisted_at": "2026-05-03T11:04:18.650Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 5,
+  "fields": {
+    "token": 10,
+    "blacklisted_at": "2026-05-03T12:35:54.451Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 6,
+  "fields": {
+    "token": 11,
+    "blacklisted_at": "2026-05-03T13:06:10.724Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 7,
+  "fields": {
+    "token": 12,
+    "blacklisted_at": "2026-05-03T14:07:15.041Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 8,
+  "fields": {
+    "token": 13,
+    "blacklisted_at": "2026-05-03T14:55:39.808Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 9,
+  "fields": {
+    "token": 14,
+    "blacklisted_at": "2026-05-03T17:41:30.529Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 10,
+  "fields": {
+    "token": 15,
+    "blacklisted_at": "2026-05-04T13:18:56.839Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 11,
+  "fields": {
+    "token": 20,
+    "blacklisted_at": "2026-05-04T17:02:56.300Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 12,
+  "fields": {
+    "token": 21,
+    "blacklisted_at": "2026-05-05T11:21:29.795Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 13,
+  "fields": {
+    "token": 24,
+    "blacklisted_at": "2026-05-10T10:11:06.791Z"
+  }
+},
+{
+  "model": "accounts.customuser",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$0PVEGScZcogpSz18lqCHce$hnj73GiXIMJy6C5HEyEtRxZoqTi8Vm/sLRau0DFF8LU=",
+    "last_login": "2026-04-30T11:02:43.966Z",
+    "is_superuser": true,
+    "email": "admin@gmail.com",
+    "name": "",
+    "role": "staff",
+    "company": "",
+    "phone": "",
+    "totp_secret": "",
+    "totp_enabled": false,
+    "is_active": true,
+    "is_staff": true,
+    "created_at": "2026-04-30T10:57:29.093Z",
+    "updated_at": "2026-04-30T10:57:29.093Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "chat.room",
+  "pk": 1,
+  "fields": {
+    "name": "DockerChat",
+    "description": "",
+    "created_at": "2026-04-30T11:05:19.580Z",
+    "is_private": false,
+    "members": [
+      [
+        "admin@gmail.com"
+      ]
+    ]
+  }
+},
+{
+  "model": "chat.message",
+  "pk": 1,
+  "fields": {
+    "room": 1,
+    "sender": [
+      "admin@gmail.com"
+    ],
+    "content": "hello",
+    "timestamp": "2026-04-30T11:21:56.571Z",
+    "is_read": false
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "0455d39b-bded-4a84-a27c-6bdd6ecdc6f9",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "M022",
+    "bp_name": "Euan McWhirter Jewellery",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "07087f27-393c-4415-a8aa-6d96dadaf171",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "E004",
+    "bp_name": "Eloise Jewellery",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "08d9f002-5bee-448c-9916-b3d7d1a977e1",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "S008",
+    "bp_name": "Alan Stevenson",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "0d8784f8-6bb1-4ade-a527-8773a200d4d5",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "D019",
+    "bp_name": "Dunbar the Jeweller Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "1875cfc7-f9e1-44f0-b7f3-0e04e8238a8d",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "G016",
+    "bp_name": "Gray's Jewellers Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "18c5fc21-dd3a-4ac0-9ab6-01d9e2d2f976",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "TD01",
+    "bp_name": "TDP Diamonds UK Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "20e5690f-390b-4526-8507-0b8f05358b90",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "GF01",
+    "bp_name": "GF Williams ",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "24376034-e1f2-4ffe-858b-4843b050ea9d",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "B005",
+    "bp_name": "B R Jewellery Workshop",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "254e9bb1-5423-4bd2-81a2-dc1e046820fd",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "W012",
+    "bp_name": "A J Winski Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "2626b312-62cf-4a27-b850-16b3ebe9bdc3",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H001",
+    "bp_name": "Heart of Gold Jewellers (Scotland) Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "264c4b82-6f5e-4817-9d7c-ee34c1037a9f",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "KD01",
+    "bp_name": "KD Kothari & Co",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "2917657f-1701-4e57-8be0-2d37048d9884",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "PC01",
+    "bp_name": "Plum Colors",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "2963dd58-a4ac-4a42-8f13-647638e8c42c",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "B008",
+    "bp_name": "Byers & Co",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "370eba96-93c8-4438-ac86-3bd2520dcaa9",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "J005",
+    "bp_name": "Anderson's Jewellery Workshop",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "39068fc8-16f4-46c9-8a8f-e48aa4a20c35",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H002",
+    "bp_name": "Charlotte Hannett Jewellery",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "3b06590a-fe61-48f4-ad4c-cc0c253b3e74",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H021",
+    "bp_name": "Beverley Hutton Moore",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "4e757f89-3013-494f-a59c-fcec0d161e0e",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "KG01",
+    "bp_name": "KGK Gems Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "5683460b-c12c-4e16-8f9b-393e50064153",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "P008",
+    "bp_name": "H. & J. Pryce (Jewellers) Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "58e3ad37-8d8c-43db-8328-d7c06227cb87",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "F005",
+    "bp_name": "Fulton's Lakes Jewellery Works",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "59b5a0e0-04d1-423e-b49e-fa3f45454a18",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "NO01",
+    "bp_name": "Nomad's Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "5ca4ec47-84df-4224-9fa0-2d47f565768d",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "G012",
+    "bp_name": "Goldcraft Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "5fe01a59-258c-4e48-844d-f8838a0974fa",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "G015",
+    "bp_name": "Graham's Jewellery Workshop",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "635bc4d9-b07d-405e-893b-e6cfb5216971",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "CG01",
+    "bp_name": "Carats & Grams Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "6bcda7f9-8940-4278-9cde-a2383c0782b9",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "PS01",
+    "bp_name": "Precious Stones Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "6c17c8dc-5865-4370-9d83-f3f607d88471",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C001",
+    "bp_name": "CJ Stevenson Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "71b573bd-0ae7-4c1a-8192-27b9605de5dc",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "E002",
+    "bp_name": "Ewart's Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "818583d3-298b-453e-9dc6-307bf44d92be",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "A006",
+    "bp_name": "Ayr Goldsmiths",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "8a6c0a75-32fc-49b6-96ef-27755ffa4430",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C027",
+    "bp_name": "Chisholm Hunter Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "8e17c1c5-fb84-4360-ab9c-9d50acbe0198",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "A005",
+    "bp_name": "Artizan",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "8f8ac2bf-1c30-4cc2-b370-e6314ef55afa",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "D010",
+    "bp_name": "Diamond International",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "90ec6a05-ea90-46c5-8272-b281f0275f94",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "AG01",
+    "bp_name": "Ano Gems Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "99ac0b95-d138-46c7-9c62-158c57052ee0",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "G005",
+    "bp_name": "Gems Family Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "9bc5b536-01dd-4c80-9e9c-09e758330e7c",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "J006",
+    "bp_name": "Harry Jacobson Agencies",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "a2bd00ef-6be0-40a8-b810-ba4792bc32a2",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "SG01",
+    "bp_name": "STD Gems",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "a80b8471-6f90-4a99-9fcf-fe726eb7b8f4",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "B017",
+    "bp_name": "Blair & Sheridan",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "a9256506-a2da-45ab-85b6-3f51519c4001",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "MG01",
+    "bp_name": "Mikisa Gems Bvba",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "ad14556a-d3e4-45c0-99b7-273c5eeeef5e",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "D016",
+    "bp_name": "Andy Donald",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "ae0ad997-71c6-411e-83d5-0767d7545157",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "RZ01",
+    "bp_name": "Rubin & Zonen",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "ae7dfcca-bcd8-48c3-9dfe-9acfd24fc9d1",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "M044",
+    "bp_name": "Fred. J. Malcolm (Botanic) Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "b180a3e0-f59c-4635-8c51-06602661c857",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "SA01",
+    "bp_name": "Sant Enterprises Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "b1dfaf9a-a4d1-4441-85d3-482b7faac563",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "A007",
+    "bp_name": "Ahdors Gold & Gifts Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "b327977f-a906-427c-b806-b21dc69cde7b",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "F012",
+    "bp_name": "Forbes Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "b3b4469d-d25a-48d8-84cc-14bd05087c88",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "GR01",
+    "bp_name": "Groh + Ripp Ohg",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "b83b2aef-27f2-4e03-bb92-3e9e46dbb717",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "M042",
+    "bp_name": "Fred J. Malcolm Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "bf39a178-2ef2-49df-a1ac-f21993716171",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C032",
+    "bp_name": "Citadel Goldsmiths",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "cd18db1d-f768-47a6-9deb-4c4965c25587",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "xxxx",
+    "bp_name": "nan",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "cfc536fa-5ca1-48d1-ba6d-a4414f7c254c",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "F008",
+    "bp_name": "David Friend",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "d3b05325-80e6-47fd-a936-ec838f130a8a",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "SG01",
+    "bp_name": "Sangmanee",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "d87d94b3-4654-4262-a507-eb04a58353ce",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C033",
+    "bp_name": "Chain Reaction (Scotland) Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "daf14b77-7eff-4ae1-b562-0e4525bd458d",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H018",
+    "bp_name": "Harkness Premier Jewellers Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "e12a9109-ea08-45a8-bcc9-d752e8f13332",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "C022",
+    "bp_name": "Caldwells Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "e63d49ba-abb9-46ec-b6f5-fe026df23285",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H009",
+    "bp_name": "Fraser Hart Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "ea733267-a2ca-4f87-a2f3-62c648941ffc",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "P009",
+    "bp_name": "B.R. Paterson",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f20a1ebe-e3cd-4076-a51d-0fdead5c7a33",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "JH01",
+    "bp_name": "Jin Hai Pearls Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f3798695-a755-4cdc-a240-163353c708d0",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "SI01",
+    "bp_name": "Singapore Gems Co. Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f4462411-6dd8-4874-9614-6cfd26e8f6c4",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "TG01",
+    "bp_name": "Takat Gems SR Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f49c0c9c-68f7-4080-820a-17de90d73627",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "H010",
+    "bp_name": "Hazel Allen Jewellers",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f567dcf8-e32c-446d-9f7b-d738aba6fc8e",
+  "fields": {
+    "bp_type": "SUPP",
+    "bp_int_ref": "BP01",
+    "bp_name": "Bass Premier",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f64e2a9a-5730-4b69-bdbb-50692f04946b",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "T002",
+    "bp_name": "G W Thomson",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "f9c2fd15-4d49-44e5-ad0a-b2ebb91efb13",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "M026",
+    "bp_name": "G A Moir & Son Ltd",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "partners.businesspartner",
+  "pk": "feb2174a-d6b1-4644-9140-85acd74708ee",
+  "fields": {
+    "bp_type": "CUST",
+    "bp_int_ref": "E006",
+    "bp_name": "Ellys May Jewellery",
+    "bp_desc": null,
+    "bp_alias_1": null,
+    "bp_alias_2": null,
+    "bp_comp_name": null,
+    "bp_addr_1": null,
+    "bp_addr_2": null,
+    "bp_addr_3": null,
+    "bp_addr_4": null,
+    "bp_city": null,
+    "bp_county": null,
+    "bp_country": null,
+    "bp_pcode": null,
+    "bp_email": null,
+    "bp_tel": null,
+    "bp_mob": null,
+    "bp_fax": null,
+    "bp_whatsapp": null,
+    "bp_fbook": null
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 1,
+  "fields": {
+    "code_wards": "CC",
+    "code_internal": "AG",
+    "desc": "agate"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 2,
+  "fields": {
+    "code_wards": "CC",
+    "code_internal": "AM",
+    "desc": "amber"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 3,
+  "fields": {
+    "code_wards": "A",
+    "code_internal": "A",
+    "desc": "amethyst"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 4,
+  "fields": {
+    "code_wards": "AQ",
+    "code_internal": "AQ",
+    "desc": "aquamarine"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 5,
+  "fields": {
+    "code_wards": "AP",
+    "code_internal": "AP",
+    "desc": "apatite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 6,
+  "fields": {
+    "code_wards": "BL",
+    "code_internal": "BS",
+    "desc": "bloodstone"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 7,
+  "fields": {
+    "code_wards": "CA",
+    "code_internal": "CA",
+    "desc": "cameo"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 8,
+  "fields": {
+    "code_wards": "CN",
+    "code_internal": "CN",
+    "desc": "carnelian"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 9,
+  "fields": {
+    "code_wards": "CT",
+    "code_internal": "CI",
+    "desc": "citrine"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 10,
+  "fields": {
+    "code_wards": "CR",
+    "code_internal": "CR",
+    "desc": "coral"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 11,
+  "fields": {
+    "code_wards": "CZ",
+    "code_internal": "CZ",
+    "desc": "cubic zirconia"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 12,
+  "fields": {
+    "code_wards": "D",
+    "code_internal": "D",
+    "desc": "diamond"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 13,
+  "fields": {
+    "code_wards": "E",
+    "code_internal": "E",
+    "desc": "emerald"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 14,
+  "fields": {
+    "code_wards": "G",
+    "code_internal": "G",
+    "desc": "garnet"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 15,
+  "fields": {
+    "code_wards": "HE",
+    "code_internal": "HE",
+    "desc": "hematite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 16,
+  "fields": {
+    "code_wards": "I",
+    "code_internal": "I",
+    "desc": "iolite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 17,
+  "fields": {
+    "code_wards": "L",
+    "code_internal": "L",
+    "desc": "lapis"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 18,
+  "fields": {
+    "code_wards": "CC",
+    "code_internal": "MC",
+    "desc": "marcasite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 19,
+  "fields": {
+    "code_wards": "M",
+    "code_internal": "MS",
+    "desc": "moonstone"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 20,
+  "fields": {
+    "code_wards": "M",
+    "code_internal": "M",
+    "desc": "morganite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 21,
+  "fields": {
+    "code_wards": "ON",
+    "code_internal": "ON",
+    "desc": "onyx"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 22,
+  "fields": {
+    "code_wards": "O",
+    "code_internal": "O",
+    "desc": "opal"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 23,
+  "fields": {
+    "code_wards": "P",
+    "code_internal": "FWCP",
+    "desc": "pearl - fresh water"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 24,
+  "fields": {
+    "code_wards": "P",
+    "code_internal": "CP",
+    "desc": "pearl - cultured"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 25,
+  "fields": {
+    "code_wards": "PE",
+    "code_internal": "P",
+    "desc": "peridot"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 26,
+  "fields": {
+    "code_wards": "CC",
+    "code_internal": "Q",
+    "desc": "quartz"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 27,
+  "fields": {
+    "code_wards": "RU",
+    "code_internal": "T",
+    "desc": "rubellite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 28,
+  "fields": {
+    "code_wards": "r",
+    "code_internal": "R",
+    "desc": "ruby"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 29,
+  "fields": {
+    "code_wards": "S",
+    "code_internal": "S",
+    "desc": "sapphire"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 30,
+  "fields": {
+    "code_wards": "P",
+    "code_internal": "SP",
+    "desc": "seed pearl"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 31,
+  "fields": {
+    "code_wards": "SO",
+    "code_internal": "SL",
+    "desc": "sodalite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 32,
+  "fields": {
+    "code_wards": "SP",
+    "code_internal": "SPL",
+    "desc": "spinel"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 33,
+  "fields": {
+    "code_wards": "S(X)...",
+    "code_internal": "SX",
+    "desc": "synthetic"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 34,
+  "fields": {
+    "code_wards": "TN",
+    "code_internal": "TNZ",
+    "desc": "tanzanite"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 35,
+  "fields": {
+    "code_wards": "TG",
+    "code_internal": "TE",
+    "desc": "tigers eye"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 36,
+  "fields": {
+    "code_wards": "TZ ",
+    "code_internal": "TOP",
+    "desc": "topaz"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 37,
+  "fields": {
+    "code_wards": "T",
+    "code_internal": "T",
+    "desc": "tourmaline"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 38,
+  "fields": {
+    "code_wards": "TU",
+    "code_internal": "TU",
+    "desc": "turquoise"
+  }
+},
+{
+  "model": "inventory.type",
+  "pk": 39,
+  "fields": {
+    "code_wards": "Z",
+    "code_internal": "Z",
+    "desc": "zircon"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 1,
+  "fields": {
+    "code": "RD",
+    "desc": "round"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 2,
+  "fields": {
+    "code": "OV",
+    "desc": "oval"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 3,
+  "fields": {
+    "code": "SQ",
+    "desc": "square"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 4,
+  "fields": {
+    "code": "PS",
+    "desc": "pear"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 5,
+  "fields": {
+    "code": "HS",
+    "desc": "heart"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 6,
+  "fields": {
+    "code": "CU",
+    "desc": "cushion"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 7,
+  "fields": {
+    "code": "BG",
+    "desc": "baguette"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 8,
+  "fields": {
+    "code": "MQ",
+    "desc": "marquise"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 9,
+  "fields": {
+    "code": "EC",
+    "desc": "emerald cut"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 10,
+  "fields": {
+    "code": "HX",
+    "desc": "hexagonal"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 11,
+  "fields": {
+    "code": "TR",
+    "desc": "trillion/triangle"
+  }
+},
+{
+  "model": "inventory.cut",
+  "pk": 12,
+  "fields": {
+    "code": "PR",
+    "desc": "princess"
+  }
+},
+{
+  "model": "inventory.color",
+  "pk": 1,
+  "fields": {
+    "code": "RED",
+    "desc": "red"
+  }
+},
+{
+  "model": "inventory.color",
+  "pk": 2,
+  "fields": {
+    "code": "GRN",
+    "desc": "green"
+  }
+},
+{
+  "model": "inventory.color",
+  "pk": 3,
+  "fields": {
+    "code": "BLU",
+    "desc": "blue"
+  }
+},
+{
+  "model": "inventory.color",
+  "pk": 4,
+  "fields": {
+    "code": "TRQ",
+    "desc": "turquoise"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 1,
+  "fields": {
+    "code": "FL",
+    "num_code": 1,
+    "desc": "Flawless"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 2,
+  "fields": {
+    "code": "IF",
+    "num_code": 2,
+    "desc": "Internally Flawless"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 3,
+  "fields": {
+    "code": "VVS1",
+    "num_code": 3,
+    "desc": "Very Very Slightly Included 1"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 4,
+  "fields": {
+    "code": "VVS2",
+    "num_code": 4,
+    "desc": "Very Very Slightly Included 2"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 5,
+  "fields": {
+    "code": "VS1",
+    "num_code": 5,
+    "desc": "Very Slightly Included 1"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 6,
+  "fields": {
+    "code": "VS2",
+    "num_code": 6,
+    "desc": "Very Slightly Included 2"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 7,
+  "fields": {
+    "code": "I1",
+    "num_code": 7,
+    "desc": "Included 1"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 8,
+  "fields": {
+    "code": "I2",
+    "num_code": 8,
+    "desc": "Included 2"
+  }
+},
+{
+  "model": "inventory.clarity",
+  "pk": 9,
+  "fields": {
+    "code": "I3",
+    "num_code": 9,
+    "desc": "Included 3"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "11c2e8f84ada4cb38d39bc3fd03a91b9",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODE1MTQ3MiwiaWF0IjoxNzc3NTQ2NjcyLCJqdGkiOiIxMWMyZThmODRhZGE0Y2IzOGQzOWJjM2ZkMDNhOTFiOSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.Wax6hLGLvVszGRtDksCyXKL8tDSn-gdS2Fy8DiWNp5U",
+    "created_at": "2026-04-30T10:57:52.646Z",
+    "expires_at": "2026-05-07T10:57:52Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "d8578056f73f4ac9a85c635908b3f553",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODE1MjEyMCwiaWF0IjoxNzc3NTQ3MzIwLCJqdGkiOiJkODU3ODA1NmY3M2Y0YWM5YTg1YzYzNTkwOGIzZjU1MyIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.Ajn0Z-GVrrlnl1XQ_OzdXTp07h_kp2bw0gEibblkAZQ",
+    "created_at": "2026-04-30T11:08:40.838Z",
+    "expires_at": "2026-05-07T11:08:40Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "8f4c9caa0fd640dab5a2cdba2bd27ed9",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODE1MjIzNCwiaWF0IjoxNzc3NTQ3NDM0LCJqdGkiOiI4ZjRjOWNhYTBmZDY0MGRhYjVhMmNkYmEyYmQyN2VkOSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.alV5zC9-NTlFnuHDw1-i2Z7X8GbK1UXMQDC0hUR5Ouw",
+    "created_at": "2026-04-30T11:10:34.786Z",
+    "expires_at": "2026-05-07T11:10:34Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 4,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "3a005f2366b74203a1370e6db59c5e06",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODE1MjY0MCwiaWF0IjoxNzc3NTQ3ODQwLCJqdGkiOiIzYTAwNWYyMzY2Yjc0MjAzYTEzNzBlNmRiNTljNWUwNiIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.8yvxoIAuj0fQprpnavO8zy0kldaHqbA5a5Q7BRuFc8Q",
+    "created_at": "2026-04-30T11:17:20.593Z",
+    "expires_at": "2026-05-07T11:17:20Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 5,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "828952dfe0f24ff78db578cdd016a3ed",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODE1NzEwMCwiaWF0IjoxNzc3NTUyMzAwLCJqdGkiOiI4Mjg5NTJkZmUwZjI0ZmY3OGRiNTc4Y2RkMDE2YTNlZCIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.qkMRaEWyE8iDC91KNg8ZwBOYAbv1FaYzOPbNaqMmpMs",
+    "created_at": "2026-04-30T12:31:40.920Z",
+    "expires_at": "2026-05-07T12:31:40Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 6,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "510b4df2cee544b5ba85a4ac0208f126",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODE3MjA3MiwiaWF0IjoxNzc3NTY3MjcyLCJqdGkiOiI1MTBiNGRmMmNlZTU0NGI1YmE4NWE0YWMwMjA4ZjEyNiIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.0XHJNIjZoJ5pL7jhhJxnnh5caDGhcCUQpqZ3eBVkNi0",
+    "created_at": "2026-04-30T16:41:12.637Z",
+    "expires_at": "2026-05-07T16:41:12Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 7,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "7730945a129f49d1b3e657a1381e8c4b",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODM1NjIyNCwiaWF0IjoxNzc3NzUxNDI0LCJqdGkiOiI3NzMwOTQ1YTEyOWY0OWQxYjNlNjU3YTEzODFlOGM0YiIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.WiOHioW1sAwB8YLfCIR3IZ5IkqajMOWE6E7JrU8mHqc",
+    "created_at": "2026-05-02T19:50:24.232Z",
+    "expires_at": "2026-05-09T19:50:24Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 8,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "50ad0ba286fd4759bfa04c664340735e",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODM1ODcyNiwiaWF0IjoxNzc3NzUzOTI2LCJqdGkiOiI1MGFkMGJhMjg2ZmQ0NzU5YmZhMDRjNjY0MzQwNzM1ZSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ._C6M819cfnYlU8wzdY1j2CRjH0OT5MY__6B6fGAdsnc",
+    "created_at": "2026-05-02T20:32:06.806Z",
+    "expires_at": "2026-05-09T20:32:06Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 9,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "773b622168304bdebc49eae821a26ebf",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODM1ODk1NSwiaWF0IjoxNzc3NzU0MTU1LCJqdGkiOiI3NzNiNjIyMTY4MzA0YmRlYmM0OWVhZTgyMWEyNmViZiIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.HE6MWeSLZrUJd2flMJHReJbJa8uLyzoAbGNz8dCWcF4",
+    "created_at": "2026-05-02T20:35:55.494Z",
+    "expires_at": "2026-05-09T20:35:55Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 10,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "613014668c8c4687806656e847e83253",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODQxMTA1OCwiaWF0IjoxNzc3ODA2MjU4LCJqdGkiOiI2MTMwMTQ2NjhjOGM0Njg3ODA2NjU2ZTg0N2U4MzI1MyIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.6kxixB668cJjVJ2TFyMvDXpjXVNVOTGDtKwPAwD9vWI",
+    "created_at": "2026-05-03T11:04:18.634Z",
+    "expires_at": "2026-05-10T11:04:18Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 11,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "c053a11d2c6a451fa65fae64b5e5b460",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODQxNjU1NCwiaWF0IjoxNzc3ODExNzU0LCJqdGkiOiJjMDUzYTExZDJjNmE0NTFmYTY1ZmFlNjRiNWU1YjQ2MCIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.V7lSz-_WG10_DlrUgRS7E0tQL5ZvS4RMoBonAt4LtxE",
+    "created_at": "2026-05-03T12:35:54.440Z",
+    "expires_at": "2026-05-10T12:35:54Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 12,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "457240707c7c4a388bd0b58c81964194",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODQxODM3MCwiaWF0IjoxNzc3ODEzNTcwLCJqdGkiOiI0NTcyNDA3MDdjN2M0YTM4OGJkMGI1OGM4MTk2NDE5NCIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.91mExzrpHLyDL-hbQ1p-hWWhe6nLTIGaelp08duKnYs",
+    "created_at": "2026-05-03T13:06:10.710Z",
+    "expires_at": "2026-05-10T13:06:10Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 13,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "d3311683945c4815bada236a666fe5ad",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODQyMjAzNSwiaWF0IjoxNzc3ODE3MjM1LCJqdGkiOiJkMzMxMTY4Mzk0NWM0ODE1YmFkYTIzNmE2NjZmZTVhZCIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.T74u7sRty6k_HTvWJ-0dxzHkFpX7d8olTos8KgXziS0",
+    "created_at": "2026-05-03T14:07:15.022Z",
+    "expires_at": "2026-05-10T14:07:15Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 14,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "e4f53fa52cd6460288e938eecc9fe49e",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODQyNDkzOSwiaWF0IjoxNzc3ODIwMTM5LCJqdGkiOiJlNGY1M2ZhNTJjZDY0NjAyODhlOTM4ZWVjYzlmZTQ5ZSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.ljSG-b2uA52Dlz3ZBW4tOe1kUMgS81dhWvg3N0lrScw",
+    "created_at": "2026-05-03T14:55:39.795Z",
+    "expires_at": "2026-05-10T14:55:39Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 15,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "4431d90969384ff09a7f8ddf6b89cf7c",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODQzNDg5MCwiaWF0IjoxNzc3ODMwMDkwLCJqdGkiOiI0NDMxZDkwOTY5Mzg0ZmYwOWE3ZjhkZGY2Yjg5Y2Y3YyIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.zzsu_3SxzwDdgJIJX99jMgfXGF3cyI_tE2EfK0FbK3o",
+    "created_at": "2026-05-03T17:41:30.515Z",
+    "expires_at": "2026-05-10T17:41:30Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 16,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "7d27793c2c964140b6a6d85738d43fb1",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODUwNTUzNiwiaWF0IjoxNzc3OTAwNzM2LCJqdGkiOiI3ZDI3NzkzYzJjOTY0MTQwYjZhNmQ4NTczOGQ0M2ZiMSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.rSlwiBQpJb6Br60w0h6RtzqD59xTQlBaSb4-JOJv_IE",
+    "created_at": "2026-05-04T13:18:56.827Z",
+    "expires_at": "2026-05-11T13:18:56Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 17,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "62d062e0f3a54186b77f73d4e50b8699",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODUxMTg5MSwiaWF0IjoxNzc3OTA3MDkxLCJqdGkiOiI2MmQwNjJlMGYzYTU0MTg2Yjc3ZjczZDRlNTBiODY5OSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ._8rTEI98s0SPcI6VCZ79-UQ-gEnu9VbYP5Ozzgbz0LY",
+    "created_at": "2026-05-04T15:04:51.312Z",
+    "expires_at": "2026-05-11T15:04:51Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 18,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "c922ff2a37624036a519523f48c54e7e",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODUxMzA2NiwiaWF0IjoxNzc3OTA4MjY2LCJqdGkiOiJjOTIyZmYyYTM3NjI0MDM2YTUxOTUyM2Y0OGM1NGU3ZSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.-N2ZeMYxXXfV0RV-hPaKIwuKnhmQvpiHmi_J-ybEMDw",
+    "created_at": "2026-05-04T15:24:26.731Z",
+    "expires_at": "2026-05-11T15:24:26Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 19,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "ca555596e4104606a1a15ea4868dd6e8",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODUxMzYxNywiaWF0IjoxNzc3OTA4ODE3LCJqdGkiOiJjYTU1NTU5NmU0MTA0NjA2YTFhMTVlYTQ4NjhkZDZlOCIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.G68HJKtd8F_LKhZ_DsUwzwgccssvvozzN_3QDS8Qi-U",
+    "created_at": "2026-05-04T15:33:37.262Z",
+    "expires_at": "2026-05-11T15:33:37Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 20,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "36ce8d26cf3c4fcfb103f894de5f7d67",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODUxNDc0MCwiaWF0IjoxNzc3OTA5OTQwLCJqdGkiOiIzNmNlOGQyNmNmM2M0ZmNmYjEwM2Y4OTRkZTVmN2Q2NyIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.dPJaLVR7bEpt8y43X_m2utYR5JQRcP24kdZ0wO88d6c",
+    "created_at": "2026-05-04T15:52:20.643Z",
+    "expires_at": "2026-05-11T15:52:20Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 21,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "1f89846da68d42668261a242778c74ce",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODUxODk3NiwiaWF0IjoxNzc3OTE0MTc2LCJqdGkiOiIxZjg5ODQ2ZGE2OGQ0MjY2ODI2MWEyNDI3NzhjNzRjZSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.UF22tUmNAC93Mz766cqKUj-UE91fs2y9YZTITuV9FX0",
+    "created_at": "2026-05-04T17:02:56.290Z",
+    "expires_at": "2026-05-11T17:02:56Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 22,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "c4a10f1552e943699575b1914f333f61",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODU4NDQ1NywiaWF0IjoxNzc3OTc5NjU3LCJqdGkiOiJjNGExMGYxNTUyZTk0MzY5OTU3NWIxOTE0ZjMzM2Y2MSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.MhYe1YiSafkgBXINvJtIyaL3RMyiuuJDbZgC3U-VyWI",
+    "created_at": "2026-05-05T11:14:17.727Z",
+    "expires_at": "2026-05-12T11:14:17Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 23,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "ca9ddfbc50b64d899ae5b7a7b83006d5",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3ODU4NDg4OSwiaWF0IjoxNzc3OTgwMDg5LCJqdGkiOiJjYTlkZGZiYzUwYjY0ZDg5OWFlNWI3YTdiODMwMDZkNSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.PV2wpN7gZdEx8_-l3GEC2ELP4ErTngeWDn-D1GR3cjc",
+    "created_at": "2026-05-05T11:21:29.782Z",
+    "expires_at": "2026-05-12T11:21:29Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 24,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "3dbb7085bd8f4d1bb236bedef2921a4e",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3OTAwOTA3NiwiaWF0IjoxNzc4NDA0Mjc2LCJqdGkiOiIzZGJiNzA4NWJkOGY0ZDFiYjIzNmJlZGVmMjkyMWE0ZSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.Xb_gI6S6TA-2T5jjbLckahF2Ex3KUa52Qt_UOabgwiI",
+    "created_at": "2026-05-10T09:11:16.961Z",
+    "expires_at": "2026-05-17T09:11:16Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 25,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "jti": "a7d978e4e0c440819fc90754ad0ddd41",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3OTAxMjY2NiwiaWF0IjoxNzc4NDA3ODY2LCJqdGkiOiJhN2Q5NzhlNGUwYzQ0MDgxOWZjOTA3NTRhZDBkZGQ0MSIsInVzZXJfaWQiOiI2ODNiZjc5Ny04NGEzLTRlZWQtOTZhZS1jNTU1ZTgzMTNmN2UifQ.NWL-Kyq3sLwjOqcpW8JH1fY9KlotTK9TyxTB2HaG5k4",
+    "created_at": "2026-05-10T10:11:06.777Z",
+    "expires_at": "2026-05-17T10:11:06Z"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-04-30T11:05:19.589Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "chat",
+      "room"
+    ],
+    "object_id": "1",
+    "object_repr": "DockerChat",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2026-04-30T11:07:21.614Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "chat",
+      "room"
+    ],
+    "object_id": "1",
+    "object_repr": "DockerChat",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+}
+]

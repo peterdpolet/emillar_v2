@@ -40,7 +40,7 @@ class PurchaseOrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     filterset_fields   = ['status', 'supplier']
     search_fields      = ['reference', 'supplier_ref',
-                          'supplier__name']
+                          'supplier__bp_name']
     ordering_fields    = ['created_at', 'expected_date', 'status']
     ordering           = ['-created_at']
 

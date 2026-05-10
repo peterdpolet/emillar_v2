@@ -26,6 +26,11 @@ import SettingsView    from '@/views/admin/SettingsView.vue'
 import HomeView        from '@/views/HomeView.vue'
 import ChatView        from '@/views/ChatView.vue'
 import ItemCreate       from '@inventory/views/ItemCreate.vue'
+import PurchaseOrdersView      from '@/features/purchasing/views/PurchaseOrdersView.vue'
+import PurchaseOrderDetailView from '@/features/purchasing/views/PurchaseOrderDetailView.vue'
+
+
+
 
 // ── Extend Vue Router meta types ──────────────────────────
 // This is the key pattern — tells TypeScript what fields
@@ -99,8 +104,14 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/purchase-orders',
-        name: 'purchase_orders',
-        component: CreateOrderView,
+        name: 'purchase-orders',
+        component: PurchaseOrdersView,
+        meta: { requiresAuth: true, sidebarSection: 'purchasing' },
+      },
+      {
+        path: '/purchase-orders/:id',
+        name: 'purchase-order-detail',
+        component: PurchaseOrderDetailView,
         meta: { requiresAuth: true, sidebarSection: 'purchasing' },
       },
       {
@@ -145,6 +156,7 @@ const routes: RouteRecordRaw[] = [
         component: ItemCreate,
         meta: { requiresAuth: true, sidebarSection: 'admin', roles: ['staff'] },
       },
+
 
     ],
   },

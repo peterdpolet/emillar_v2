@@ -51,7 +51,7 @@ class PurchaseOrderLineWriteSerializer(serializers.ModelSerializer):
 class PurchaseOrderSerializer(serializers.ModelSerializer):
     lines         = PurchaseOrderLineSerializer(many=True, read_only=True)
     supplier_name = serializers.CharField(
-        source='supplier.name', read_only=True
+        source='supplier.bp_name', read_only=True
     )
     raised_by_name = serializers.CharField(
         source='raised_by.get_full_name', read_only=True
@@ -80,7 +80,7 @@ class PurchaseOrderSerializer(serializers.ModelSerializer):
 class PurchaseOrderListSerializer(serializers.ModelSerializer):
     """Lightweight serializer for list views — no lines."""
     supplier_name = serializers.CharField(
-        source='supplier.name', read_only=True
+        source='supplier.bp_name', read_only=True
     )
     total_expected = serializers.IntegerField(read_only=True)
     total_received = serializers.IntegerField(read_only=True)
