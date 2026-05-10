@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { font-family: Arial, sans-serif; font-size: 13px; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 4px; }
+  .meta { margin-bottom: 20px; color: #555; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  th { background: #f0f0f0; text-align: left; padding: 8px; border-bottom: 2px solid #ccc; }
+  td { padding: 8px; border-bottom: 1px solid #eee; }
+  .total-row td { font-weight: bold; border-top: 2px solid #ccc; }
+  .status { display: inline-block; padding: 2px 8px; border-radius: 4px; background: #e0e0e0; }
+  .notes { margin-top: 20px; color: #555; }
+</style>
+</head>
+<body>
+
+<h1>Purchase Order — {{ po.reference|default:"No Reference" }}</h1>
+
+<div class="meta">
+  <p><strong>Supplier:</strong> {{ po.supplier.bp_name }}</p>
+  <p><strong>Supplier Ref:</strong> {{ po.supplier_ref|default:"—" }}</p>
+  <p><strong>Status:</strong> <span class="status">{{ po.get_status_display }}</span></p>
+  <p><strong>Raised by:</strong> {{ po.raised_by.get_full_name|default:po.raised_by.email }}</p>
+  <p><strong>Expected Date:</strong> {{ po.expected_date|default:"—" }}</p>
+  <p><strong>Currency:</strong> {{ po.currency }}</p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>SKU</th>
+      <th>Supplier SKU</th>
+      <th>Qty Ordered</th>
+      <th>Qty Received</th>
+      <th>Unit Cost</th>
+      <th>Line Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for line in po.lines.all %}
+    <tr>
+      <td>{{ line.item.name }}</td>
+      <td>{{ line.item.sku }}</td>
+      <td>{{ line.supplier_sku|default:"—" }}</td>
+      <td>{{ line.quantity }}</td>
+      <td>{{ line.quantity_received }}</td>
+      <td>{{ po.currency }} {{ line.unit_cost }}</td>
+      <td>{{ po.currency }} {{ line.line_total }}</td>
+    </tr>
+    {% endfor %}
+    <tr class="total-row">
+      <td colspan="6">Total</td>
+      <td>{{ po.currency }} {{ po.total }}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% if po.notes %}
+<div class="notes"><strong>Notes:</strong> {{ po.notes }}</div>
+{% endif %}
+
+</body>
+</html>

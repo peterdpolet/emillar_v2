@@ -8,5 +8,6 @@ router.register(r'goods-receipts', views.GoodsReceiptViewSet, basename='goods-re
 router.register(r'items', views.ItemViewSet, basename='item')
 
 urlpatterns = [
+    path('purchase-orders/<pk>/pdf/', views.PurchaseOrderPDFView.as_view(), name='purchase-order-pdf'),
     path('', include(router.urls)),
 ]
