@@ -225,10 +225,7 @@ async function removeLine(lineId) { await store.removeLine(po.value.id, lineId) 
 async function markSent() { await store.markSent(po.value.id) }
 async function cancelPO() {
   if (confirm('Cancel this purchase order?')) await store.cancelPO(po.value.id)
-}
-function printPO() {
-  window.open(`/api/documents/purchase-orders/${po.value.id}/pdf/`, '_blank')
-}
+
 function statusColour(s) {
   return { draft: 'bg-slate-100 text-slate-600', sent: 'bg-blue-50 text-blue-700',
     partial: 'bg-amber-50 text-amber-700', complete: 'bg-emerald-50 text-emerald-700',
