@@ -240,7 +240,7 @@ function matchColour(s) {
 
 const printPO = () => {
   const token = localStorage.getItem('access')
-  window.open(`/api/purchasing/purchase-orders/${po.value.id}/pdf/?token=${token}`, '_blank')
+  window.open('/api/purchasing/purchase-orders/' + po.value.id + '/pdf/?token=' + token, '_blank')
 }
 
 </script>
