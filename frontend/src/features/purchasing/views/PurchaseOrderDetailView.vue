@@ -155,7 +155,6 @@
           Cancel PO
         </button>
       </div>
-    </template>
   </div>
 </template>
 
