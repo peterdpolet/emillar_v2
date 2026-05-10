@@ -28,7 +28,7 @@ from .serializers import (
 )
 from inventory.serializers import ItemSerializer
 
-from core.authentication import QueryParamJWTAuthentication
+from config.authentication import QueryParamJWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
