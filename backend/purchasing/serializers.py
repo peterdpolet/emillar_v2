@@ -38,6 +38,7 @@ class PurchaseOrderLineSerializer(serializers.ModelSerializer):
             'supplier_sku', 'quantity', 'unit_cost',
             'quantity_received', 'outstanding',
             'line_total', 'match_status',
+            'notes',
         ]
         read_only_fields = ['quantity_received']
 
@@ -45,7 +46,7 @@ class PurchaseOrderLineSerializer(serializers.ModelSerializer):
 class PurchaseOrderLineWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model  = PurchaseOrderLine
-        fields = ['item', 'supplier_sku', 'quantity', 'unit_cost']
+        fields = ['item', 'supplier_sku', 'quantity', 'unit_cost', 'notes']
 
 
 class PurchaseOrderSerializer(serializers.ModelSerializer):

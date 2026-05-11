@@ -43,6 +43,7 @@ export const navConfig = [
       { label: 'Orders',          route: '/orders',               roles: ['staff', 'customer'] },
       { label: 'Create Order',    route: '/orders/create',        roles: ['staff'] },
       { label: 'Purchase Orders', route: '/purchase-orders',      roles: ['staff'] },
+      { label: 'PO Accordion',    route: '/purchase-orders-v2', roles: ['staff'] },
     ],
   },
   {

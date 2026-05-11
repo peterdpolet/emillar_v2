@@ -73,6 +73,7 @@ class PurchaseOrderLine(models.Model):
     quantity          = models.PositiveIntegerField(default=1)
     unit_cost         = models.DecimalField(max_digits=10, decimal_places=2)
     quantity_received = models.PositiveIntegerField(default=0)
+    notes          = models.TextField(blank=True) 
 
     @property
     def line_total(self):

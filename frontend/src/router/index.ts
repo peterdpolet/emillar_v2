@@ -156,7 +156,12 @@ const routes: RouteRecordRaw[] = [
         component: ItemCreate,
         meta: { requiresAuth: true, sidebarSection: 'admin', roles: ['staff'] },
       },
-
+      {
+        path: '/purchase-orders-v2',
+        name: 'PurchaseOrderAccordion',
+        component: () => import('@/features/purchasing/views/PurchaseOrderAccordion.vue'),
+        meta: { requiresAuth: true, sidebarSection: 'purchasing' }
+      },
 
     ],
   },

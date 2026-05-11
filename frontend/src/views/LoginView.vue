@@ -11,7 +11,7 @@
           </svg>
         </div>
         <h1 class="text-2xl font-bold text-slate-800">Ewan Millar Ltd</h1>
-        <p class="text-sm text-slate-400 mt-1">Sign in to your account</p>
+        <p class="text-sm text-slate-400 mt-1">Sign in to your account here</p>
       </div>
 
       <!-- Card -->
@@ -26,13 +26,20 @@
               placeholder="you@example.com" />
           </div>
 
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
-            <input v-model="form.password" type="password" required autocomplete="current-password"
-              class="w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm
-                     focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-              placeholder="••••••••" />
+          <div class="relative">
+            <input
+              v-model="form.password"
+              :type="showPassword ? 'text' : 'password'"
+              class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 pr-10"
+            />
+            <button
+              type="button"
+              @click="showPassword = !showPassword"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              {{ showPassword ? '🙈' : '👁' }}
+            </button>
           </div>
+
 
           <!-- Error -->
           <div v-if="auth.error"
@@ -60,7 +67,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useAuthStore } from '@/stores/auth.js'
 
@@ -71,4 +78,6 @@ async function submit() {
   await auth.login(form.email, form.password)
   // If 2FA required, router guard will redirect to /verify-2fa
 }
+
+const showPassword = ref(false)
 </script>

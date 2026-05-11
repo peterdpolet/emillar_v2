@@ -143,6 +143,20 @@ class PurchaseOrderViewSet(viewsets.ModelViewSet):
         po.save(update_fields=['status', 'updated_at'])
         return Response(PurchaseOrderSerializer(po).data)
 
+    @action(detail=True, methods=['patch'],
+            url_path=r'update-line-notes/(?P<line_id>[^/.]+)')
+    def update_line_notes(self, request, pk=None, line_id=None):
+        po = self.get_object()
+        try:
+            line = po.lines.get(pk=line_id)
+        except PurchaseOrderLine.DoesNotExist:
+            return Response({'detail': 'Line not found.'}, status=status.HTTP_404_NOT_FOUND)
+        line.notes = request.data.get('notes', '')
+        line.save(update_fields=['notes'])
+        return Response(PurchaseOrderSerializer(po).data)
+
+
+
 
 class GoodsReceiptViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
