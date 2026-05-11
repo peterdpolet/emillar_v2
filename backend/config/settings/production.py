@@ -32,6 +32,8 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
 
 CORS_ALLOW_CREDENTIALS = True
 
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+
 # ── Security ──────────────────────────────────────────────
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
