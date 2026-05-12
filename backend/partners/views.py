@@ -20,12 +20,11 @@ from accounts.models import CustomUser
 
 class BusinessPartnerListCreateAPIView(generics.ListCreateAPIView):
     queryset = BusinessPartner.objects.all()
-    # queryset=queryset.filter(order_id = 'e0fd292f-988e-4303-b833-30084cb0966d')
     serializer_class = BusinessPartnerSerializer
     filterset_class = BusinessPartnerFilter
 
-    # def get_queryset(self):
-    #     return BusinessPartner.objects.filter(bp_int_ref='AG01')
+    def get_queryset(self):
+        return BusinessPartner.objects.filter(bp_type='SUPP')
 
     def get_permissions(self):
         self.permission_classes = [AllowAny]

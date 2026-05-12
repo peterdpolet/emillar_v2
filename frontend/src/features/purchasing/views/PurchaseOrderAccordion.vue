@@ -318,6 +318,10 @@ import api from '@/api/axios.js'
 const poStore       = usePurchaseOrderStore()
 const supplierStore = useSupplierListStore()
 
+onMounted(() => {
+  supplierStore.fetchSuppliers()
+})
+
 // ── Section state ─────────────────────────────────────────
 const openSection      = ref('supplier')
 const expandedLine     = ref(null)
