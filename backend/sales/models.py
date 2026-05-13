@@ -30,7 +30,15 @@ class SalesOrder(models.Model):
     raised_date = models.DateField(auto_now_add=True)
     status      = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
     currency    = models.CharField(max_length=3, default='GBP')
-    notes       = models.TextField(blank=True)
+    notes            = models.TextField(blank=True)
+    customer_po_ref  = models.CharField(max_length=50, blank=True)
+    required_by      = models.DateField(null=True, blank=True)
+    delivery_address = models.ForeignKey(
+        'partners.BusinessPartnerAddress',
+        null=True, blank=True,
+        on_delete=models.PROTECT,
+        related_name='sales_orders'
+    )
     created_at  = models.DateTimeField(auto_now_add=True)
     updated_at  = models.DateTimeField(auto_now=True)
 

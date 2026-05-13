@@ -6,15 +6,17 @@ import { useSalesStore } from '@/features/sales/stores/useSalesStore.js'
 const salesStore = useSalesStore()
 
 // ── Header edit ───────────────────────────────────────────
-const headerForm = ref({ reference: '', currency: 'GBP', notes: '' })
+const headerForm = ref({ reference: '', currency: 'GBP', notes: '', customer_po_ref: '', required_by: '' })
 const headerSaving = ref(false)
 
 watch(() => salesStore.selectedSalesOrder, (order) => {
   if (order) {
     headerForm.value = {
-      reference: order.reference || '',
-      currency:  order.currency  || 'GBP',
-      notes:     order.notes     || '',
+    reference:       order.reference      || '',
+    currency:        order.currency       || 'GBP',
+    notes:           order.notes          || '',
+    customer_po_ref: order.customer_po_ref || '',
+    required_by:     order.required_by    || '',
     }
   }
 }, { immediate: true })
@@ -141,8 +143,18 @@ const canEdit = (line: any) => line.status === 'requested'
   <div class="space-y-4 text-sm">
 
     <!-- SO Header edit -->
-    <div class="border border-gray-200 rounded-lg p-3 bg-white">
-      <p class="font-semibold text-gray-700 mb-2">Order Header</p>
+    <div class="border border-gray-200 rounded-lg p-3 bg-white space-y-3">
+      <p class="font-semibold text-gray-700">Order Header</p>
+
+      <!-- Read-only info row -->
+      <div class="grid grid-cols-4 gap-3 text-xs text-gray-500 bg-gray-50 rounded p-2">
+        <div>Raised by: <span class="text-gray-700 font-medium">{{ salesStore.selectedSalesOrder?.raised_by_name || '—' }}</span></div>
+        <div>Date: <span class="text-gray-700 font-medium">{{ salesStore.selectedSalesOrder?.raised_date || '—' }}</span></div>
+        <div>Status: <span class="text-gray-700 font-medium capitalize">{{ salesStore.selectedSalesOrder?.status || '—' }}</span></div>
+        <div>Required By: <span class="text-gray-700 font-medium">{{ salesStore.selectedSalesOrder?.required_by || '—' }}</span></div>
+      </div>
+
+      <!-- Editable fields -->
       <div class="grid grid-cols-3 gap-3">
         <div>
           <label class="block text-xs text-gray-500 mb-1">Reference</label>
@@ -150,21 +162,30 @@ const canEdit = (line: any) => line.status === 'requested'
             class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
         </div>
         <div>
+          <label class="block text-xs text-gray-500 mb-1">Customer PO Ref</label>
+          <input v-model="headerForm.customer_po_ref" type="text"
+            class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Required By</label>
+          <input v-model="headerForm.required_by" type="date"
+            class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
+        </div>
+        <div>
           <label class="block text-xs text-gray-500 mb-1">Currency</label>
           <select v-model="headerForm.currency"
             class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm">
-            <option>GBP</option>
-            <option>USD</option>
-            <option>EUR</option>
+            <option>GBP</option><option>USD</option><option>EUR</option>
           </select>
         </div>
-        <div>
+        <div class="col-span-2">
           <label class="block text-xs text-gray-500 mb-1">Notes</label>
           <input v-model="headerForm.notes" type="text"
             class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
         </div>
       </div>
-      <div class="flex justify-end mt-2">
+
+      <div class="flex justify-end">
         <button @click="updateHeader" :disabled="headerSaving"
           class="px-4 py-1.5 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 disabled:opacity-40">
           {{ headerSaving ? 'Saving…' : 'Update Header' }}

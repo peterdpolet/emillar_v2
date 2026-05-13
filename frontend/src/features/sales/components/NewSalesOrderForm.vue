@@ -10,6 +10,8 @@ const emit = defineEmits<{ (e: 'saved'): void }>()
 const reference = ref('')
 const currency  = ref('GBP')
 const notes     = ref('')
+const customerPoRef = ref('')
+const requiredBy    = ref('')
 
 // ── Line builder ──────────────────────────────────────────
 const lineForm = ref({
@@ -115,6 +117,8 @@ const save = async () => {
       reference: reference.value || null,
       currency:  currency.value,
       notes:     notes.value,
+      customer_po_ref: customerPoRef.value || '',
+      required_by:     requiredBy.value || null,
     })
     // 2. Post each line
     for (const line of lines.value) {
@@ -144,6 +148,8 @@ const save = async () => {
     reference.value = ''
     currency.value  = 'GBP'
     notes.value     = ''
+    customerPoRef.value = ''
+    requiredBy.value    = ''
     lines.value     = []
     emit('saved')
   } catch (e: any) {
@@ -161,28 +167,35 @@ const save = async () => {
   <div class="space-y-4 text-sm">
 
     <!-- Header fields -->
-    <div class="grid grid-cols-3 gap-3">
-      <div>
-        <label class="block text-xs font-medium text-gray-600 mb-1">Reference</label>
-        <input v-model="reference" type="text" placeholder="Auto-generated if blank"
-          class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400" />
-      </div>
-      <div>
-        <label class="block text-xs font-medium text-gray-600 mb-1">Currency</label>
-        <select v-model="currency"
-          class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400">
-          <option>GBP</option>
-          <option>USD</option>
-          <option>EUR</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-xs font-medium text-gray-600 mb-1">Notes</label>
-        <input v-model="notes" type="text"
-          class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400" />
-      </div>
-    </div>
-
+<!-- Header fields -->
+<div class="grid grid-cols-3 gap-3">
+  <div>
+    <label class="block text-xs font-medium text-gray-600 mb-1">Reference</label>
+    <input v-model="reference" type="text" placeholder="Auto-generated if blank"
+      class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400" />
+  </div>
+  <div>
+    <label class="block text-xs font-medium text-gray-600 mb-1">Customer PO Ref</label>
+    <input v-model="customerPoRef" type="text" placeholder="Customer's own PO number"
+      class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400" />
+  </div>
+  <div>
+    <label class="block text-xs font-medium text-gray-600 mb-1">Required By</label>
+    <input v-model="requiredBy" type="date"
+      class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400" />
+  </div>
+  <div>
+    <label class="block text-xs font-medium text-gray-600 mb-1">Currency</label>
+    <select v-model="currency" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400">
+      <option>GBP</option><option>USD</option><option>EUR</option>
+    </select>
+  </div>
+  <div class="col-span-2">
+    <label class="block text-xs font-medium text-gray-600 mb-1">Notes</label>
+    <input v-model="notes" type="text"
+      class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400" />
+  </div>
+</div>
     <!-- Line builder -->
     <div class="border border-gray-200 rounded-lg p-3 bg-white space-y-3">
       <p class="font-semibold text-gray-700">Add Line</p>

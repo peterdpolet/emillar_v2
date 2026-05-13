@@ -17,17 +17,23 @@ class SalesOrderLineSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['sol_id', 'is_high_conversion']
 
-
 class SalesOrderSerializer(serializers.ModelSerializer):
-    lines        = SalesOrderLineSerializer(many=True, read_only=True)
-    customer_name = serializers.CharField(source='customer.bp_name', read_only=True)
+    lines          = SalesOrderLineSerializer(many=True, read_only=True)
+    customer_name  = serializers.CharField(source='customer.bp_name', read_only=True)
+    raised_by_name = serializers.SerializerMethodField()
+
+    def get_raised_by_name(self, obj):
+        if obj.raised_by:
+            return obj.raised_by.email
+        return '—'
 
     class Meta:
-        model  = SalesOrder
+        model = SalesOrder
         fields = [
             'so_id', 'reference', 'customer', 'customer_name',
-            'raised_by', 'raised_date', 'status', 'currency',
-            'notes', 'lines', 'created_at', 'updated_at',
+            'raised_by', 'raised_by_name', 'raised_date', 'status', 'currency',
+            'notes', 'customer_po_ref', 'required_by', 'delivery_address',
+            'lines', 'created_at', 'updated_at',
         ]
         read_only_fields = ['so_id', 'reference', 'raised_date', 'raised_by', 'created_at', 'updated_at']
 

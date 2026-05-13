@@ -48,3 +48,26 @@ class BusinessPartner(models.Model):
 
     def __str__(self):
         return self.bp_name
+
+class BusinessPartnerAddress(models.Model):
+    ADDRESS_TYPES = [
+        ('billing',     'Billing'),
+        ('delivery',    'Delivery'),
+        ('registered',  'Registered'),
+    ]
+    bp           = models.ForeignKey(BusinessPartner, on_delete=models.CASCADE, related_name='addresses')
+    address_type = models.CharField(max_length=20, choices=ADDRESS_TYPES, default='delivery')
+    line_1       = models.CharField(max_length=100)
+    line_2       = models.CharField(max_length=100, blank=True)
+    city         = models.CharField(max_length=60)
+    county       = models.CharField(max_length=60, blank=True)
+    postcode     = models.CharField(max_length=20)
+    country      = models.CharField(max_length=2, default='GB')
+    is_default   = models.BooleanField(default=False)
+    created_at   = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['bp', 'address_type']
+
+    def __str__(self):
+        return f"{self.bp.bp_name} — {self.get_address_type_display()} ({self.line_1})"
