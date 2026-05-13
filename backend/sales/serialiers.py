@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SalesOrder, SalesOrderLine
+from .models import SalesOrder, SalesOrderLine, RFQ, RFQResponse, ApprovalNote
 
 
 class SalesOrderLineSerializer(serializers.ModelSerializer):

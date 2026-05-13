@@ -1,51 +1,69 @@
 from django.contrib import admin
-from .models import SalesOrder, SalesOrderLine, SalesOrderStatusLog
+from .models import SalesOrder, SalesOrderLine, RFQ, RFQResponse, ApprovalNote
 
 
 class SalesOrderLineInline(admin.TabularInline):
     model  = SalesOrderLine
     extra  = 1
-    fields = ['item', 'quantity', 'unit_price']
-    autocomplete_fields = ['item']
-
-
-class SalesOrderStatusLogInline(admin.TabularInline):
-    model       = SalesOrderStatusLog
-    extra       = 0
-    readonly_fields = ['from_status', 'to_status', 'note', 'changed_by', 'changed_at']
-    can_delete  = False
+    fields = ['line_number', 'stone_type', 'item_type', 'status',
+              'min_carat', 'preferred_carat', 'max_carat',
+              'colour_spec', 'clarity_spec', 'min_price', 'max_price']
 
 
 @admin.register(SalesOrder)
 class SalesOrderAdmin(admin.ModelAdmin):
-    list_display  = ['id', 'customer', 'status', 'total', 'currency', 'created_at']
-    list_filter   = ['status', 'currency']
-    search_fields = ['customer__email', 'customer__first_name', 'customer__last_name']
-    readonly_fields = ['subtotal', 'vat_amount', 'total', 'created_at', 'updated_at']
-    inlines       = [SalesOrderLineInline, SalesOrderStatusLogInline]
-
+    list_display   = ['reference', 'customer', 'status', 'currency', 'raised_date']
+    list_filter    = ['status', 'currency']
+    search_fields  = ['reference', 'customer__bp_name']
+    readonly_fields = ['so_id', 'reference', 'raised_date', 'created_at', 'updated_at']
+    inlines        = [SalesOrderLineInline]
     fieldsets = [
         ('Order', {
-            'fields': ['customer', 'status', 'currency', 'notes', 'due_date']
-        }),
-        ('Totals', {
-            'fields': ['subtotal', 'vat_amount', 'total'],
-            'classes': ['collapse']
-        }),
-        ('PDF', {
-            'fields': ['invoice_pdf'],
-            'classes': ['collapse']
+            'fields': ['so_id', 'reference', 'customer', 'raised_by', 'status', 'currency', 'notes']
         }),
         ('Timestamps', {
-            'fields': ['created_at', 'updated_at'],
+            'fields': ['raised_date', 'created_at', 'updated_at'],
             'classes': ['collapse']
         }),
     ]
 
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-        obj.recalculate_totals()
 
-    def save_formset(self, request, form, formset, change):
-        super().save_formset(request, form, formset, change)
-        form.instance.recalculate_totals()
+class RFQResponseInline(admin.TabularInline):
+    model  = RFQResponse
+    extra  = 1
+    fields = ['supplier', 'offered_price', 'currency', 'carat_weight',
+              'size_mm', 'certificate_type', 'certificate_number', 'status']
+
+
+@admin.register(RFQ)
+class RFQAdmin(admin.ModelAdmin):
+    list_display  = ['reference', 'sales_order_line', 'status', 'raised_date']
+    list_filter   = ['status']
+    search_fields = ['reference']
+    readonly_fields = ['rfq_id', 'reference', 'raised_date']
+    inlines       = [RFQResponseInline]
+
+
+@admin.register(ApprovalNote)
+class ApprovalNoteAdmin(admin.ModelAdmin):
+    list_display  = ['reference', 'customer', 'status', 'issued_date',
+                     'expiry_date', 'approval_days', 'agreed_price']
+    list_filter   = ['status', 'approval_days', 'certificate_type']
+    search_fields = ['reference', 'customer__bp_name', 'certificate_number']
+    readonly_fields = ['approval_id', 'reference', 'expiry_date']
+    fieldsets = [
+        ('Approval Note', {
+            'fields': ['approval_id', 'reference', 'sales_order_line', 'customer',
+                      'issued_by', 'issued_date', 'approval_days', 'expiry_date']
+        }),
+        ('Stone Details', {
+            'fields': ['certificate_type', 'certificate_number', 'agreed_price', 'currency']
+        }),
+        ('Status', {
+            'fields': ['status', 'confirmed_date', 'returned_date', 'return_type']
+        }),
+        ('Notes', {
+            'fields': ['notes'],
+            'classes': ['collapse']
+        }),
+    ]

@@ -162,6 +162,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/features/purchasing/views/PurchaseOrderAccordion.vue'),
         meta: { requiresAuth: true, sidebarSection: 'purchasing' }
       },
+      {
+        path: '/sales-orders-v2',
+        name: 'SalesOrderAccordion',
+        component: () => import('@/features/sales/views/SalesOrderAccordion.vue'),
+        meta: { requiresAuth: true, sidebarSection: 'sales' }
+      },
 
     ],
   },
@@ -176,22 +182,20 @@ const router = createRouter({
 })
 
 // ── Navigation guard ──────────────────────────────────────
-router.beforeEach((to, _from, next) => {
+router.beforeEach((to, _from) => {
   const auth = useAuthStore()
 
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    return next({ name: 'login', query: { redirect: to.fullPath } })
+    return { name: 'login', query: { redirect: to.fullPath } }
   }
 
   if (to.meta.guestOnly && auth.isAuthenticated) {
-    return next({ name: 'dashboard' })
+    return { name: 'dashboard' }
   }
 
   if (to.meta.roles && !to.meta.roles.includes(auth.user?.role ?? '')) {
-    return next({ name: 'dashboard' })
+    return { name: 'dashboard' }
   }
-
-  next()
 })
 
 export default router

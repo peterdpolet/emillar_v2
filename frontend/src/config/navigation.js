@@ -24,10 +24,11 @@ export const navConfig = [
     icon: 'truck',
     roles: ['staff'],
     items: [
-      { label: 'Inventory',   route: '/inventory',            roles: ['staff'] },
-      { label: 'Customers',   route: '/suppliers',            roles: ['staff'] },
-      { label: 'Orders',        route: '/invoices',             roles: ['staff'] },
-      { label: 'Invoices',        route: '/invoices',             roles: ['staff'] },
+      { label: 'Inventory',     route: '/inventory',          roles: ['staff'] },
+      { label: 'Customers',     route: '/suppliers',          roles: ['staff'] },
+      { label: 'Orders',        route: '/invoices',           roles: ['staff'] },
+      { label: 'Invoices',      route: '/invoices',           roles: ['staff'] },
+      { label: 'SO Accordion',  route: '/sales-orders-v2',    roles: ['staff'] },
 
     ],
   },
