@@ -28,7 +28,7 @@ export const useSalesStore = defineStore('sales', () => {
     linesLoading.value = true
     try {
       const { data } = await api.get('/sales/lines/', {
-        params: { sales_order: selectedSalesOrder.value.id }
+        params: { sales_order: selectedSalesOrder.value.so_id }
       })
       salesOrderLines.value = data.results
     } finally {
@@ -53,6 +53,6 @@ export const useSalesStore = defineStore('sales', () => {
   return {
     selectedCustomer, salesOrders, salesOrdersLoading,
     selectedSalesOrder, salesOrderLines, linesLoading,
-    selectCustomer, selectSalesOrder,
+    selectCustomer, selectSalesOrder, fetchSalesOrders, fetchSalesOrderLines,
   }
 })

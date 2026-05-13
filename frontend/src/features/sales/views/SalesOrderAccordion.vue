@@ -5,6 +5,7 @@ import { useSalesStore } from '@/features/sales/stores/useSalesStore.js'
 import CustomerSelectorView from '../components/CustomerSelectorView.vue'
 import SalesOrderTable from '../components/SalesOrderTable.vue'
 import SalesOrderLinesTable from '../components/SalesOrderLinesTable.vue'
+import NewSalesOrderForm from '../components/NewSalesOrderForm.vue'
 import { ref, watch } from 'vue'
 
 const customerStore = useCustomerListStore()
@@ -95,6 +96,23 @@ watch(() => salesStore.selectedSalesOrder, (val) => {
         </div>
       </Transition>
     </div>
+
+    <!-- New Order -->
+    <div v-if="salesStore.selectedCustomer" class="bg-white border border-gray-200 shadow-sm rounded-lg m-2">
+    <button
+        @click="toggleAccordion(4)"
+        class="w-full px-6 py-1 text-left font-semibold flex justify-between items-center bg-green-200 hover:bg-green-300 transition-colors">
+        <span>+ New Sales Order</span>
+        <ChevronDownIcon :class="{ 'rotate-180': openItem === 4 }" class="w-5 h-5 transform transition-transform" />
+    </button>
+    <Transition name="accordion">
+        <div v-show="openItem === 4" class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+        <NewSalesOrderForm @saved="openItem = 2" />
+        </div>
+    </Transition>
+    </div>
+
+
 
   </div>
 </template>

@@ -6,8 +6,8 @@ class SalesOrderLineSerializer(serializers.ModelSerializer):
     class Meta:
         model  = SalesOrderLine
         fields = [
-            'sol_id', 'line_number', 'stone_type', 'item_type', 'status',
-            'inventory_item',
+            'sol_id', 'sales_order', 'line_number', 'stone_type', 'item_type', 'status',
+            'inventory_item', 'quantity',
             'min_size', 'preferred_size', 'max_size',
             'min_carat', 'preferred_carat', 'max_carat',
             'colour_spec', 'clarity_spec',
@@ -29,7 +29,7 @@ class SalesOrderSerializer(serializers.ModelSerializer):
             'raised_by', 'raised_date', 'status', 'currency',
             'notes', 'lines', 'created_at', 'updated_at',
         ]
-        read_only_fields = ['so_id', 'reference', 'raised_date', 'created_at', 'updated_at']
+        read_only_fields = ['so_id', 'reference', 'raised_date', 'raised_by', 'created_at', 'updated_at']
 
 
 class RFQResponseSerializer(serializers.ModelSerializer):

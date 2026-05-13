@@ -87,6 +87,7 @@ class SalesOrderLine(models.Model):
     sol_id          = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     sales_order     = models.ForeignKey(SalesOrder, on_delete=models.CASCADE, related_name='lines')
     line_number     = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1)
     stone_type      = models.CharField(max_length=20, choices=STONE_TYPE_CHOICES)
     item_type       = models.CharField(max_length=20, choices=ITEM_TYPE_CHOICES, default='uncertified')
     status          = models.CharField(max_length=30, choices=STATUS_CHOICES, default='requested')
