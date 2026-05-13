@@ -4,6 +4,7 @@ import { useCustomerListStore } from '@/features/sales/stores/useCustomerListSto
 import { useSalesStore } from '@/features/sales/stores/useSalesStore.js'
 import CustomerSelectorView from '../components/CustomerSelectorView.vue'
 import SalesOrderTable from '../components/SalesOrderTable.vue'
+import SalesOrderLinesTable from '../components/SalesOrderLinesTable.vue'
 import { ref, watch } from 'vue'
 
 const customerStore = useCustomerListStore()
@@ -89,7 +90,7 @@ watch(() => salesStore.selectedSalesOrder, (val) => {
             Loading lines…
           </div>
           <div v-else class="text-sm">
-            Sales Order Lines — {{ salesStore.salesOrderLines.length }} lines
+            <SalesOrderLinesTable />
           </div>
         </div>
       </Transition>

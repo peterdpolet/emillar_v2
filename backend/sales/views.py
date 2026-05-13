@@ -25,10 +25,11 @@ class SalesOrderLineViewSet(viewsets.ModelViewSet):
     serializer_class   = SalesOrderLineSerializer
 
     def get_queryset(self):
-        return SalesOrderLine.objects.filter(
-            sales_order=self.kwargs.get('order_pk')
-        )
-
+        qs = SalesOrderLine.objects.all()
+        sales_order = self.request.query_params.get('sales_order')
+        if sales_order:
+            qs = qs.filter(sales_order__so_id=sales_order)
+        return qs
 
 class RFQViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
