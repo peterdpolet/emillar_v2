@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import api from '@/api/axios.js'
 import { useSalesStore } from '@/features/sales/stores/useSalesStore.js'
+import SalesOrderPrint from './SalesOrderPrint.vue'
 
 const salesStore = useSalesStore()
 
@@ -191,6 +192,7 @@ const canEdit = (line: any) => line.status === 'requested'
           {{ headerSaving ? 'Saving…' : 'Update Header' }}
         </button>
       </div>
+        <SalesOrderPrint />  <!-- ← add this -->
     </div>
 
     <!-- Lines table -->

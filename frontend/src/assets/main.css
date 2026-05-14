@@ -44,3 +44,14 @@
     @apply bg-white border border-slate-200 rounded-xl shadow-sm;
   }
 }
+
+@media print {
+  body * { visibility: hidden; }
+  .print-only, .print-only * { visibility: visible; }
+  .print-only {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
