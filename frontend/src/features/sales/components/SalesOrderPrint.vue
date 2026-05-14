@@ -202,4 +202,9 @@ function printOrder() {
   padding-top: 6px;
   margin-top: 8px;
 }
+
+@page {
+  size: A4;
+  margin: 15mm;
+}
 </style>
