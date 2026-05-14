@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import api from '@/api/axios.js'
 import { useSalesStore } from '@/features/sales/stores/useSalesStore.js'
+import InventorySearchModal from './InventorySearchModal.vue'
 
 const salesStore = useSalesStore()
 const emit = defineEmits<{ (e: 'saved'): void }>()
@@ -161,6 +162,8 @@ const save = async () => {
     saving.value = false
   }
 }
+
+const showInventoryModal = ref(false)
 </script>
 
 <template>
@@ -283,27 +286,24 @@ const save = async () => {
         </div>
       </div>
 
-      <!-- Inventory search -->
-      <div class="relative">
-        <label class="block text-xs text-gray-500 mb-1">Link Inventory Item (optional)</label>
-        <div class="flex gap-2">
-          <input v-model="itemSearch" @input="onItemSearch" type="text"
-            placeholder="Search by SKU or name…"
-            class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
-          <button v-if="selectedItem" @click="clearItem"
-            class="text-xs text-red-500 hover:underline whitespace-nowrap">Clear</button>
-        </div>
-        <ul v-if="itemResults.length"
-          class="absolute z-10 w-full bg-white border border-gray-200 rounded shadow mt-1 max-h-40 overflow-auto">
-          <li v-for="item in itemResults" :key="item.id"
-            @click="selectItem(item)"
-            class="px-3 py-2 hover:bg-blue-50 cursor-pointer text-sm">
-            <span class="font-medium">{{ item.sku }}</span>
-            <span class="text-gray-500 ml-2">{{ item.name }}</span>
-          </li>
-          <li v-if="itemSearching" class="px-3 py-2 text-gray-400 text-xs">Searching…</li>
-        </ul>
+    <!-- Inventory search -->
+    <div>
+      <label class="block text-xs text-gray-500 mb-1">Link Inventory Item (optional)</label>
+      <div class="flex gap-2 items-center">
+        <button type="button" @click="showInventoryModal = true"
+          class="px-3 py-1.5 border border-gray-300 rounded text-sm text-gray-600 hover:bg-gray-50">
+          {{ selectedItem ? `${selectedItem.sku} — ${selectedItem.name}` : 'Browse Inventory…' }}
+        </button>
+        <button v-if="selectedItem" @click="clearItem"
+          class="text-xs text-red-500 hover:underline">Clear</button>
       </div>
+    </div>
+
+    <!-- Inventory modal -->
+    <InventorySearchModal
+      v-if="showInventoryModal"
+      @select="(item) => { selectItem(item); showInventoryModal = false }"
+      @close="showInventoryModal = false" />
 
       <div>
         <label class="block text-xs text-gray-500 mb-1">Line Notes</label>
