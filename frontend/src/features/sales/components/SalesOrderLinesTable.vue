@@ -33,6 +33,23 @@ const updateHeader = async () => {
   }
 }
 
+const posting = ref(false)
+const postOrder = async () => {
+  if (!salesStore.selectedSalesOrder) return
+  posting.value = true
+  try {
+    await api.patch(`/sales/orders/${salesStore.selectedSalesOrder.so_id}/`, { status: 'active' })
+    await salesStore.fetchSalesOrders()
+    // Re-select the order to refresh its status
+    const updated = salesStore.salesOrders.find(
+      o => o.so_id === salesStore.selectedSalesOrder.so_id
+    )
+    if (updated) salesStore.selectedSalesOrder = updated
+  } finally {
+    posting.value = false
+  }
+}
+
 // ── Line editing ──────────────────────────────────────────
 const editingLine  = ref<string | null>(null)
 const editForm     = ref<any>({})
@@ -187,6 +204,13 @@ const canEdit = (line: any) => line.status === 'requested'
       </div>
 
       <div class="flex justify-end">
+        <button
+          v-if="salesStore.selectedSalesOrder?.status === 'draft'"
+          @click="postOrder"
+          :disabled="posting"
+          class="px-4 py-1.5 bg-green-600 text-white text-xs rounded hover:bg-green-700 disabled:opacity-40">
+          {{ posting ? 'Posting…' : 'Post Order' }}
+        </button>
         <button @click="updateHeader" :disabled="headerSaving"
           class="px-4 py-1.5 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 disabled:opacity-40">
           {{ headerSaving ? 'Saving…' : 'Update Header' }}
