@@ -18,11 +18,11 @@
     </button>
 
     <!-- Brand -->
-    <div class="flex items-center gap-2 flex-1">
+    <div class="flex items-center gap-2 flex-1 ">
       <div class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center">
         <!-- <GemIcon class="w-4 h-4 text-white" /> -->
       </div>
-      <span class="font-semibold text-slate-800 text-sm tracking-tight">
+      <span class="font-semibold text-slate-800 text-sm text text-center tracking-tight ">
         Ewan MillarLtd (.co.uk)
       </span>
     </div>

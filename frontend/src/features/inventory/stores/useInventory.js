@@ -33,8 +33,21 @@ export const useInventoryStore = defineStore('inventory', () => {
     return data
   }
 
-  return {
-    items, colours, clarities, cuts,
-    fetchLookups, createItem, updateItem,
+  async function fetchItem(id) {
+    const { data } = await api.get(`/inventory/items/${id}/`)
+    return data
   }
+
+  async function printLabel(itemId, soNumber) {
+    const { data } = await api.post('/inventory/print-label/', {
+      item_id:   itemId,
+      so_number: soNumber,
+    })
+    return data
+  }
+
+return {
+  items, colours, clarities, cuts,
+  fetchLookups, createItem, updateItem, fetchItem, printLabel,
+}
 })

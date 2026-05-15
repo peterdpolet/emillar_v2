@@ -2,9 +2,6 @@
 import uuid
 from django.db import models
 from django.conf import settings
-from partners.models import Supplier
-
-
 
 
 class PurchaseOrder(models.Model):
@@ -16,30 +13,46 @@ class PurchaseOrder(models.Model):
         ('cancelled', 'Cancelled'),
     ]
 
-    id            = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    
-    # Link to BusinessPartner rather than Supplier
-    supplier      = models.ForeignKey(
-                        'partners.BusinessPartner',
-                        on_delete=models.PROTECT,
-                        related_name='purchase_orders'
-                    )
-    reference     = models.CharField(max_length=100, blank=True)  # your PO ref
-    supplier_ref  = models.CharField(max_length=100, blank=True)  # their ref
-    status        = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-    raised_by     = models.ForeignKey(
-                        settings.AUTH_USER_MODEL,
-                        on_delete=models.SET_NULL,
-                        null=True, blank=True,
-                        related_name='purchase_orders_raised'
-                    )
-    currency      = models.CharField(max_length=3, default='GBP')
-    total         = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    po_pdf        = models.FileField(upload_to='purchase_orders/', null=True, blank=True)
+    id           = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    supplier     = models.ForeignKey(
+                       'partners.BusinessPartner',
+                       on_delete=models.PROTECT,
+                       related_name='purchase_orders'
+                   )
+    # Link back to originating Sales Order (RFQ) — optional (speculative buying)
+    sales_order  = models.ForeignKey(
+                       'sales.SalesOrder',
+                       on_delete=models.SET_NULL,
+                       null=True, blank=True,
+                       related_name='purchase_orders'
+                   )
+    reference    = models.CharField(max_length=100, blank=True)   # our PO ref
+    supplier_ref = models.CharField(max_length=100, blank=True)   # their ref
+    status       = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+    raised_by    = models.ForeignKey(
+                       settings.AUTH_USER_MODEL,
+                       on_delete=models.SET_NULL,
+                       null=True, blank=True,
+                       related_name='purchase_orders_raised'
+                   )
+    raised_date  = models.DateField(auto_now_add=True)
+
+    # Currency — many suppliers price in USD
+    currency     = models.CharField(max_length=3, default='USD')
+
+    # FX at point of PO creation
+    fx_rate      = models.DecimalField(max_digits=10, decimal_places=6, null=True, blank=True)
+    fx_rate_date = models.DateField(null=True, blank=True)
+
+    total        = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_gbp    = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+
     expected_date = models.DateField(null=True, blank=True)
-    notes         = models.TextField(blank=True)
-    created_at    = models.DateTimeField(auto_now_add=True)
-    updated_at    = models.DateTimeField(auto_now=True)
+    notes        = models.TextField(blank=True)
+    po_pdf       = models.FileField(upload_to='purchase_orders/', null=True, blank=True)
+
+    created_at   = models.DateTimeField(auto_now_add=True)
+    updated_at   = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -48,8 +61,9 @@ class PurchaseOrder(models.Model):
         return f'PO-{self.reference} — {self.supplier.bp_name}'
 
     def recalculate_totals(self):
-        self.total = sum(line.line_total for line in self.lines.all())
-        self.save(update_fields=['total', 'updated_at'])
+        self.total     = sum(line.line_total     for line in self.lines.all())
+        self.total_gbp = sum(line.line_total_gbp for line in self.lines.all())
+        self.save(update_fields=['total', 'total_gbp', 'updated_at'])
 
     def update_status(self):
         lines = self.lines.all()
@@ -65,19 +79,44 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     id             = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     purchase_order = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE, related_name='lines')
-    item           = models.ForeignKey('inventory.Item', on_delete=models.PROTECT, related_name='po_lines')
-    
-    # Supplier's own reference for this item — critical for invoice matching
+
+    # Optional — item may not exist in inventory yet at PO creation
+    item           = models.ForeignKey(
+                         'inventory.Item',
+                         on_delete=models.PROTECT,
+                         related_name='po_lines',
+                         null=True, blank=True
+                     )
+
+    # Free-text description for when no inventory item exists yet
+    description    = models.CharField(max_length=255, blank=True)
+
+    # Supplier's own SKU — critical for invoice matching
     supplier_sku   = models.CharField(max_length=100, blank=True)
-    
+
     quantity          = models.PositiveIntegerField(default=1)
-    unit_cost         = models.DecimalField(max_digits=10, decimal_places=2)
     quantity_received = models.PositiveIntegerField(default=0)
-    notes          = models.TextField(blank=True) 
+
+    # Pricing in supplier currency
+    unit_cost      = models.DecimalField(max_digits=10, decimal_places=2)
+    currency       = models.CharField(max_length=3, default='USD')
+
+    # FX conversion — locked at point of line creation
+    fx_rate        = models.DecimalField(max_digits=10, decimal_places=6, null=True, blank=True)
+    fx_rate_date   = models.DateField(null=True, blank=True)
+    unit_cost_gbp  = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
+    notes          = models.TextField(blank=True)
 
     @property
     def line_total(self):
         return self.unit_cost * self.quantity
+
+    @property
+    def line_total_gbp(self):
+        if self.unit_cost_gbp is not None:
+            return self.unit_cost_gbp * self.quantity
+        return 0
 
     @property
     def outstanding(self):
@@ -94,21 +133,24 @@ class PurchaseOrderLine(models.Model):
         return 'over'
 
     def save(self, *args, **kwargs):
+        # Auto-calculate GBP if rate provided
+        if self.fx_rate and self.unit_cost:
+            self.unit_cost_gbp = round(self.unit_cost / self.fx_rate, 2)
         super().save(*args, **kwargs)
         self.purchase_order.recalculate_totals()
 
     def __str__(self):
-        return f'{self.quantity}× {self.item.name}'
+        name = self.item.name if self.item else self.description
+        return f'{self.quantity}× {name}'
 
 
 class GoodsReceipt(models.Model):
     id             = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     purchase_order = models.ForeignKey(PurchaseOrder, on_delete=models.PROTECT, related_name='goods_receipts')
-    
-    # Supplier's delivery note reference — key for matching
-    delivery_ref   = models.CharField(max_length=100, blank=True)
-    supplier_ref   = models.CharField(max_length=100, blank=True)  # their invoice/approval ref
-    
+
+    delivery_ref   = models.CharField(max_length=100, blank=True)  # supplier delivery note
+    supplier_ref   = models.CharField(max_length=100, blank=True)  # their invoice/appro ref
+
     received_by    = models.ForeignKey(
                          settings.AUTH_USER_MODEL,
                          on_delete=models.SET_NULL,
@@ -117,11 +159,11 @@ class GoodsReceipt(models.Model):
                      )
     received_date  = models.DateField()
     notes          = models.TextField(blank=True)
-    
-    # AI extraction fields — populated by Claude Vision
+
+    # AI extraction — populated by Claude Vision
     raw_image      = models.ImageField(upload_to='grn_images/', null=True, blank=True)
-    extracted_data = models.JSONField(null=True, blank=True)  # raw Claude Vision output
-    
+    extracted_data = models.JSONField(null=True, blank=True)
+
     created_at     = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -158,4 +200,5 @@ class GoodsReceiptLine(models.Model):
         self.po_line.purchase_order.update_status()
 
     def __str__(self):
-        return f'{self.quantity_received}× {self.po_line.item.name}'
+        name = self.po_line.item.name if self.po_line.item else self.po_line.description
+        return f'{self.quantity_received}× {name}'

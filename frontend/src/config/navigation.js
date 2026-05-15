@@ -28,7 +28,7 @@ export const navConfig = [
       { label: 'Customers',     route: '/suppliers',          roles: ['staff'] },
       { label: 'Orders',        route: '/invoices',           roles: ['staff'] },
       { label: 'Invoices',      route: '/invoices',           roles: ['staff'] },
-      { label: 'SO Accordion',  route: '/sales-orders-v2',    roles: ['staff'] },
+      { label: 'Sales Orders',  route: '/sales-orders-v2',    roles: ['staff'] },
 
     ],
   },

@@ -72,6 +72,28 @@ const saveEdit = async (line: any) => {
   } catch (e) {
     console.error(e)
   }
+const printingLine = ref<string | null>(null)
+
+const printLine = async (line: any) => {
+  printingLine.value = line.sol_id
+  try {
+    const so       = salesStore.selectedSalesOrder
+    const sku      = `${line.stone_type}-L${line.line_number}`.toUpperCase()
+    const soNumber = so?.reference || so?.so_id
+    const itemUrl  = `https://ewanmillarltd.co.uk/sales-orders-v2`
+    await api.post('/inventory/print-label/', {
+      sku,
+      so_number: soNumber,
+      item_url:  itemUrl,
+    })
+  } catch (e) {
+    console.error('Print failed', e)
+  } finally {
+    printingLine.value = null
+  }
+}
+
+
 }
 
 const deleteLine = async (line: any) => {
@@ -263,6 +285,11 @@ const canEdit = (line: any) => line.status === 'requested'
                   class="text-blue-500 hover:text-blue-700 text-xs">Edit</button>
                 <button v-if="canEdit(line)" @click="deleteLine(line)"
                   class="text-red-400 hover:text-red-600 text-xs">Delete</button>
+                <button @click="printLine(line)"
+                   :disabled="printingLine === line.sol_id"
+                    class="text-gray-400 hover:text-gray-600 text-xs disabled:opacity-40">
+                    {{ printingLine === line.sol_id ? '…' : 'Print' }}
+                </button>
               </td>
             </tr>
             <!-- Edit row -->

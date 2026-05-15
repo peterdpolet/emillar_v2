@@ -243,8 +243,9 @@
         <!-- PO actions -->
         <div v-if="selectedPO" class="flex gap-3 px-5 py-4 border-t border-gray-200">
           <button v-if="selectedPO.status === 'draft'" @click="savePOHeader"
-            class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-lg transition-colors">
-            Save Changes
+            class="px-4 py-2 text-white text-sm rounded-lg transition-colors"
+            :class="headerSaved ? 'bg-green-600' : 'bg-indigo-600 hover:bg-indigo-700'">
+            {{ headerSaved ? 'Saved ✓' : 'Save Changes' }}
           </button>
           <button v-if="selectedPO.status === 'draft'" @click="markSent"
             class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors">
@@ -391,16 +392,24 @@ async function createPO() {
   selectPO(created)
 }
 
+const headerSaved = ref(false)
+
 async function savePOHeader() {
   await poStore.updatePO(selectedPO.value.id, {
     reference:     selectedPO.value.reference,
     supplier_ref:  selectedPO.value.supplier_ref,
-    expected_date: selectedPO.value.expected_date,
+    expected_date: selectedPO.value.expected_date || null,
     currency:      selectedPO.value.currency,
+    fx_rate:       selectedPO.value.fx_rate || null,
+    fx_rate_date:  selectedPO.value.fx_rate_date || null,
     notes:         selectedPO.value.notes,
   })
   selectedPO.value = poStore.po
+  headerSaved.value = true
+  setTimeout(() => headerSaved.value = false, 2000)
 }
+
+
 
 async function markSent() {
   await poStore.markSent(selectedPO.value.id)

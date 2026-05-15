@@ -149,3 +149,6 @@ MEDIA_URL       = '/media/'
 MEDIA_ROOT      = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PRINT_SERVICE_URL = 'http://localhost:5100/print'
+FRONTEND_URL      = 'https://ewanmillarltd.co.uk'
