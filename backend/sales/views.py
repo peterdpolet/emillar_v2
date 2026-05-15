@@ -1,9 +1,6 @@
 from rest_framework import viewsets, permissions
-from .models import SalesOrder, SalesOrderLine, RFQ, RFQResponse, ApprovalNote
-from .serializers import (
-    SalesOrderSerializer, SalesOrderLineSerializer,
-    RFQSerializer, RFQResponseSerializer, ApprovalNoteSerializer
-)
+from .models import SalesOrder, SalesOrderLine, ApprovalNote
+from .serializers import SalesOrderSerializer, SalesOrderLineSerializer, ApprovalNoteSerializer
 
 
 class SalesOrderViewSet(viewsets.ModelViewSet):
@@ -20,6 +17,7 @@ class SalesOrderViewSet(viewsets.ModelViewSet):
             qs = qs.filter(customer__bp_id=customer)
         return qs
 
+
 class SalesOrderLineViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class   = SalesOrderLineSerializer
@@ -30,20 +28,6 @@ class SalesOrderLineViewSet(viewsets.ModelViewSet):
         if sales_order:
             qs = qs.filter(sales_order__so_id=sales_order)
         return qs
-
-class RFQViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class   = RFQSerializer
-    queryset           = RFQ.objects.all()
-
-    def perform_create(self, serializer):
-        serializer.save(raised_by=self.request.user)
-
-
-class RFQResponseViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class   = RFQResponseSerializer
-    queryset           = RFQResponse.objects.all()
 
 
 class ApprovalNoteViewSet(viewsets.ModelViewSet):

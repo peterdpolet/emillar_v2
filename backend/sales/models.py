@@ -60,15 +60,15 @@ class SalesOrder(models.Model):
 
 class SalesOrderLine(models.Model):
     STATUS_CHOICES = [
-        ('requested',           'Requested'),
-        ('rfq_sent',            'RFQ Sent'),
-        ('quoted',              'Quoted'),
-        ('on_order',            'On Order'),
-        ('on_approval',         'On Approval'),
-        ('confirmed',           'Confirmed'),
-        ('returned',            'Returned'),
-        ('returned_to_supplier','Returned to Supplier'),
-        ('cancelled',           'Cancelled'),
+        ('requested',            'Requested'),
+        ('rfq_sent',             'RFQ Sent'),
+        ('quoted',               'Quoted'),
+        ('on_order',             'On Order'),
+        ('on_approval',          'On Approval'),
+        ('confirmed',            'Confirmed'),
+        ('returned',             'Returned'),
+        ('returned_to_supplier', 'Returned to Supplier'),
+        ('cancelled',            'Cancelled'),
     ]
 
     ITEM_TYPE_CHOICES = [
@@ -95,10 +95,19 @@ class SalesOrderLine(models.Model):
     sol_id          = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     sales_order     = models.ForeignKey(SalesOrder, on_delete=models.CASCADE, related_name='lines')
     line_number     = models.PositiveIntegerField(default=1)
-    quantity = models.PositiveIntegerField(default=1)
+    quantity        = models.PositiveIntegerField(default=1)
     stone_type      = models.CharField(max_length=20, choices=STONE_TYPE_CHOICES)
     item_type       = models.CharField(max_length=20, choices=ITEM_TYPE_CHOICES, default='uncertified')
     status          = models.CharField(max_length=30, choices=STATUS_CHOICES, default='requested')
+
+    # Winning supplier — set when a quote is accepted
+    supplier        = models.ForeignKey(
+        'partners.BusinessPartner',
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        related_name='so_lines'
+    )
+    supplier_sku    = models.CharField(max_length=100, blank=True)
 
     # Link to stock item — set when fulfilled from stock
     inventory_item  = models.ForeignKey(
@@ -139,113 +148,7 @@ class SalesOrderLine(models.Model):
 
     @property
     def is_high_conversion(self):
-        """Certified stones are flagged as high conversion likelihood."""
         return self.item_type == 'certified' and bool(self.certificate_number)
-
-
-class RFQ(models.Model):
-    STATUS_CHOICES = [
-        ('open',          'Open'),
-        ('part_received', 'Part Received'),
-        ('received',      'All Received'),
-        ('closed',        'Closed'),
-    ]
-
-    rfq_id          = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    reference       = models.CharField(max_length=20, unique=True, blank=True)
-    sales_order_line = models.ForeignKey(
-        SalesOrderLine,
-        on_delete=models.PROTECT,
-        related_name='rfqs'
-    )
-    raised_by       = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.PROTECT,
-        related_name='rfqs_raised'
-    )
-    raised_date     = models.DateField(auto_now_add=True)
-    status          = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
-    notes           = models.TextField(blank=True)
-
-    class Meta:
-        ordering = ['-raised_date']
-        verbose_name = 'RFQ'
-
-    def __str__(self):
-        return self.reference
-
-    def save(self, *args, **kwargs):
-        if not self.reference:
-            year = timezone.now().year
-            count = RFQ.objects.filter(
-                raised_date__year=year
-            ).count() + 1
-            self.reference = f"RFQ-{year}-{count:04d}"
-        super().save(*args, **kwargs)
-
-
-class RFQResponse(models.Model):
-    STATUS_CHOICES = [
-        ('pending',  'Pending'),
-        ('received', 'Received'),
-        ('accepted', 'Accepted'),
-        ('declined', 'Declined'),
-    ]
-
-    CERT_TYPE_CHOICES = [
-        ('GIA', 'GIA'),
-        ('IGI', 'IGI'),
-        ('HRD', 'HRD'),
-        ('AGS', 'AGS'),
-    ]
-
-    rfqr_id             = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    rfq                 = models.ForeignKey(RFQ, on_delete=models.CASCADE, related_name='responses')
-    supplier            = models.ForeignKey(
-        'partners.BusinessPartner',
-        on_delete=models.PROTECT,
-        related_name='rfq_responses',
-        limit_choices_to={'bp_type': 'SUPP'}
-    )
-    offered_price       = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
-    currency            = models.CharField(max_length=3, default='GBP')
-    stone_description   = models.TextField(blank=True)
-    carat_weight        = models.DecimalField(max_digits=8, decimal_places=3, null=True, blank=True)
-    size_mm             = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    certificate_type    = models.CharField(max_length=10, choices=CERT_TYPE_CHOICES, blank=True)
-    certificate_number  = models.CharField(max_length=50, blank=True)
-    response_date       = models.DateField(null=True, blank=True)
-    status              = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-    accepted_by         = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True, blank=True,
-        related_name='rfq_responses_accepted'
-    )
-    accepted_date       = models.DateField(null=True, blank=True)
-    notes               = models.TextField(blank=True)
-
-    class Meta:
-        ordering = ['offered_price']
-
-    def __str__(self):
-        return f"{self.rfq.reference} — {self.supplier.bp_name}"
-
-    def accept(self, user):
-        """Accept this response — decline all others on the same RFQ."""
-        from django.utils import timezone as tz
-        self.status = 'accepted'
-        self.accepted_by = user
-        self.accepted_date = tz.now().date()
-        self.save()
-        # Decline all other responses
-        self.rfq.responses.exclude(rfqr_id=self.rfqr_id).update(status='declined')
-        # Update RFQ status
-        self.rfq.status = 'closed'
-        self.rfq.save()
-        # Update sales order line status
-        self.rfq.sales_order_line.status = 'on_order'
-        self.rfq.sales_order_line.save()
 
 
 class ApprovalNote(models.Model):
@@ -310,22 +213,19 @@ class ApprovalNote(models.Model):
         return f"{self.reference} — {self.customer.bp_name}"
 
     def save(self, *args, **kwargs):
-        # Auto-generate reference
         if not self.reference:
             year = timezone.now().year
             count = ApprovalNote.objects.filter(
                 issued_date__year=year
             ).count() + 1
             self.reference = f"AN-{year}-{count:04d}"
-        # Auto-calculate expiry date
         if self.issued_date:
             self.expiry_date = self.issued_date + timedelta(days=self.approval_days)
         super().save(*args, **kwargs)
 
     @property
     def days_remaining(self):
-        delta = self.expiry_date - timezone.now().date()
-        return delta.days
+        return (self.expiry_date - timezone.now().date()).days
 
     @property
     def is_expiring_soon(self):

@@ -118,22 +118,71 @@
       </button>
       <div v-if="openSection === 'lines'" class="border-t border-gray-100">
 
+        <!-- ── Header edit panel ── -->
+        <div v-if="selectedPO?.status === 'draft'" class="px-5 py-4 bg-slate-50 border-b border-gray-200">
+          <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3">PO Header</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Our Reference</label>
+              <input v-model="selectedPO.reference" type="text"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Supplier Reference</label>
+              <input v-model="selectedPO.supplier_ref" type="text"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Expected Date</label>
+              <input v-model="selectedPO.expected_date" type="date"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Currency</label>
+              <select v-model="selectedPO.currency"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option>GBP</option><option>USD</option><option>EUR</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">FX Rate</label>
+              <input v-model.number="selectedPO.fx_rate" type="number" step="0.0001" placeholder="e.g. 1.2700"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">FX Rate Date</label>
+              <input v-model="selectedPO.fx_rate_date" type="date"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div class="col-span-2">
+              <label class="block text-xs text-gray-500 mb-1">Notes</label>
+              <textarea v-model="selectedPO.notes" rows="2"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+            </div>
+          </div>
+          <button @click="savePOHeader"
+            class="mt-3 px-4 py-2 text-white text-sm rounded-lg transition-colors"
+            :class="headerSaved ? 'bg-green-600' : 'bg-indigo-600 hover:bg-indigo-700'">
+            {{ headerSaved ? 'Saved ✓' : 'Save Header' }}
+          </button>
+        </div>
+
         <!-- Existing lines -->
         <div v-for="line in selectedPO?.lines" :key="line.id" class="border-b border-gray-50">
-          
-        <div class="w-full flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition-colors cursor-pointer"
-        @click="toggleLine(line.id)">
-        <div class="flex items-center gap-4 flex-1">
-            <span class="text-xs text-gray-400 w-4">{{ expandedLine === line.id ? '▼' : '►' }}</span>
-            <span class="text-sm font-medium text-gray-800 flex-1">{{ line.item_name }}</span>
-            <span class="text-xs text-gray-500 font-mono">{{ line.item_sku }}</span>
-            <span class="text-sm text-gray-600">× {{ line.quantity }}</span>
-            <span class="text-sm font-medium text-gray-800">{{ selectedPO.currency }} {{ Number(line.line_total).toFixed(2) }}</span>
-            <span :class="['px-2 py-0.5 rounded-full text-xs', matchColour(line.match_status)]">{{ line.match_status }}</span>
-        </div>
-        <button v-if="selectedPO.status === 'draft'" @click.stop="removeLine(line.id)"
-            class="ml-3 text-red-400 hover:text-red-600 text-xs">✕</button>
-        </div>            
+          <div class="w-full flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition-colors cursor-pointer"
+            @click="toggleLine(line.id)">
+            <div class="flex items-center gap-4 flex-1">
+              <span class="text-xs text-gray-400 w-4">{{ expandedLine === line.id ? '▼' : '►' }}</span>
+              <span class="text-sm font-medium text-gray-800 flex-1">{{ line.description || line.item_name }}</span>
+              <span class="text-xs text-gray-500 font-mono">{{ line.item_sku }}</span>
+              <span class="text-sm text-gray-600">× {{ line.quantity }}</span>
+              <span class="text-sm font-medium text-gray-800">{{ selectedPO.currency }} {{ Number(line.line_total).toFixed(2) }}</span>
+              <span v-if="line.total_gbp" class="text-xs text-gray-400">£{{ Number(line.total_gbp).toFixed(2) }}</span>
+              <span :class="['px-2 py-0.5 rounded-full text-xs', matchColour(line.match_status)]">{{ line.match_status }}</span>
+            </div>
+            <button v-if="selectedPO.status === 'draft'" @click.stop="removeLine(line.id)"
+              class="ml-3 text-red-400 hover:text-red-600 text-xs">✕</button>
+          </div>
           <!-- Expanded line detail -->
           <div v-if="expandedLine === line.id" class="px-5 pb-4 bg-gray-50 border-t border-gray-100">
             <div class="grid grid-cols-3 gap-4 mt-3 text-sm">
@@ -146,11 +195,18 @@
                 <span class="text-gray-800">{{ selectedPO.currency }} {{ Number(line.unit_cost).toFixed(2) }}</span>
               </div>
               <div>
+                <span class="text-xs text-gray-500 block">GBP Equivalent</span>
+                <span class="text-gray-800">{{ line.total_gbp ? '£' + Number(line.total_gbp).toFixed(2) : '—' }}</span>
+              </div>
+              <div>
                 <span class="text-xs text-gray-500 block">Received</span>
                 <span class="text-gray-800">{{ line.quantity_received }} / {{ line.quantity }}</span>
               </div>
+              <div v-if="line.description" class="col-span-2">
+                <span class="text-xs text-gray-500 block">Description</span>
+                <span class="text-gray-800">{{ line.description }}</span>
+              </div>
             </div>
-            <!-- Notes -->
             <div class="mt-3">
               <label class="text-xs text-gray-500 block mb-1">Notes</label>
               <textarea v-model="lineNotes[line.id]" rows="3" placeholder="Add notes…"
@@ -168,7 +224,7 @@
           <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3">Add Line</h3>
           <div class="grid grid-cols-2 gap-3">
             <div class="col-span-2">
-              <label class="block text-xs text-gray-500 mb-1">Item</label>
+              <label class="block text-xs text-gray-500 mb-1">Item (optional — leave blank for free-text line)</label>
               <input v-model="itemSearch" type="text" placeholder="Search items…"
                 @input="searchItems"
                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
@@ -218,6 +274,11 @@
               </div>
             </div>
 
+            <div class="col-span-2">
+              <label class="block text-xs text-gray-500 mb-1">Description</label>
+              <input v-model="newLine.description" type="text" placeholder="Free-text description (required if no item selected)"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
             <div>
               <label class="block text-xs text-gray-500 mb-1">Supplier SKU</label>
               <input v-model="newLine.supplier_sku" type="text"
@@ -233,8 +294,25 @@
               <input v-model.number="newLine.unit_cost" type="number" step="0.01" min="0"
                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Currency</label>
+              <select v-model="newLine.currency"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option>GBP</option><option>USD</option><option>EUR</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">FX Rate</label>
+              <input v-model.number="newLine.fx_rate" type="number" step="0.0001" placeholder="e.g. 1.2700"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">FX Rate Date</label>
+              <input v-model="newLine.fx_rate_date" type="date"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
           </div>
-          <button @click="addLine" :disabled="!newLine.item || !newLine.unit_cost"
+          <button @click="addLine" :disabled="!newLine.unit_cost && !newLine.description"
             class="mt-3 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-sm rounded-lg transition-colors">
             Add Line
           </button>
@@ -242,11 +320,6 @@
 
         <!-- PO actions -->
         <div v-if="selectedPO" class="flex gap-3 px-5 py-4 border-t border-gray-200">
-          <button v-if="selectedPO.status === 'draft'" @click="savePOHeader"
-            class="px-4 py-2 text-white text-sm rounded-lg transition-colors"
-            :class="headerSaved ? 'bg-green-600' : 'bg-indigo-600 hover:bg-indigo-700'">
-            {{ headerSaved ? 'Saved ✓' : 'Save Changes' }}
-          </button>
           <button v-if="selectedPO.status === 'draft'" @click="markSent"
             class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors">
             Mark as Sent
@@ -306,6 +379,154 @@
         </button>
       </div>
     </div>
+
+    <!-- ── SECTION 4: Goods Receipts ──────────────────────── -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden"
+      :class="{ 'opacity-40 pointer-events-none': !selectedPO }">
+      <button @click="toggleSection('grn')"
+        class="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-50 transition-colors">
+        <div class="flex items-center gap-3">
+          <span class="text-lg">📥</span>
+          <span class="font-medium text-gray-700">Goods Receipts</span>
+          <span v-if="selectedPO" class="ml-2 px-2 py-0.5 bg-gray-100 text-gray-600 text-sm rounded-full">
+            {{ grns.length }} GRN{{ grns.length !== 1 ? 's' : '' }}
+          </span>
+        </div>
+        <span class="text-gray-400 transition-transform" :class="{ 'rotate-180': openSection === 'grn' }">▼</span>
+      </button>
+      <div v-if="openSection === 'grn'" class="border-t border-gray-100">
+
+        <!-- Existing GRNs -->
+        <div v-for="grn in grns" :key="grn.id" class="border-b border-gray-100">
+          <div class="w-full flex items-center justify-between px-5 py-3 hover:bg-gray-50 cursor-pointer transition-colors"
+            @click="toggleGRN(grn.id)">
+            <div class="flex items-center gap-4 flex-1">
+              <span class="text-xs text-gray-400 w-4">{{ expandedGRN === grn.id ? '▼' : '►' }}</span>
+              <span class="text-sm font-medium text-gray-800">
+                GRN — {{ grn.received_date }}
+              </span>
+              <span v-if="grn.delivery_ref" class="text-xs text-gray-500">{{ grn.delivery_ref }}</span>
+              <span class="text-xs text-gray-400">{{ grn.lines.length }} line{{ grn.lines.length !== 1 ? 's' : '' }}</span>
+              <span class="text-xs text-gray-400">Received by: {{ grn.received_by_name }}</span>
+            </div>
+          </div>
+
+          <!-- Expanded GRN detail -->
+          <div v-if="expandedGRN === grn.id" class="px-5 pb-4 bg-gray-50 border-t border-gray-100">
+            <!-- GRN lines -->
+            <div class="mt-3 space-y-2">
+              <div v-for="line in grn.lines" :key="line.id"
+                class="grid grid-cols-4 gap-4 text-sm bg-white rounded-lg px-4 py-3 border border-gray-100">
+                <div>
+                  <span class="text-xs text-gray-500 block">Item</span>
+                  <span class="text-gray-800">{{ line.item_name || '—' }}</span>
+                  <span class="text-xs text-gray-400 font-mono">{{ line.item_sku }}</span>
+                </div>
+                <div>
+                  <span class="text-xs text-gray-500 block">Qty Received</span>
+                  <span class="text-gray-800 font-medium">{{ line.quantity_received }}</span>
+                </div>
+                <div>
+                  <span class="text-xs text-gray-500 block">Discrepancy</span>
+                  <span :class="line.discrepancy !== 'none' ? 'text-amber-600 font-medium' : 'text-gray-400'">
+                    {{ line.discrepancy }}
+                  </span>
+                </div>
+                <div v-if="line.discrepancy_note">
+                  <span class="text-xs text-gray-500 block">Note</span>
+                  <span class="text-gray-600 text-xs italic">{{ line.discrepancy_note }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Add receipt line -->
+            <div class="mt-4 border-t border-gray-200 pt-4">
+              <h4 class="text-xs font-semibold text-gray-500 uppercase mb-3">Add Receipt Line</h4>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="col-span-2">
+                  <label class="block text-xs text-gray-500 mb-1">PO Line</label>
+                  <select v-model="newReceiptLine.po_line"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="">— Select PO line —</option>
+                    <option v-for="pol in selectedPO.lines" :key="pol.id" :value="pol.id">
+                      {{ pol.description || pol.item_name }} — ordered: {{ pol.quantity }}, outstanding: {{ pol.outstanding }}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">Qty Received</label>
+                  <input v-model.number="newReceiptLine.quantity_received" type="number" min="1"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">Discrepancy</label>
+                  <select v-model="newReceiptLine.discrepancy"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="none">None</option>
+                    <option value="short">Short delivery</option>
+                    <option value="over">Over delivery</option>
+                    <option value="damaged">Damaged</option>
+                    <option value="wrong">Wrong item</option>
+                  </select>
+                </div>
+                <div class="col-span-2">
+                  <label class="block text-xs text-gray-500 mb-1">Discrepancy Note</label>
+                  <input v-model="newReceiptLine.discrepancy_note" type="text"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                </div>
+              </div>
+              <button @click="addReceiptLine(grn)"
+                :disabled="!newReceiptLine.po_line || !newReceiptLine.quantity_received"
+                class="mt-3 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-sm rounded-lg transition-colors">
+                Add Line
+              </button>
+            </div>
+
+            <!-- GRN notes -->
+            <div v-if="grn.notes" class="mt-3 text-xs text-gray-500 italic">{{ grn.notes }}</div>
+          </div>
+        </div>
+
+        <div v-if="!grns.length" class="px-5 py-4 text-sm text-gray-400 text-center">
+          No goods receipts yet
+        </div>
+
+        <!-- New GRN form -->
+        <div class="px-5 py-4 bg-gray-50 border-t border-gray-200">
+          <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3">New Goods Receipt</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Received Date</label>
+              <input v-model="newGRN.received_date" type="date"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Delivery Ref</label>
+              <input v-model="newGRN.delivery_ref" type="text" placeholder="Supplier delivery note ref"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Supplier Ref</label>
+              <input v-model="newGRN.supplier_ref" type="text" placeholder="Their invoice / appro ref"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Notes</label>
+              <input v-model="newGRN.notes" type="text"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            </div>
+          </div>
+          <button @click="createGRN"
+            :disabled="!newGRN.received_date"
+            class="mt-3 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white text-sm rounded-lg transition-colors">
+            Create GRN
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+
 
   </div>
 </template>
@@ -425,7 +646,11 @@ async function cancelPO() {
 
 // ── Lines ─────────────────────────────────────────────────
 const lineNotes    = ref({})
-const newLine      = ref({ item: '', supplier_sku: '', quantity: 1, unit_cost: '' })
+const newLine = ref({ 
+  item: '', description: '', supplier_sku: '', 
+  quantity: 1, unit_cost: '', 
+  currency: 'GBP', fx_rate: '', fx_rate_date: '' 
+})
 const itemSearch   = ref('')
 const itemResults  = ref([])
 const showNewItemForm = ref(false)
@@ -470,7 +695,11 @@ async function createAndSelectItem() {
 async function addLine() {
   await poStore.addLine(selectedPO.value.id, newLine.value)
   selectedPO.value = poStore.po
-  newLine.value    = { item: '', supplier_sku: '', quantity: 1, unit_cost: '' }
+  newLine.value = { 
+    item: '', description: '', supplier_sku: '', 
+    quantity: 1, unit_cost: '', 
+    currency: 'GBP', fx_rate: '', fx_rate_date: '' 
+  }
   itemSearch.value = ''
 }
 
@@ -494,7 +723,48 @@ function printPO() {
 // ── Helpers ───────────────────────────────────────────────
 function toggleSection(section) {
   openSection.value = openSection.value === section ? null : section
+  if (section === 'grn' && openSection.value === 'grn') {
+    fetchGRNs()
+  }
 }
+
+// ── GRN ───────────────────────────────────────────────────
+const grns        = ref([])
+const expandedGRN = ref(null)
+const newGRN      = ref({ received_date: '', delivery_ref: '', supplier_ref: '', notes: '' })
+const newReceiptLine = ref({ po_line: '', quantity_received: 1, discrepancy: 'none', discrepancy_note: '' })
+
+async function fetchGRNs() {
+  if (!selectedPO.value) return
+  const { data } = await api.get('/purchasing/goods-receipts/', {
+    params: { purchase_order: selectedPO.value.id }
+  })
+  grns.value = data.results ?? data
+}
+
+function toggleGRN(grnId) {
+  expandedGRN.value = expandedGRN.value === grnId ? null : grnId
+  newReceiptLine.value = { po_line: '', quantity_received: 1, discrepancy: 'none', discrepancy_note: '' }
+}
+
+async function createGRN() {
+  await api.post('/purchasing/goods-receipts/', {
+    ...newGRN.value,
+    purchase_order: selectedPO.value.id,
+  })
+  newGRN.value = { received_date: '', delivery_ref: '', supplier_ref: '', notes: '' }
+  await fetchGRNs()
+}
+
+async function addReceiptLine(grn) {
+  await api.post(`/purchasing/goods-receipts/${grn.id}/add-line/`, newReceiptLine.value)
+  newReceiptLine.value = { po_line: '', quantity_received: 1, discrepancy: 'none', discrepancy_note: '' }
+  await fetchGRNs()
+  // Refresh PO to update outstanding quantities
+  await poStore.fetchOne(selectedPO.value.id)
+  selectedPO.value = poStore.po
+}
+
 
 function statusColour(s) {
   return { draft: 'bg-slate-100 text-slate-600', sent: 'bg-blue-50 text-blue-700',

@@ -202,3 +202,71 @@ class GoodsReceiptLine(models.Model):
     def __str__(self):
         name = self.po_line.item.name if self.po_line.item else self.po_line.description
         return f'{self.quantity_received}× {name}'
+
+class SupplierQuote(models.Model):
+    STATUS_CHOICES = [
+        ('requested', 'Requested'),
+        ('received',  'Received'),
+        ('accepted',  'Accepted'),
+        ('rejected',  'Rejected'),
+        ('expired',   'Expired'),
+    ]
+
+    id          = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    so_line     = models.ForeignKey(
+                      'sales.SalesOrderLine',
+                      on_delete=models.CASCADE,
+                      related_name='quotes'
+                  )
+    supplier    = models.ForeignKey(
+                      'partners.BusinessPartner',
+                      on_delete=models.PROTECT,
+                      related_name='quotes'
+                  )
+    status      = models.CharField(max_length=20, choices=STATUS_CHOICES, default='requested')
+
+    # Pricing — may be blank until supplier responds
+    price        = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    currency     = models.CharField(max_length=3, default='USD')
+    fx_rate      = models.DecimalField(max_digits=10, decimal_places=6, null=True, blank=True)
+    fx_rate_date = models.DateField(null=True, blank=True)
+    price_gbp    = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
+    supplier_sku = models.CharField(max_length=100, blank=True)
+    valid_until  = models.DateField(null=True, blank=True)
+    notes        = models.TextField(blank=True)
+
+    created_at   = models.DateTimeField(auto_now_add=True)
+    updated_at   = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        # One quote per supplier per SO line
+        unique_together = [('so_line', 'supplier')]
+
+    def save(self, *args, **kwargs):
+        # Auto-calculate GBP equivalent
+        if self.fx_rate and self.price:
+            self.price_gbp = round(self.price / self.fx_rate, 2)
+        elif self.currency == 'GBP' and self.price:
+            self.price_gbp = self.price
+        super().save(*args, **kwargs)
+
+    def accept(self):
+        """Accept this quote — reject all siblings, update SO line."""
+        # Reject all other quotes for this SO line
+        SupplierQuote.objects.filter(
+            so_line=self.so_line
+        ).exclude(pk=self.pk).update(status='rejected')
+
+        self.status = 'accepted'
+        self.save()
+
+        # Update SO line with winning supplier and supplier SKU
+        self.so_line.supplier = self.supplier
+        self.so_line.supplier_sku = self.supplier_sku
+        self.so_line.status = 'quoted'
+        self.so_line.save(update_fields=['supplier', 'supplier_sku', 'status'])
+
+    def __str__(self):
+        return f'Quote {self.supplier.bp_name} → {self.so_line}'

@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register(r'purchase-orders', views.PurchaseOrderViewSet, basename='purchase-order')
 router.register(r'goods-receipts', views.GoodsReceiptViewSet, basename='goods-receipt')
 router.register(r'items', views.ItemViewSet, basename='item')
+router.register(r'quotes', views.SupplierQuoteViewSet, basename='supplier-quote')
 
 urlpatterns = [
     path('purchase-orders/<pk>/pdf/', views.PurchaseOrderPDFView.as_view(), name='purchase-order-pdf'),

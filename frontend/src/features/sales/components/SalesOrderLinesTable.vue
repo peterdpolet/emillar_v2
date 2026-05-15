@@ -2,9 +2,11 @@
 import { ref, watch } from 'vue'
 import api from '@/api/axios.js'
 import { useSalesStore } from '@/features/sales/stores/useSalesStore.js'
+import { useSupplierListStore } from '@/features/purchasing/stores/useSupplierListStore.js'
 import SalesOrderPrint from './SalesOrderPrint.vue'
 
 const salesStore = useSalesStore()
+const supplierStore = useSupplierListStore()
 
 // ── Header edit ───────────────────────────────────────────
 const headerForm = ref({ reference: '', currency: 'GBP', notes: '', customer_po_ref: '', required_by: '' })
@@ -64,6 +66,116 @@ const cancelEdit = () => {
   editForm.value    = {}
 }
 
+// ── Quotes ────────────────────────────────────────────────
+const expandedQuotesLine = ref<string | null>(null)
+const quotesByLine       = ref<Record<string, any[]>>({})
+const quoteFormLine      = ref<string | null>(null)
+const editingQuote       = ref<any | null>(null)
+
+
+const quoteForm = ref({
+  supplier: '', status: 'requested', supplier_sku: '',
+  price: '', currency: 'USD', fx_rate: '', fx_rate_date: '',
+  valid_until: '', notes: '',
+})
+
+const resetQuoteForm = () => {
+  quoteForm.value = {
+    supplier: '', status: 'requested', supplier_sku: '',
+    price: '', currency: 'USD', fx_rate: '', fx_rate_date: '',
+    valid_until: '', notes: '',
+  }
+  editingQuote.value = null
+}
+
+async function fetchSuppliers() {
+  await supplierStore.fetchSuppliers()
+}
+
+async function fetchQuotes(line: any) {
+  const { data } = await api.get('/purchasing/quotes/', {
+    params: { so_line: line.sol_id }
+  })
+  quotesByLine.value[line.sol_id] = data.results ?? data
+}
+
+async function toggleQuotes(line: any) {
+  if (expandedQuotesLine.value === line.sol_id) {
+    expandedQuotesLine.value = null
+    quoteFormLine.value = null
+    resetQuoteForm()
+    return
+  }
+  expandedQuotesLine.value = line.sol_id
+  quoteFormLine.value = null
+  await fetchSuppliers()
+  await fetchQuotes(line)
+}
+
+async function openAddQuote(line: any) {
+  resetQuoteForm()
+  await fetchSuppliers()
+  quoteFormLine.value = line.sol_id
+}
+
+async function openEditQuote(quote: any) {
+  await fetchSuppliers()
+  editingQuote.value = quote
+  quoteForm.value = {
+    supplier:     quote.supplier,
+    status:       quote.status,
+    supplier_sku: quote.supplier_sku || '',
+    price:        quote.price || '',
+    currency:     quote.currency || 'USD',
+    fx_rate:      quote.fx_rate || '',
+    fx_rate_date: quote.fx_rate_date || '',
+    valid_until:  quote.valid_until || '',
+    notes:        quote.notes || '',
+  }
+  quoteFormLine.value = quote.so_line
+}
+function closeQuoteForm() {
+  quoteFormLine.value = null
+  resetQuoteForm()
+}
+
+async function saveQuote(line: any) {
+  const payload = {
+    ...quoteForm.value,
+    so_line: line.sol_id,
+    price:        quoteForm.value.price    || null,
+    fx_rate:      quoteForm.value.fx_rate  || null,
+    fx_rate_date: quoteForm.value.fx_rate_date || null,
+    valid_until:  quoteForm.value.valid_until  || null,
+  }
+  if (editingQuote.value) {
+    await api.patch(`/purchasing/quotes/${editingQuote.value.id}/`, payload)
+  } else {
+    await api.post('/purchasing/quotes/', payload)
+  }
+  await fetchQuotes(line)
+  closeQuoteForm()
+}
+
+async function acceptQuote(quote: any, line: any) {
+  if (!confirm(`Accept quote from ${quote.supplier_name}? All other quotes for this line will be rejected.`)) return
+  await api.post(`/purchasing/quotes/${quote.id}/accept/`)
+  await fetchQuotes(line)
+  await salesStore.fetchSalesOrderLines()
+}
+
+function quoteStatusColour(status: string) {
+  const map: Record<string, string> = {
+    requested: 'bg-gray-100 text-gray-600',
+    received:  'bg-blue-100 text-blue-700',
+    accepted:  'bg-emerald-100 text-emerald-700',
+    rejected:  'bg-red-100 text-red-600',
+    expired:   'bg-amber-100 text-amber-700',
+  }
+  return map[status] ?? 'bg-gray-100 text-gray-600'
+}
+
+
 const saveEdit = async (line: any) => {
   try {
     await api.patch(`/sales/lines/${line.sol_id}/`, editForm.value)
@@ -72,6 +184,7 @@ const saveEdit = async (line: any) => {
   } catch (e) {
     console.error(e)
   }
+}
 const printingLine = ref<string | null>(null)
 
 const printLine = async (line: any) => {
@@ -93,8 +206,6 @@ const printLine = async (line: any) => {
   }
 }
 
-
-}
 
 const deleteLine = async (line: any) => {
   if (!confirm(`Delete line ${line.line_number}?`)) return
@@ -286,19 +397,164 @@ const canEdit = (line: any) => line.status === 'requested'
                 <button v-if="canEdit(line)" @click="deleteLine(line)"
                   class="text-red-400 hover:text-red-600 text-xs">Delete</button>
                 <button @click="printLine(line)"
-                   :disabled="printingLine === line.sol_id"
-                    class="text-gray-400 hover:text-gray-600 text-xs disabled:opacity-40">
-                    {{ printingLine === line.sol_id ? '…' : 'Print' }}
+                  :disabled="printingLine === line.sol_id"
+                  class="text-gray-400 hover:text-gray-600 text-xs disabled:opacity-40">
+                  {{ printingLine === line.sol_id ? '…' : 'Print' }}
+                </button>
+                <button @click="toggleQuotes(line)"
+                  class="text-indigo-400 hover:text-indigo-600 text-xs">
+                  Quotes{{ quotesByLine[line.sol_id]?.length ? ` (${quotesByLine[line.sol_id].length})` : '' }}
                 </button>
               </td>
             </tr>
+
+            <!-- Quotes panel -->
+            <tr v-if="editingLine !== line.sol_id && expandedQuotesLine === line.sol_id">
+              <td :colspan="10" class="px-0 pb-3 bg-indigo-50 border-b border-indigo-100">
+                <div class="px-5 pt-3">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">
+                      Supplier Quotes — Line {{ line.line_number }}
+                    </span>
+                    <button @click="openAddQuote(line)"
+                      class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs rounded-lg">
+                      + Request Quote
+                    </button>
+                  </div>
+
+                  <!-- Quote list -->
+                  <div v-if="quotesByLine[line.sol_id]?.length" class="space-y-2 mb-2">
+                    <div v-for="quote in quotesByLine[line.sol_id]" :key="quote.id"
+                      class="bg-white rounded-lg border border-indigo-100 px-4 py-3 flex items-center gap-4">
+                      <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                          <span class="text-sm font-medium text-gray-800">{{ quote.supplier_name }}</span>
+                          <span :class="quoteStatusColour(quote.status)"
+                            class="px-2 py-0.5 rounded-full text-xs font-medium">
+                            {{ quote.status }}
+                          </span>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-0.5 flex gap-4">
+                          <span v-if="quote.price">
+                            {{ quote.currency }} {{ Number(quote.price).toFixed(2) }}
+                            <span v-if="quote.price_gbp && quote.currency !== 'GBP'" class="text-gray-400">
+                              (£{{ Number(quote.price_gbp).toFixed(2) }})
+                            </span>
+                          </span>
+                          <span v-else class="text-gray-400 italic">No price yet</span>
+                          <span v-if="quote.supplier_sku">SKU: {{ quote.supplier_sku }}</span>
+                          <span v-if="quote.valid_until">Valid until: {{ quote.valid_until }}</span>
+                        </div>
+                        <div v-if="quote.notes" class="text-xs text-gray-400 mt-0.5 italic">{{ quote.notes }}</div>
+                      </div>
+                      <div class="flex gap-2 items-center">
+                        <button @click="openEditQuote(quote)"
+                          class="text-xs text-blue-500 hover:text-blue-700">Edit</button>
+                        <button
+                          v-if="quote.status === 'received'"
+                          @click="acceptQuote(quote, line)"
+                          class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs rounded-lg">
+                          Accept
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-else class="text-xs text-gray-400 italic mb-2">No quotes yet</div>
+
+                  <!-- Supplier shown on line if accepted -->
+                  <div v-if="line.supplier_name" class="text-xs text-emerald-700 font-medium">
+                    ✓ Accepted supplier: {{ line.supplier_name }} {{ line.supplier_sku ? `(${line.supplier_sku})` : '' }}
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Add / Edit quote form row -->
+            <tr v-if="quoteFormLine === line.sol_id">
+              <td :colspan="10" class="px-0 pb-3 bg-white border-b border-indigo-100">
+                <div class="px-5 pt-3">
+                  <h4 class="text-xs font-semibold text-gray-600 uppercase mb-3">
+                    {{ editingQuote ? 'Edit Quote' : 'Request Quote' }}
+                  </h4>
+                  <div class="grid grid-cols-3 gap-3">
+                    <div>
+                      <label class="block text-xs text-gray-500 mb-1">Supplier</label>
+                      <select v-model="quoteForm.supplier"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="">— Select supplier —</option>
+                        <option v-for="s in supplierStore.suppliers" :key="s.bp_id" :value="s.bp_id">{{ s.bp_name }}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-500 mb-1">Status</label>
+                      <select v-model="quoteForm.status"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="requested">Requested</option>
+                        <option value="received">Received</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="expired">Expired</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-500 mb-1">Supplier SKU</label>
+                      <input v-model="quoteForm.supplier_sku" type="text"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-500 mb-1">Price</label>
+                      <input v-model.number="quoteForm.price" type="number" step="0.01"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-500 mb-1">Currency</label>
+                      <select v-model="quoteForm.currency"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option>GBP</option><option>USD</option><option>EUR</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-500 mb-1">FX Rate</label>
+                      <input v-model.number="quoteForm.fx_rate" type="number" step="0.0001" placeholder="e.g. 1.2700"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-500 mb-1">FX Rate Date</label>
+                      <input v-model="quoteForm.fx_rate_date" type="date"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-500 mb-1">Valid Until</label>
+                      <input v-model="quoteForm.valid_until" type="date"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div class="col-span-3">
+                      <label class="block text-xs text-gray-500 mb-1">Notes</label>
+                      <input v-model="quoteForm.notes" type="text"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                  </div>
+                  <div class="flex gap-2 mt-3">
+                    <button @click="saveQuote(line)"
+                      :disabled="!quoteForm.supplier"
+                      class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-sm rounded-lg">
+                      {{ editingQuote ? 'Update Quote' : 'Save Quote' }}
+                    </button>
+                    <button @click="closeQuoteForm"
+                      class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm rounded-lg">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
             <!-- Edit row -->
-            <tr v-else class="border-t bg-blue-50">
+            <tr v-if="editingLine === line.sol_id" class="border-t bg-blue-50">
               <td class="px-3 py-2 text-gray-500">{{ line.line_number }}</td>
               <td class="px-3 py-2">
                 <input v-model="editForm.quantity" type="number" min="1"
-                class="w-14 border border-gray-300 rounded px-1 py-1 text-xs" />
-            </td>  
+                  class="w-14 border border-gray-300 rounded px-1 py-1 text-xs" />
+              </td>
               <td class="px-3 py-2">
                 <select v-model="editForm.stone_type"
                   class="border border-gray-300 rounded px-1 py-1 text-xs w-24">
@@ -355,6 +611,8 @@ const canEdit = (line: any) => line.status === 'requested'
               </td>
             </tr>
           </template>
+
+    
         </tbody>
       </table>
     </div>

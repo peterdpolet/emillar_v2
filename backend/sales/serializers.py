@@ -1,12 +1,15 @@
 from rest_framework import serializers
-from .models import SalesOrder, SalesOrderLine, RFQ, RFQResponse, ApprovalNote
+from .models import SalesOrder, SalesOrderLine, ApprovalNote
 
 
 class SalesOrderLineSerializer(serializers.ModelSerializer):
+    supplier_name = serializers.CharField(source='supplier.bp_name', read_only=True)
+
     class Meta:
         model  = SalesOrderLine
         fields = [
             'sol_id', 'sales_order', 'line_number', 'stone_type', 'item_type', 'status',
+            'supplier', 'supplier_name', 'supplier_sku',
             'inventory_item', 'quantity',
             'min_size', 'preferred_size', 'max_size',
             'min_carat', 'preferred_carat', 'max_carat',
@@ -15,7 +18,8 @@ class SalesOrderLineSerializer(serializers.ModelSerializer):
             'certificate_type', 'certificate_number',
             'agreed_price', 'notes', 'is_high_conversion',
         ]
-        read_only_fields = ['sol_id', 'is_high_conversion']
+        read_only_fields = ['sol_id', 'is_high_conversion', 'supplier_name']
+
 
 class SalesOrderSerializer(serializers.ModelSerializer):
     lines          = SalesOrderLineSerializer(many=True, read_only=True)
@@ -23,9 +27,7 @@ class SalesOrderSerializer(serializers.ModelSerializer):
     raised_by_name = serializers.SerializerMethodField()
 
     def get_raised_by_name(self, obj):
-        if obj.raised_by:
-            return obj.raised_by.email
-        return '—'
+        return obj.raised_by.email if obj.raised_by else '—'
 
     class Meta:
         model = SalesOrder
@@ -38,37 +40,9 @@ class SalesOrderSerializer(serializers.ModelSerializer):
         read_only_fields = ['so_id', 'reference', 'raised_date', 'raised_by', 'created_at', 'updated_at']
 
 
-class RFQResponseSerializer(serializers.ModelSerializer):
-    supplier_name = serializers.CharField(source='supplier.bp_name', read_only=True)
-
-    class Meta:
-        model  = RFQResponse
-        fields = [
-            'rfqr_id', 'rfq', 'supplier', 'supplier_name',
-            'offered_price', 'currency', 'stone_description',
-            'carat_weight', 'size_mm',
-            'certificate_type', 'certificate_number',
-            'response_date', 'status',
-            'accepted_by', 'accepted_date', 'notes',
-        ]
-        read_only_fields = ['rfqr_id', 'accepted_by', 'accepted_date']
-
-
-class RFQSerializer(serializers.ModelSerializer):
-    responses = RFQResponseSerializer(many=True, read_only=True)
-
-    class Meta:
-        model  = RFQ
-        fields = [
-            'rfq_id', 'reference', 'sales_order_line',
-            'raised_by', 'raised_date', 'status', 'notes', 'responses',
-        ]
-        read_only_fields = ['rfq_id', 'reference', 'raised_date']
-
-
 class ApprovalNoteSerializer(serializers.ModelSerializer):
-    customer_name  = serializers.CharField(source='customer.bp_name', read_only=True)
-    days_remaining = serializers.IntegerField(read_only=True)
+    customer_name    = serializers.CharField(source='customer.bp_name', read_only=True)
+    days_remaining   = serializers.IntegerField(read_only=True)
     is_expiring_soon = serializers.BooleanField(read_only=True)
 
     class Meta:
