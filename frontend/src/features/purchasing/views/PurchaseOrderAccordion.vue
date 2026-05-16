@@ -380,8 +380,8 @@
       </div>
     </div>
 
-    <!-- ── SECTION 4: Goods Receipts ──────────────────────── -->
-    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden"
+   <!-- ── SECTION 4: Goods Receipts ──────────────────────── -->
+     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden"
       :class="{ 'opacity-40 pointer-events-none': !selectedPO }">
       <button @click="toggleSection('grn')"
         class="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-50 transition-colors">
@@ -491,7 +491,7 @@
           No goods receipts yet
         </div>
 
-        <!-- New GRN form -->
+      <!-- New GRN form -->
         <div class="px-5 py-4 bg-gray-50 border-t border-gray-200">
           <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3">New Goods Receipt</h3>
           <div class="grid grid-cols-2 gap-3">
@@ -526,6 +526,29 @@
       </div>
     </div>
 
+    <!-- ── SECTION 5: Invoices & Three-Way Match ──────────────────────── -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden mt-4"
+      :class="{ 'opacity-40 pointer-events-none': !selectedPO }">
+      <button @click="toggleSection('invoices')"
+        class="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-50 transition-colors">
+        <div class="flex items-center gap-3">
+          <span class="text-lg">🧾</span>
+          <span class="font-medium text-gray-700">Invoices & Three-Way Match</span>
+          <span v-if="selectedPO && invoices.length" class="ml-2 px-2 py-0.5 bg-gray-100 text-gray-600 text-sm rounded-full">
+            {{ invoices.length }} invoice{{ invoices.length !== 1 ? 's' : '' }}
+          </span>
+        </div>
+        <span class="text-gray-400 transition-transform" :class="{ 'rotate-180': openSection === 'invoices' }">▼</span>
+      </button>
+      <div v-if="openSection === 'invoices'" class="border-t border-gray-100">
+        <InvoiceMatchSection
+          v-if="selectedPO"
+          :purchase-order="selectedPO"
+          :po-lines="selectedPO?.lines ?? []"
+        />
+      </div>
+    </div>
+
 
 
   </div>
@@ -535,6 +558,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { usePurchaseOrderStore } from '@/features/purchasing/stores/usePurchaseOrderStore.js'
 import { useSupplierListStore } from '@/features/purchasing/stores/useSupplierListStore.js'
+import InvoiceMatchSection from '../components/InvoiceMatchSection.vue'
 import api from '@/api/axios.js'
 
 const poStore       = usePurchaseOrderStore()
@@ -551,6 +575,8 @@ const expandedLine     = ref(null)
 // ── Supplier ──────────────────────────────────────────────
 const selectedSupplier = ref(null)
 const supplierSearch   = ref('')
+
+const invoices = ref([])
 
 const filteredSuppliers = computed(() => {
   if (!supplierSearch.value) return supplierStore.suppliers
@@ -776,5 +802,7 @@ function matchColour(s) {
   return { matched: 'bg-emerald-50 text-emerald-700', short: 'bg-amber-50 text-amber-700',
     over: 'bg-orange-50 text-orange-700', not_received: 'bg-gray-100 text-gray-600' }[s] ?? 'bg-gray-100 text-gray-600'
 }
+
+
 
 </script>

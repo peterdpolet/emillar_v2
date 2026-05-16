@@ -270,3 +270,174 @@ class SupplierQuote(models.Model):
 
     def __str__(self):
         return f'Quote {self.supplier.bp_name} → {self.so_line}'
+
+
+class Invoice(models.Model):
+    STATUS_CHOICES = [
+        ('draft', 'Draft'),
+        ('posted', 'Posted'),
+        ('matched', 'Matched'),
+        ('disputed', 'Disputed'),
+        ('paid', 'Paid'),
+    ]
+
+    supplier = models.ForeignKey(
+        'partners.BusinessPartner',
+        on_delete=models.PROTECT,
+        related_name='invoices',
+        null=True,
+        blank=True
+    )
+    purchase_order = models.ForeignKey(
+        PurchaseOrder,
+        on_delete=models.PROTECT,
+        related_name='invoices',
+        null=True, blank=True
+    )
+    invoice_number = models.CharField(max_length=100)
+    invoice_date = models.DateField()
+    currency = models.CharField(max_length=3, default='GBP')
+    fx_rate = models.DecimalField(max_digits=10, decimal_places=6, default=1.0)
+    fx_rate_date = models.DateField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = [('supplier', 'invoice_number')]
+        ordering = ['-invoice_date']
+
+    def __str__(self):
+        return f"INV {self.invoice_number} — {self.supplier}"
+
+    @property
+    def total_gbp(self):
+        return sum(line.line_total_gbp for line in self.lines.all())
+
+    def run_match(self):
+        """Attempt three-way match on all lines. Updates line and header status."""
+        all_matched = True
+        any_disputed = False
+
+        for line in self.lines.all():
+            line.match()
+            if line.match_status == 'disputed':
+                any_disputed = True
+                all_matched = False
+            elif line.match_status != 'matched':
+                all_matched = False
+
+        if any_disputed:
+            self.status = 'disputed'
+        elif all_matched:
+            self.status = 'matched'
+        else:
+            self.status = 'posted'
+
+        self.save()
+
+
+class InvoiceLine(models.Model):
+    MATCH_STATUS_CHOICES = [
+        ('unmatched', 'Unmatched'),
+        ('matched', 'Matched'),
+        ('price_variance', 'Price Variance'),
+        ('qty_variance', 'Qty Variance'),
+        ('no_grn', 'No GRN'),
+        ('disputed', 'Disputed'),
+    ]
+
+    invoice = models.ForeignKey(
+        Invoice,
+        on_delete=models.CASCADE,
+        related_name='lines'
+    )
+    po_line = models.ForeignKey(
+        'PurchaseOrderLine',
+        on_delete=models.PROTECT,
+        related_name='invoice_lines',
+        null=True, blank=True
+    )
+    description = models.CharField(max_length=255)
+    quantity = models.DecimalField(max_digits=10, decimal_places=4)
+    unit_price = models.DecimalField(max_digits=14, decimal_places=4)
+    currency = models.CharField(max_length=3, default='GBP')
+    fx_rate = models.DecimalField(max_digits=10, decimal_places=6, default=1.0)
+    match_status = models.CharField(
+        max_length=20,
+        choices=MATCH_STATUS_CHOICES,
+        default='unmatched'
+    )
+    match_notes = models.TextField(blank=True)
+
+    # Tolerances — can be moved to settings later
+    PRICE_TOLERANCE_PCT = 2.0   # 2% price variance allowed
+    QTY_TOLERANCE = 0           # exact qty match required
+
+    def __str__(self):
+        return f"Line {self.pk} — {self.description}"
+
+    @property
+    def line_total(self):
+        return self.quantity * self.unit_price
+
+    @property
+    def line_total_gbp(self):
+        return self.line_total / self.fx_rate if self.fx_rate else self.line_total
+
+    def match(self):
+        """
+        Three-way match logic for this line.
+        Requires po_line to be set.
+        """
+        if not self.po_line:
+            self.match_status = 'unmatched'
+            self.match_notes = 'No PO line linked.'
+            self.save()
+            return
+
+        po_line = self.po_line
+
+        # --- GRN check ---
+        total_received = sum(
+            rl.quantity_received
+            for grn in po_line.purchase_order.goods_receipts.all()
+            for rl in grn.lines.filter(po_line=po_line)
+        )
+
+        if total_received == 0:
+            self.match_status = 'no_grn'
+            self.match_notes = 'No goods received against this PO line.'
+            self.save()
+            return
+
+        # --- Qty check ---
+        qty_diff = abs(self.quantity - total_received)
+        qty_ok = qty_diff <= self.QTY_TOLERANCE
+
+        # --- Price check ---
+        po_unit_price_gbp = po_line.unit_cost / po_line.fx_rate if po_line.fx_rate else po_line.unit_cost
+        inv_unit_price_gbp = self.unit_price / self.fx_rate if self.fx_rate else self.unit_price
+        price_variance_pct = abs(inv_unit_price_gbp - po_unit_price_gbp) / po_unit_price_gbp * 100 if po_unit_price_gbp else 0
+
+        price_ok = price_variance_pct <= self.PRICE_TOLERANCE_PCT
+
+        # --- Verdict ---
+        if qty_ok and price_ok:
+            self.match_status = 'matched'
+            self.match_notes = f'Matched. Price variance: {price_variance_pct:.2f}%'
+        elif not qty_ok and not price_ok:
+            self.match_status = 'disputed'
+            self.match_notes = (
+                f'Qty mismatch: invoiced {self.quantity}, received {total_received}. '
+                f'Price variance: {price_variance_pct:.2f}%'
+            )
+        elif not qty_ok:
+            self.match_status = 'qty_variance'
+            self.match_notes = f'Qty mismatch: invoiced {self.quantity}, received {total_received}.'
+        else:
+            self.match_status = 'price_variance'
+            self.match_notes = f'Price variance: {price_variance_pct:.2f}% (tolerance {self.PRICE_TOLERANCE_PCT}%)'
+
+        self.save()

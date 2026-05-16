@@ -10,8 +10,8 @@ from django.template.loader import render_to_string
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import PurchaseOrder, PurchaseOrderLine, GoodsReceipt, SupplierQuote
-from .serializers import SupplierQuoteSerializer
+from .models import PurchaseOrder, PurchaseOrderLine, GoodsReceipt, GoodsReceiptLine, SupplierQuote, Invoice, InvoiceLine
+from .serializers import PurchaseOrderSerializer, PurchaseOrderLineSerializer, GoodsReceiptSerializer, GoodsReceiptLineSerializer, SupplierQuoteSerializer, InvoiceSerializer, InvoiceLineSerializer
 
 
 from weasyprint import HTML
@@ -65,6 +65,11 @@ class ItemViewSet(viewsets.ModelViewSet):
     search_fields      = ['sku', 'name', 'certification_number']
     ordering_fields    = ['sku', 'name', 'created_at']
     ordering           = ['sku']
+
+    def perform_create(self, serializer):
+        po_id = self.request.data.get('purchase_order')
+        po = PurchaseOrder.objects.get(id=po_id)
+        serializer.save(supplier=po.supplier)
 
     def get_queryset(self):
         return Item.objects.all()
@@ -243,3 +248,38 @@ class SupplierQuoteViewSet(viewsets.ModelViewSet):
             )
         quote.accept()
         return Response(SupplierQuoteSerializer(quote).data)
+
+class InvoiceViewSet(viewsets.ModelViewSet):
+    queryset = Invoice.objects.prefetch_related('lines__po_line').select_related('supplier', 'purchase_order')
+    serializer_class = InvoiceSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        po_id = self.request.query_params.get('purchase_order')
+        supplier_id = self.request.query_params.get('supplier')
+        if po_id:
+            qs = qs.filter(purchase_order_id=po_id)
+        if supplier_id:
+            qs = qs.filter(supplier_id=supplier_id)
+        return qs
+
+    def perform_create(self, serializer):
+        po_id = self.request.data.get('purchase_order')
+        po = PurchaseOrder.objects.get(id=po_id)
+        serializer.save(supplier=po.supplier)
+
+    @action(detail=True, methods=['post'])
+    def run_match(self, request, pk=None):
+        invoice = self.get_object()
+        invoice.run_match()
+        serializer = self.get_serializer(invoice)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['post'])
+    def add_line(self, request, pk=None):
+        invoice = self.get_object()
+        serializer = InvoiceLineSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(invoice=invoice)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
