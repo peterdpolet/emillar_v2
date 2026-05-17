@@ -112,6 +112,7 @@ class PurchaseOrderViewSet(viewsets.ModelViewSet):
         serializer = PurchaseOrderLineWriteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(purchase_order=po)
+            po.refresh_from_db()          # ← add this line
             return Response(PurchaseOrderSerializer(po).data)
         return Response(serializer.errors,
                         status=status.HTTP_400_BAD_REQUEST)
@@ -165,7 +166,12 @@ class PurchaseOrderViewSet(viewsets.ModelViewSet):
         line.save(update_fields=['notes'])
         return Response(PurchaseOrderSerializer(po).data)
 
-
+    @action(detail=True, methods=['post'], url_path='recalculate')
+    def recalculate(self, request, pk=None):
+        po = self.get_object()
+        po.recalculate_totals()
+        po.refresh_from_db()
+        return Response(PurchaseOrderSerializer(po).data)
 
 
 class GoodsReceiptViewSet(viewsets.ModelViewSet):

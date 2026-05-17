@@ -121,6 +121,13 @@ const save = async () => {
         notes:        line.notes,
       })
     }
+    // Recalculate totals after all lines saved
+    await api.post(`/purchasing/purchase-orders/${po.id}/recalculate/`)
+
+    const canSave = computed(() =>
+      lines.value.length > 0 && headerConfirmed.value && !showLineForm.value
+    )
+
     // Reset
     supplierRef.value  = ''
     currency.value     = 'USD'
