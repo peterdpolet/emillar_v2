@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed} from 'vue'
 import api from '@/api/axios.js'
 import { useSalesStore } from '@/features/sales/stores/useSalesStore.js'
 import { useSupplierListStore } from '@/features/purchasing/stores/useSupplierListStore.js'
 import SalesOrderPrint from './SalesOrderPrint.vue'
+
 
 const salesStore = useSalesStore()
 const supplierStore = useSupplierListStore()
@@ -11,6 +12,19 @@ const supplierStore = useSupplierListStore()
 // ── Header edit ───────────────────────────────────────────
 const headerForm = ref({ reference: '', currency: 'GBP', notes: '', customer_po_ref: '', required_by: '' })
 const headerSaving = ref(false)
+const headerExpanded = ref(false)
+
+const headerSummary = computed(() => {
+  const o = salesStore.selectedSalesOrder
+  if (!o) return ''
+  const parts = []
+  if (o.customer_po_ref) parts.push(`PO: ${o.customer_po_ref}`)
+  if (o.required_by)     parts.push(`Required: ${o.required_by}`)
+  if (o.currency)        parts.push(o.currency)
+  if (o.status)          parts.push(o.status.charAt(0).toUpperCase() + o.status.slice(1))
+  if (o.notes)           parts.push(`— ${o.notes}`)
+  return parts.join('  ·  ')
+})
 
 watch(() => salesStore.selectedSalesOrder, (order) => {
   if (order) {
@@ -293,9 +307,24 @@ const canEdit = (line: any) => line.status === 'requested'
 <template>
   <div class="space-y-4 text-sm">
 
-    <!-- SO Header edit -->
-    <div class="border border-gray-200 rounded-lg p-3 bg-white space-y-3">
-      <p class="font-semibold text-gray-700">Order Header</p>
+    <!-- SO Header -->
+    <!-- Collapsed summary bar -->
+    <div v-if="!headerExpanded"
+      class="flex items-center justify-between bg-gray-100 border border-gray-200 rounded-lg px-4 py-2.5">
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Order Header</span>
+        <span class="text-gray-700 text-sm">{{ headerSummary }}</span>
+      </div>
+      <button @click="headerExpanded = true"
+        class="text-xs text-blue-600 hover:underline">Edit</button>
+    </div>
+
+    <!-- Expanded header form -->
+    <div v-else class="border border-gray-200 rounded-lg p-3 bg-white space-y-3">
+      <div class="flex items-center justify-between">
+        <p class="font-semibold text-gray-700">Order Header</p>
+        <button @click="headerExpanded = false" class="text-xs text-gray-400 hover:text-gray-600">✕ Close</button>
+      </div>
 
       <!-- Read-only info row -->
       <div class="grid grid-cols-4 gap-3 text-xs text-gray-500 bg-gray-50 rounded p-2">
@@ -336,20 +365,19 @@ const canEdit = (line: any) => line.status === 'requested'
         </div>
       </div>
 
-      <div class="flex justify-end">
+      <div class="flex justify-end gap-2">
         <button
           v-if="salesStore.selectedSalesOrder?.status === 'draft'"
-          @click="postOrder"
-          :disabled="posting"
+          @click="postOrder" :disabled="posting"
           class="px-4 py-1.5 bg-green-600 text-white text-xs rounded hover:bg-green-700 disabled:opacity-40">
           {{ posting ? 'Posting…' : 'Post Order' }}
         </button>
-        <button @click="updateHeader" :disabled="headerSaving"
+        <button @click="updateHeader(); headerExpanded = false" :disabled="headerSaving"
           class="px-4 py-1.5 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 disabled:opacity-40">
           {{ headerSaving ? 'Saving…' : 'Update Header' }}
         </button>
       </div>
-        <SalesOrderPrint />  <!-- ← add this -->
+      <SalesOrderPrint />
     </div>
 
     <!-- Lines table -->
