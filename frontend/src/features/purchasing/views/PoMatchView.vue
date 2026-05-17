@@ -253,9 +253,11 @@ onMounted(async () => {
 
       <!-- ── Three columns ── -->
       <div class="flex-1 grid grid-cols-3 gap-0 overflow-auto border-b border-gray-200">
+      
 
         <!-- ── Column 1: PO Lines ── -->
-        <div class="border-r border-gray-200 flex flex-col">
+        <!-- <div class="border-r border-gray-200 flex flex-col"> -->
+        <div class="flex flex-col border-r border-gray-200 border-l-4 border-l-blue-400">
           <div class="bg-gray-50 border-b border-gray-200 px-4 py-2">
             <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Purchase Order</p>
           </div>
