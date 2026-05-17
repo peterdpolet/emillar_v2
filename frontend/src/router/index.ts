@@ -64,6 +64,13 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
 
+  {
+    path: '/purchase-orders-v2/:id/match',
+    name: 'po-match',
+    component: () => import('@/features/purchasing/views/PoMatchView.vue'),
+    meta: { requiresAuth: true }
+  },
+
   // ── Authenticated routes (inside AppLayout) ───────────────
   {
     path: '/',

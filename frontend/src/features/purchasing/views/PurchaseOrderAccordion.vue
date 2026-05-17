@@ -4,7 +4,10 @@ import { ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { usePurchaseOrderStore } from '@/features/purchasing/stores/usePurchaseOrderStore.js'
 import SupplierSelectorView from '../components/SupplierSelectorView.vue'
 import NewPurchaseOrderForm from '../components/NewPurchaseOrderForm.vue'
+import { useRouter } from 'vue-router'
 
+
+const router = useRouter()
 const poStore          = usePurchaseOrderStore()
 const openItem         = ref<number | null>(null)
 const selectedSupplier = ref<any>(null)
@@ -22,8 +25,7 @@ const onSupplierSelected = (supplier: any) => {
 
 const onPOSelected = (po: any) => {
   selectedPO.value = po
-  poStore.fetchOne(po.id)
-  openItem.value = 3
+  router.push({ name: 'po-match', params: { id: po.id } })
 }
 
 const onPOSaved = () => {

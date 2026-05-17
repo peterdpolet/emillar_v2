@@ -289,3 +289,18 @@ class InvoiceViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save(invoice=invoice)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @action(detail=True, methods=['patch'], url_path=r'lines/(?P<line_id>[^/.]+)')
+    def update_line(self, request, pk=None, line_id=None):
+        invoice = self.get_object()
+        try:
+            line = invoice.lines.get(pk=line_id)
+        except InvoiceLine.DoesNotExist:
+            return Response({'detail': 'Line not found.'}, status=status.HTTP_404_NOT_FOUND)
+        from .serializers import InvoiceLineSerializer
+        serializer = InvoiceLineSerializer(line, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            invoice.refresh_from_db()
+            return Response(InvoiceSerializer(invoice).data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
