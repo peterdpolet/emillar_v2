@@ -22,6 +22,10 @@ class BusinessPartnerListCreateAPIView(generics.ListCreateAPIView):
     queryset = BusinessPartner.objects.all()
     serializer_class = BusinessPartnerSerializer
     filterset_class = BusinessPartnerFilter
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields   = ['bp_name', 'bp_int_ref', 'bp_city', 'bp_country', 'bp_email']
+    ordering_fields = ['bp_name', 'bp_city', 'bp_country']
+    ordering        = ['bp_name']
 
     def get_queryset(self):
         return BusinessPartner.objects.filter(bp_type='SUPP')
