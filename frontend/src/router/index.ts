@@ -40,6 +40,12 @@ const routes: RouteRecordRaw[] = [
 
   // ── Public routes ─────────────────────────────────────────
   {
+    path: '/verify-2fa',
+    name: 'verify-2fa',
+    component: () => import('@/views/TotpVerifyView.vue'),
+    meta: { guestOnly: true },
+  },
+  {
     path: '/login',
     name: 'login',
     component: LoginView,
@@ -203,6 +209,9 @@ const router = createRouter({
 // ── Navigation guard ──────────────────────────────────────
 router.beforeEach((to, _from) => {
   const auth = useAuthStore()
+  if (auth.requiresTotp && to.name !== 'verify-2fa') {
+    return { name: 'verify-2fa' }
+  }
 
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
     return { name: 'login', query: { redirect: to.fullPath } }

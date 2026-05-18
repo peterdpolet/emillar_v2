@@ -42,7 +42,7 @@ export interface User {
 
 export const authApi = {
   register:   (data: RegisterData): Promise<AxiosResponse>              => authAxios.post('/auth/users/', data),
-  login:      (data: LoginData): Promise<AxiosResponse<LoginResponse>>  => authAxios.post('/auth/jwt/create/', data),
+  login:      (data: LoginData): Promise<AxiosResponse<LoginResponse>>  => authAxios.post('/auth/login/', data),
   totpVerify: (data: TotpVerifyData): Promise<AxiosResponse<TokenResponse>> => authAxios.post('/auth/totp/verify/', data),
   refresh:    (data: RefreshData): Promise<AxiosResponse<TokenResponse>> => authAxios.post('/auth/jwt/refresh/', data),
   logout:     (data: RefreshData): Promise<AxiosResponse>               => authAxios.post('/auth/jwt/blacklist/', data),

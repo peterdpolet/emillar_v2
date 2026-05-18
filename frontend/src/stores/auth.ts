@@ -63,10 +63,10 @@ export const useAuthStore = defineStore('auth', () => {
     loading.value = true
     try {
       const { data } = await authApi.login({ email, password })
-
       if (data.totp_required) {
         requiresTotp.value = true
         pendingUid.value   = data.uid
+        router.push('/verify-2fa')
         return
       }
 
