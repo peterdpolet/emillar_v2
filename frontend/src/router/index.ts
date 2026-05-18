@@ -57,12 +57,7 @@ const routes: RouteRecordRaw[] = [
     component: RegisterView,
     meta: { guestOnly: true },
   },
-  {
-    path: '/home',
-    name: 'home',
-    component: HomeView,
-    meta: { guestOnly: true },
-  },
+
   {
     path: '/chat',
     name: 'chat',
@@ -95,7 +90,13 @@ const routes: RouteRecordRaw[] = [
         path: 'home',
         name: 'home-auth',
         component: HomeView,
-        meta: { requiresAuth: true, sidebarSection: 'purchasing' },
+        meta: { requiresAuth: true, sidebarSection: 'dashboard' },
+      },
+      {
+        path: 'about',
+        name: 'about',
+        component: () => import('@/views/AboutView.vue'),
+        meta: { requiresAuth: true, sidebarSection: 'dashboard' },
       },
       {
         path: 'orders',

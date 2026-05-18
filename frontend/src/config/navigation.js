@@ -3,15 +3,22 @@
  */
 export const navConfig = [
   {
-    id: 'dashboard',
-    label: 'Dashboard',
-    icon: 'grid',
+    id: 'home',
+    label: 'Home',
+    icon: 'home',
+    direct: '/home',                          // ← new flag
     roles: ['staff', 'customer', 'supplier'],
-    items: [
-      { label: 'Home',  route: '/dashboard', roles: ['staff', 'customer', 'supplier'] },
-      { label: 'About', route: '/dashboard', roles: ['staff', 'customer', 'supplier'] },
-    ],
+    items: [],
   },
+  {
+    id: 'about',
+    label: 'About',
+    icon: 'info',
+    direct: '/about',
+    roles: ['staff', 'customer', 'supplier'],
+    items: [],
+  },
+
   {
     id: 'sales',
     label: 'Sales',
@@ -53,6 +60,15 @@ export const navConfig = [
     items: [
       { label: 'My Invoices', route: '/my-invoices', roles: ['supplier'] },
       { label: 'My Products', route: '/my-products', roles: ['supplier'] },
+    ],
+  },
+  {
+    id: 'dashboard',
+    label: 'Dashboard',
+    icon: 'grid',
+    roles: ['staff', 'customer', 'supplier'],
+    items: [
+
     ],
   },
   {
