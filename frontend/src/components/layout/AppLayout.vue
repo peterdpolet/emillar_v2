@@ -6,7 +6,6 @@ import { navConfig } from '@/config/navigation'
 import AppHeader from './AppHeader.vue'
 import AppSidebar from './AppSidebar.vue'
 import AppFooter from './AppFooter.vue'
-import HeaderComponent from '../layout/HeaderComponent.vue'
 import { useUiStore } from '@/stores/ui'
 import { watch } from 'vue'
 
