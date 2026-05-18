@@ -1,6 +1,5 @@
 <template>
   <div class="p-6 max-w-5xl mx-auto">
-
     <div class="flex items-center gap-3 mb-6">
       <RouterLink to="/purchase-orders" class="text-gray-400 hover:text-gray-600">←</RouterLink>
       <h1 class="text-2xl font-semibold text-gray-800">
@@ -15,6 +14,7 @@
     <div v-else-if="store.error" class="bg-red-50 text-red-700 p-4 rounded-lg mb-4">{{ store.error }}</div>
 
     <template v-if="!store.loading">
+      <!-- ── Order Details ── -->
       <div class="bg-white rounded-xl border border-gray-200 p-6 mb-4">
         <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Order Details</h2>
         <div class="grid grid-cols-2 gap-4">
@@ -56,12 +56,14 @@
         </div>
       </div>
 
+      <!-- ── Order Lines ── -->
       <div v-if="!isNew" class="bg-white rounded-xl border border-gray-200 p-6 mb-4">
         <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Order Lines</h2>
+
         <table v-if="po?.lines?.length" class="w-full text-sm mb-4">
           <thead class="border-b border-gray-100">
             <tr>
-              <th class="text-left py-2 font-medium text-gray-500">Item</th>
+              <th class="text-left py-2 font-medium text-gray-500">Item / Description</th>
               <th class="text-left py-2 font-medium text-gray-500">SKU</th>
               <th class="text-left py-2 font-medium text-gray-500">Supplier SKU</th>
               <th class="text-right py-2 font-medium text-gray-500">Qty</th>
@@ -74,8 +76,8 @@
           </thead>
           <tbody class="divide-y divide-gray-50">
             <tr v-for="line in po.lines" :key="line.id">
-              <td class="py-2 text-gray-800">{{ line.item_name }}</td>
-              <td class="py-2 font-mono text-xs text-gray-500">{{ line.item_sku }}</td>
+              <td class="py-2 text-gray-800">{{ line.item_name || line.description || '—' }}</td>
+              <td class="py-2 font-mono text-xs text-gray-500">{{ line.item_sku || '—' }}</td>
               <td class="py-2 font-mono text-xs text-gray-500">{{ line.supplier_sku || '—' }}</td>
               <td class="py-2 text-right">{{ line.quantity }}</td>
               <td class="py-2 text-right">{{ line.quantity_received }}</td>
@@ -103,6 +105,7 @@
           </tfoot>
         </table>
 
+        <!-- Add Line form (draft only) -->
         <div v-if="po?.status === 'draft'" class="border border-dashed border-gray-200 rounded-lg p-4">
           <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3">Add Line</h3>
           <div class="grid grid-cols-4 gap-3">
@@ -113,6 +116,11 @@
                 <option value="">Select item…</option>
                 <option v-for="item in items" :key="item.id" :value="item.id">{{ item.name }} ({{ item.sku }})</option>
               </select>
+            </div>
+            <div class="col-span-2">
+              <label class="block text-xs text-gray-500 mb-1">Description (if no item)</label>
+              <input v-model="newLine.description" type="text"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs text-gray-500 mb-1">Supplier SKU</label>
@@ -130,13 +138,15 @@
                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
           </div>
-          <button @click="addLine" :disabled="!newLine.item || !newLine.unit_cost"
+          <button @click="addLine"
+            :disabled="(!newLine.item && !newLine.description) || !newLine.unit_cost"
             class="mt-3 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-sm rounded-lg transition-colors">
             Add Line
           </button>
         </div>
       </div>
 
+      <!-- ── Actions ── -->
       <div class="flex gap-3">
         <button @click="save" :disabled="saving"
           class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-sm font-medium rounded-lg transition-colors">
@@ -159,7 +169,6 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router'
@@ -181,20 +190,28 @@ const form = ref({
   supplier: '', reference: '', supplier_ref: '',
   expected_date: '', currency: 'GBP', notes: '',
 })
-const newLine = ref({ item: '', supplier_sku: '', quantity: 1, unit_cost: '' })
+
+const newLine = ref({
+  item: '', description: '', supplier_sku: '', quantity: 1, unit_cost: ''
+})
+
 const suppliers = computed(() => supplierStore.suppliers)
 
 onMounted(async () => {
   await supplierStore.fetchSuppliers()
   const { data } = await api.get('/purchasing/items/')
   items.value = data.results ?? data
+
   if (!isNew.value) {
     await store.fetchOne(route.params.id)
     if (store.po) {
       Object.assign(form.value, {
-        supplier: store.po.supplier, reference: store.po.reference,
-        supplier_ref: store.po.supplier_ref, expected_date: store.po.expected_date ?? '',
-        currency: store.po.currency, notes: store.po.notes,
+        supplier:      store.po.supplier,
+        reference:     store.po.reference,
+        supplier_ref:  store.po.supplier_ref,
+        expected_date: store.po.expected_date ?? '',
+        currency:      store.po.currency,
+        notes:         store.po.notes,
       })
     }
   }
@@ -205,7 +222,6 @@ async function save() {
   try {
     const payload = { ...form.value }
     if (!payload.expected_date) delete payload.expected_date
-    
     if (isNew.value) {
       const created = await store.createPO(payload)
       router.push(`/purchase-orders/${created.id}`)
@@ -218,23 +234,43 @@ async function save() {
 }
 
 async function addLine() {
-  await store.addLine(po.value.id, newLine.value)
-  newLine.value = { item: '', supplier_sku: '', quantity: 1, unit_cost: '' }
+  await store.addLine(po.value.id, {
+    item:         newLine.value.item         || null,
+    description:  newLine.value.description,
+    supplier_sku: newLine.value.supplier_sku,
+    quantity:     newLine.value.quantity,
+    unit_cost:    newLine.value.unit_cost,
+  })
+  newLine.value = { item: '', description: '', supplier_sku: '', quantity: 1, unit_cost: '' }
+}
+async function removeLine(lineId) {
+  await store.removeLine(po.value.id, lineId)
 }
 
-async function removeLine(lineId) { await store.removeLine(po.value.id, lineId) }
-async function markSent() { await store.markSent(po.value.id) }
+async function markSent() {
+  await store.markSent(po.value.id)
+}
+
 async function cancelPO() {
   if (confirm('Cancel this purchase order?')) await store.cancelPO(po.value.id)
 }
+
 function statusColour(s) {
-  return { draft: 'bg-slate-100 text-slate-600', sent: 'bg-blue-50 text-blue-700',
-    partial: 'bg-amber-50 text-amber-700', complete: 'bg-emerald-50 text-emerald-700',
-    cancelled: 'bg-red-50 text-red-700' }[s] ?? 'bg-gray-100 text-gray-600'
+  return {
+    draft:     'bg-slate-100 text-slate-600',
+    sent:      'bg-blue-50 text-blue-700',
+    partial:   'bg-amber-50 text-amber-700',
+    complete:  'bg-emerald-50 text-emerald-700',
+    cancelled: 'bg-red-50 text-red-700',
+  }[s] ?? 'bg-gray-100 text-gray-600'
 }
+
 function matchColour(s) {
-  return { matched: 'bg-emerald-50 text-emerald-700', short: 'bg-amber-50 text-amber-700',
-    over: 'bg-orange-50 text-orange-700', not_received: 'bg-gray-100 text-gray-500'
+  return {
+    matched:      'bg-emerald-50 text-emerald-700',
+    short:        'bg-amber-50 text-amber-700',
+    over:         'bg-orange-50 text-orange-700',
+    not_received: 'bg-gray-100 text-gray-500',
   }[s] ?? 'bg-gray-100 text-gray-500'
 }
 
@@ -242,5 +278,4 @@ const printPO = () => {
   const token = localStorage.getItem('access')
   window.open('/api/purchasing/purchase-orders/' + po.value.id + '/pdf/?token=' + token, '_blank')
 }
-
 </script>

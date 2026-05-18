@@ -20,12 +20,11 @@ class PurchaseOrder(models.Model):
                        related_name='purchase_orders'
                    )
     # Link back to originating Sales Order (RFQ) — optional (speculative buying)
-    sales_order  = models.ForeignKey(
-                       'sales.SalesOrder',
-                       on_delete=models.SET_NULL,
-                       null=True, blank=True,
-                       related_name='purchase_orders'
-                   )
+    sales_orders = models.ManyToManyField(
+                    'sales.SalesOrder',
+                    blank=True,
+                    related_name='purchase_orders'
+                )
     reference    = models.CharField(max_length=100, blank=True)   # our PO ref
     supplier_ref = models.CharField(max_length=100, blank=True)   # their ref
     status       = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')

@@ -29,6 +29,7 @@ export const navConfig = [
       { label: 'Orders',        route: '/invoices',           roles: ['staff'] },
       { label: 'Invoices',      route: '/invoices',           roles: ['staff'] },
       { label: 'Sales Orders',  route: '/sales-orders-v2',    roles: ['staff'] },
+      { label: 'Appro Dashboard', route: '/appro', roles: ['staff'] },
 
     ],
   },
@@ -45,6 +46,7 @@ export const navConfig = [
       { label: 'Create Order',    route: '/orders/create',        roles: ['staff'] },
       { label: 'Purchase Orders', route: '/purchase-orders',      roles: ['staff'] },
       { label: 'PO Accordion',    route: '/purchase-orders-v2', roles: ['staff'] },
+      { label: 'Appro Dashboard', route: '/appro', roles: ['staff'] },
     ],
   },
   {

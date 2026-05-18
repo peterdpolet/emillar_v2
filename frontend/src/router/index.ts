@@ -175,6 +175,18 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/features/sales/views/SalesOrderAccordion.vue'),
         meta: { requiresAuth: true, sidebarSection: 'sales' }
       },
+      {
+        path: 'appro',
+        name: 'appro',
+        component: () => import('@/features/inventory/views/ApproDashboard.vue'),
+        meta: { requiresAuth: true, sidebarSection: 'sales' },
+      },
+      {
+        path: '/purchase-orders/new',
+        name: 'purchase-order-create',
+        component: () => import('@/features/purchasing/views/PurchaseOrderCreateView.vue'),
+        meta: { requiresAuth: true, sidebarSection: 'purchasing' },
+      },
 
     ],
   },

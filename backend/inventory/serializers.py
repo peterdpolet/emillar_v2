@@ -1,6 +1,7 @@
 # inventory/serializers.py
 from rest_framework import serializers
 from .models import Item, GemDetail, Color, Clarity, Cut
+from .models import Item, GemDetail, Color, Clarity, Cut, StockMovement
 
 
 class GemDetailSerializer(serializers.ModelSerializer):
@@ -102,3 +103,31 @@ class CutSerializer(serializers.ModelSerializer):
             )
 
         return instance
+
+
+class StockMovementSerializer(serializers.ModelSerializer):
+    item_sku          = serializers.CharField(source='item.sku', read_only=True, default=None)
+    item_name         = serializers.CharField(source='item.name', read_only=True, default=None)
+    supplier_name     = serializers.CharField(source='supplier.bp_name', read_only=True, default=None)
+    customer_name     = serializers.CharField(source='customer.bp_name', read_only=True, default=None)
+    po_reference      = serializers.CharField(source='purchase_order.reference', read_only=True, default=None)
+    memo_reference    = serializers.CharField(source='customer_memo.reference', read_only=True, default=None)
+    transaction_label = serializers.CharField(source='get_transaction_type_display', read_only=True)
+    value             = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
+
+    class Meta:
+        model  = StockMovement
+        fields = [
+            'id', 'transaction_type', 'transaction_label', 'date',
+            'item', 'item_sku', 'item_name',
+            'parcel_description',
+            'quantity', 'weight_carats', 'price_per_carat',
+            'unit_value', 'currency', 'value',
+            'purchase_order', 'po_reference',
+            'customer_memo', 'memo_reference',
+            'supplier', 'supplier_name',
+            'customer', 'customer_name',
+            'notes', 'created_at',
+            'appro_reference',
+        ]
+        read_only_fields = ['id', 'created_at']

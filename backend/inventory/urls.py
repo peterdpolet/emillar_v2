@@ -9,6 +9,7 @@ router.register(r'items',     views.ItemViewSet,    basename='item')
 router.register(r'colors',   views.ColorViewSet,  basename='color')
 router.register(r'clarities', views.ClarityViewSet, basename='clarity')
 router.register(r'cuts',      views.CutViewSet,     basename='cut')
+router.register(r'movements', views.StockMovementViewSet, basename='movement')
 
 urlpatterns = [
     path('', include(router.urls)),

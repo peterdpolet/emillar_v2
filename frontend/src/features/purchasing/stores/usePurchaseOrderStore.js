@@ -11,6 +11,7 @@ export const usePurchaseOrderStore = defineStore('purchaseOrders', () => {
   const page        = ref(1)
   const pageSize    = ref(20)
 
+  // ── PO List ───────────────────────────────────────────────
   async function fetchList(params = {}) {
     loading.value = true
     error.value   = null
@@ -27,6 +28,7 @@ export const usePurchaseOrderStore = defineStore('purchaseOrders', () => {
     }
   }
 
+  // ── Single PO ─────────────────────────────────────────────
   async function fetchOne(id) {
     loading.value = true
     error.value   = null
@@ -41,6 +43,7 @@ export const usePurchaseOrderStore = defineStore('purchaseOrders', () => {
     }
   }
 
+  // ── Create / Update ───────────────────────────────────────
   async function createPO(payload) {
     const { data } = await api.post('/purchasing/purchase-orders/', payload)
     return data
@@ -52,6 +55,7 @@ export const usePurchaseOrderStore = defineStore('purchaseOrders', () => {
     return data
   }
 
+  // ── Lines ─────────────────────────────────────────────────
   async function addLine(poId, linePayload) {
     const { data } = await api.post(`/purchasing/purchase-orders/${poId}/add-line/`, linePayload)
     po.value = data
@@ -64,6 +68,7 @@ export const usePurchaseOrderStore = defineStore('purchaseOrders', () => {
     return data
   }
 
+  // ── Status actions ────────────────────────────────────────
   async function markSent(poId) {
     const { data } = await api.post(`/purchasing/purchase-orders/${poId}/mark-sent/`)
     po.value = data
@@ -76,9 +81,60 @@ export const usePurchaseOrderStore = defineStore('purchaseOrders', () => {
     return data
   }
 
+  // ── Open SO lines (for PO creation) ──────────────────────
+  const openSOLines  = ref([])
+  const soLinesLoading = ref(false)
+
+  async function fetchOpenSOLines() {
+    soLinesLoading.value = true
+    try {
+      const { data } = await api.get('/purchasing/purchase-orders/open-so-lines/')
+      openSOLines.value = data
+    } catch (e) {
+      console.error('Failed to load open SO lines', e)
+    } finally {
+      soLinesLoading.value = false
+    }
+  }
+
+  // ── Link sales orders to a PO ─────────────────────────────
+  async function linkSalesOrders(poId, soIds) {
+    const { data } = await api.post(
+      `/purchasing/purchase-orders/${poId}/link-sales-orders/`,
+      { sales_order_ids: soIds }
+    )
+    po.value = data
+    return data
+  }
+
+  // ── Suppliers dropdown ────────────────────────────────────
+  const suppliers        = ref([])
+  const suppliersLoading = ref(false)
+
+  async function fetchSuppliers() {
+    if (suppliers.value.length) return   // already loaded
+    suppliersLoading.value = true
+    try {
+      const { data } = await api.get('/partners/suppliers/')
+      suppliers.value = data.results ?? data
+    } catch (e) {
+      console.error('Failed to load suppliers', e)
+    } finally {
+      suppliersLoading.value = false
+    }
+  }
+
   return {
+    // state
     pos, po, loading, error, total, page, pageSize,
-    fetchList, fetchOne, createPO, updatePO,
-    addLine, removeLine, markSent, cancelPO,
+    openSOLines, soLinesLoading,
+    suppliers, suppliersLoading,
+    // actions
+    fetchList, fetchOne,
+    createPO, updatePO,
+    addLine, removeLine,
+    markSent, cancelPO,
+    fetchOpenSOLines, linkSalesOrders,
+    fetchSuppliers,
   }
 })
